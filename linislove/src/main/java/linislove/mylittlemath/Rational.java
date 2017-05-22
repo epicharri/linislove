@@ -27,7 +27,6 @@ public class Rational {
         this(0);
     }
     
-    
     public int getNumerator() {
         return numerator;
     }

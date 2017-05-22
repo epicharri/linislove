@@ -28,7 +28,7 @@ public class LinisLove {
         System.out.println("a * b = " + Count.product(a, b));
         System.out.println("a * " + wholeNumber + " = " + Count.product(a, wholeNumber));
         System.out.println("a + b = " + Count.sum(a, b));
-        System.out.println("a + wholeNumber = " + Count.sum(a, wholeNumber));
+        System.out.println("a + " + wholeNumber + " = " + Count.sum(a, wholeNumber));
         System.out.println("a - b = " + Count.difference(a,b));
     }
     

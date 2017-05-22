@@ -40,9 +40,7 @@ public class Count {
     }
     
     public static Rational difference(Rational a, Rational b) {
-        Rational inverseB = b;
-        inverseB.setNumerator(inverseB.getNumerator() * -1);
-        return sum(a, inverseB);
+        return sum(a, opposite(b));
     }
     
     public static int signum(Rational a) {
