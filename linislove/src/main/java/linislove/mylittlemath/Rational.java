@@ -14,33 +14,19 @@ public class Rational {
     private int numerator;
     private int denominator;
     
-    public Rational(){
-        this.numerator = 0;
-        this.denominator = 1;
-    }
-    
-    public Rational(int numerator) {
-        this.numerator = numerator;
-        this.denominator = 1;
-    }
-    
     public Rational(int numerator, int denominator) {
         this.numerator = numerator;
         this.denominator = denominator;
     }
-
-    // Palauttaa GCD:n eli syt:n: Eukleideen algoritmin implementaatio
-    public int GCD(int num, int denom){
-        if (denom == 0) return num;
-        return GCD(denom, num%denom);
+    
+    public Rational(int numerator) {
+        this(numerator, 1);
     }
     
-    // antaa supistetun rationaaliluvun
-    public Rational canceled(){
-        if (this.numerator == 0) return new Rational(0,1);
-        int a = GCD(this.numerator, this.denominator);
-        return new Rational(this.numerator / a, this.denominator / a);        
+    public Rational(){
+        this(0);
     }
+    
     
     public int getNumerator() {
         return numerator;

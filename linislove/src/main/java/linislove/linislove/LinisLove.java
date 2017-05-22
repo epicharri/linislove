@@ -18,14 +18,18 @@ public class LinisLove {
         
     
     
-        Rational a = new Rational(55,200);
-        Rational b = new Rational(100, 45);
-        Rational nolla = new Rational(0,20);
-        System.out.println("a = " + a + " = " + a.canceled());
-        System.out.println("b = " + b + " = " + b.canceled());
-        System.out.println("nolla = " + nolla + " = " + nolla.canceled());
-        System.out.println("a * b = " + Count.Product(a, b));
-    
+        Rational a = new Rational(55,-200);
+        Rational b = new Rational(-100, -45);
+        Rational zero = new Rational(0,20);
+        Rational wholeNumber = new Rational(4);
+        System.out.println("a = " + a + " = " + Count.simplify(a));
+        System.out.println("b = " + b + " = " + Count.simplify(b));
+        System.out.println("nolla = " + zero + " = " + Count.simplify(zero));
+        System.out.println("a * b = " + Count.product(a, b));
+        System.out.println("a * " + wholeNumber + " = " + Count.product(a, wholeNumber));
+        System.out.println("a + b = " + Count.sum(a, b));
+        System.out.println("a + wholeNumber = " + Count.sum(a, wholeNumber));
+        System.out.println("a - b = " + Count.difference(a,b));
     }
     
     public int one(){
