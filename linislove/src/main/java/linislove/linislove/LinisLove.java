@@ -5,6 +5,10 @@
  */
 package linislove.linislove;
 
+import java.util.*;
+import linislove.mylittlemath.Count;
+import linislove.mylittlemath.Rational;
+
 /**
  *
  * @author harrikah
@@ -12,6 +16,16 @@ package linislove.linislove;
 public class LinisLove {
     public static void main(String[] args){
         
+    
+    
+        Rational a = new Rational(55,200);
+        Rational b = new Rational(100, 45);
+        Rational nolla = new Rational(0,20);
+        System.out.println("a = " + a + " = " + a.canceled());
+        System.out.println("b = " + b + " = " + b.canceled());
+        System.out.println("nolla = " + nolla + " = " + nolla.canceled());
+        System.out.println("a * b = " + Count.Product(a, b));
+    
     }
     
     public int one(){
