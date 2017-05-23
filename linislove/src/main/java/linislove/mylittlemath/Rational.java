@@ -22,6 +22,19 @@ public class Rational {
         setRational(numerator, denominator);
     }
     
+    public Rational(String number){
+        this(0);
+        if (number.matches("\\-?\\d+\\/\\d+")){
+            String[] ratNumber = number.split("\\/");
+            setRational(Integer.parseInt(ratNumber[0]), Integer.parseInt(ratNumber[1]));
+        } else if (number.matches("\\-?\\d+")) {
+            setRational(Integer.parseInt(number), 1);
+        } else {
+            throw new RuntimeException("Syöte '" + number +
+                    "' ei ole kokonaisluku eikä rationaaliluku.");
+        }
+    }
+    
     public Rational(int numerator) {
         this(numerator, 1);
     }
@@ -98,6 +111,8 @@ public class Rational {
 
     @Override
     public String toString() {
+        if (numerator == 0) return ""+numerator;
+        if (denominator == 1) return ""+numerator;
         return numerator + "/" + denominator;
     }
     

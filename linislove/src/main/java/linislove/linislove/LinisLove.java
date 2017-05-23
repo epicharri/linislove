@@ -7,6 +7,7 @@ package linislove.linislove;
 
 import java.util.*;
 import linislove.mylittlemath.Count;
+import linislove.mylittlemath.Matrix;
 import linislove.mylittlemath.Rational;
 
 /**
@@ -30,6 +31,11 @@ public class LinisLove {
         System.out.println("a + b = " + Count.sum(a, b));
         System.out.println("a + " + wholeNumber.original() + " = " + Count.sum(a, wholeNumber));
         System.out.println("a - b = " + Count.difference(a,b));
+        
+        String v = "(1,2,3/152),(2/3,4/37,5),(-5,17/31,-9)";
+        Matrix matrix = new Matrix(v);
+        System.out.println("");
+        System.out.println(matrix);
     }
     
     public int one(){
