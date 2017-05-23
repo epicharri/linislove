@@ -5,6 +5,8 @@
  */
 package linislove.mylittlemath;
 
+import static linislove.mylittlemath.Count.GCD;
+
 /**
  *
  * @author harrikah
@@ -13,10 +15,11 @@ public class Rational {
     
     private int numerator;
     private int denominator;
+    private int origNum;
+    private int origDenom;
     
     public Rational(int numerator, int denominator) {
-        this.numerator = numerator;
-        this.denominator = denominator;
+        setRational(numerator, denominator);
     }
     
     public Rational(int numerator) {
@@ -25,6 +28,36 @@ public class Rational {
     
     public Rational(){
         this(0);
+    }
+    
+    private void simplify() {
+        if (numerator == 0) {
+            denominator = 1;
+            return;
+        }
+        if (denominator == 1) return;
+        int a = Count.GCD(numerator, denominator);
+        numerator = numerator / a; 
+        denominator = denominator / a;
+        numerator = Math.abs(numerator) * signum();
+        denominator = Math.abs(denominator);
+    }
+    
+    public int signum(){
+        int signN = -1;
+        if (numerator >= 0) signN = 1;
+        if (numerator == 0) signN = 0;
+        int signD = -1;
+        if (denominator > 0) signD = 1;
+        return signN * signD;        
+    }
+    
+    public final void setRational(int numerator, int denominator){
+        this.numerator = numerator;
+        this.denominator = denominator;
+        this.origNum = numerator;
+        this.origDenom = denominator;        
+        simplify();
     }
     
     public int getNumerator() {
@@ -60,15 +93,16 @@ public class Rational {
         }
         int upstairs = this.denominator * other.numerator;
         int downstairs = this.numerator * other.denominator;
-        if (upstairs != downstairs) {
-            return false;
-        }
-        return true;
+        return upstairs == downstairs;
     }
 
     @Override
     public String toString() {
         return numerator + "/" + denominator;
+    }
+    
+    public String original() {
+        return origNum + "/" + origDenom;
     }
     
     

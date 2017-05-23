@@ -12,12 +12,9 @@ package linislove.mylittlemath;
 public class Count {
     
     public static Rational product(Rational a, Rational b) {
-        Rational simpleA = simplify(a);
-        Rational simpleB = simplify(b);
-        int upstairs = simpleA.getNumerator() * simpleB.getNumerator();
-        int downstairs = simpleA.getDenominator() * simpleB.getDenominator();
-        Rational multiplied = new Rational(upstairs, downstairs);
-        return simplify(multiplied);
+        int upstairs = a.getNumerator() * b.getNumerator();
+        int downstairs = a.getDenominator() * b.getDenominator();
+        return new Rational(upstairs, downstairs);
     }
     
     public static Rational reciprocal(Rational a){
@@ -30,13 +27,10 @@ public class Count {
     }
     
     public static Rational sum(Rational a, Rational b) {
-        Rational simpleA = simplify(a);
-        Rational simpleB = simplify(b);
-        int upstairs = simpleA.getNumerator() * simpleB.getDenominator() +
-                simpleB.getNumerator() * simpleA.getDenominator();
-        int downstairs = simpleA.getDenominator() * simpleB.getDenominator();
-        Rational additioned = new Rational(upstairs, downstairs);
-        return simplify(additioned);
+        int upstairs = a.getNumerator() * b.getDenominator() +
+                b.getNumerator() * a.getDenominator();
+        int downstairs = a.getDenominator() * b.getDenominator();
+        return new Rational(upstairs, downstairs);
     }
     
     public static Rational difference(Rational a, Rational b) {

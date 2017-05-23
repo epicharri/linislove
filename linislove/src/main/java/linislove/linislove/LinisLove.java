@@ -22,13 +22,13 @@ public class LinisLove {
         Rational b = new Rational(-100, -45);
         Rational zero = new Rational(0,20);
         Rational wholeNumber = new Rational(4);
-        System.out.println("a = " + a + " = " + Count.simplify(a));
-        System.out.println("b = " + b + " = " + Count.simplify(b));
-        System.out.println("nolla = " + zero + " = " + Count.simplify(zero));
+        System.out.println("a = " + a.original() + " = " + a);
+        System.out.println("b = " + b.original() + " = " + b);
+        System.out.println("nolla = " + zero.original() + " = " + zero);
         System.out.println("a * b = " + Count.product(a, b));
-        System.out.println("a * " + wholeNumber + " = " + Count.product(a, wholeNumber));
+        System.out.println("a * " + wholeNumber.original() + " = " + Count.product(a, wholeNumber));
         System.out.println("a + b = " + Count.sum(a, b));
-        System.out.println("a + " + wholeNumber + " = " + Count.sum(a, wholeNumber));
+        System.out.println("a + " + wholeNumber.original() + " = " + Count.sum(a, wholeNumber));
         System.out.println("a - b = " + Count.difference(a,b));
     }
     
