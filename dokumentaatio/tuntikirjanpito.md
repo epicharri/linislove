@@ -6,4 +6,5 @@ Päivä | Tunnit | Kuvaus
 22.5.2017 | 2.0 | Rational ja Count -luokkien kehittämistä
 23.5.2017 | 2.0 | Rational ja Count -luokkien edelleenkehittämistä
 23.5.2017 | 3.5 | Matrix -luokan kehittäminen
+24.5.2017 | 4.0 | Determinantin laskemisen metodin luonti
 ... | ... | ...

@@ -67,4 +67,40 @@ public class Count {
         return GCD(denom, num % denom);
     }
     
+    public static int powint(int a, int x){
+        if (x < 0) throw new RuntimeException("Exponentti ei ole positiivinen");
+        if (x == 0) return 1;
+        if (x == 1) return a;
+        if (x%2==0) return powint(a*a,x/2);
+        else return a*powint(a*a,x/2);
+    }
+    
+    public static Rational determinant(Rational[][] A, int m, int n){
+        Rational det = new Rational(0,1);
+        if (n != m || n == 0) return null;
+        if (n == 1) det = A[0][0];
+        else if (n == 2) det = difference(product(A[0][0],A[1][1]),
+                product(A[1][0],A[0][1]));
+        else {
+            for (int j1=0; j1<n; j1++){
+                Rational[][] c = new Rational[n-1][];
+                for (int k=0; k<(n-1); k++){
+                    c[k] = new Rational[n-1];
+                }
+                for (int i=1; i<n; i++){
+                    int j2 = 0;
+                    for (int j=0; j<n; j++){
+                        if (j == j1) continue;
+                        c[i-1][j2] = A[i][j];
+                        j2++;
+                    }
+                }
+                det = Count.sum(det, product(product(new Rational(powint(-1,1+j1+1)),
+                        A[0][j1]),determinant(c,n-1,n-1)));
+            }
+        }
+        return det;
+    }
+    
+    
 }

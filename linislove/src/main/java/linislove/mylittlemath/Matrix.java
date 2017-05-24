@@ -55,6 +55,18 @@ public class Matrix {
         return true;
     }
 
+    public Rational[][] getMatrixArray(){
+        return this.matrix;
+    }
+    
+    public int getN(){
+        return this.n;
+    }
+    
+    public int getM(){
+        return this.m;
+    }
+    
     @Override
     public String toString() {
         String myMatrix = "";
