@@ -5,4 +5,4 @@ Lineaarialgebran ongelmien ratkaisutyökalu
 * vektorin komponentit annetaan rationaalilukuina
 * sovellus antaa determinantin rationaalilukuna joten se on tarkka, eikä arvio kuten esimerkiksi Octave Onlinessa. Näin ollen determinantin avulla voidaan täydellä varmuudella ilmoittaa onko vektorijono vapaa vai ei
 
-[aiheen kuvaus](dokumentaatio/aiheenKuvausJaRakenne.md)
+[Aiheen kuvaus](dokumentaatio/aiheenKuvausJaRakenne.md)

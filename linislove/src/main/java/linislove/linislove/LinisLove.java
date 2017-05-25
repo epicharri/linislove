@@ -18,7 +18,10 @@ public class LinisLove {
 
     public static void main(String[] args) {
         // Tässä main -metodissa toistaiseksi vain testaillaan logiikan
-        // toimivuutta.
+        // toimivuutta. Tämä on siis tavallaan hiekkalaatikkona nyt.
+        // Luokkakaavion url: http://yuml.me/diagram/scruffy;dir:LR/class/edit/%2F%2F Luokkakaavio, [LinisLove(main)]-[Gui], [Gui]-[Logic], [Logic]-[Matrix], [Matrix]-[Count], [Matrix]-[Rational], [Rational]-[Count]
+        
+        
         Rational a = new Rational(55, -200);
         Rational b = new Rational(-100, -45);
         Rational zero = new Rational(0, 20);
