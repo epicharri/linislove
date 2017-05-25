@@ -17,22 +17,22 @@ import static org.junit.Assert.*;
  * @author harrikah
  */
 public class LinisLoveTest {
-    
+
     public LinisLoveTest() {
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
-    
+
     @Before
     public void setUp() {
     }
-    
+
     @After
     public void tearDown() {
     }
