@@ -11,5 +11,5 @@ Erityistä:
 Vektorien komponentit syötetään rationaalilukuina ja determinantti lasketaan rationaalilukuna. Näin determinantille saadaan täysin tarkka arvo ja siitä voidaan siten tehdä suoraan johtopäätös vektorijonon vapauteen liittyen.
 
 
-![Luokkakaavio](/classdiagram.png)
+![Luokkakaavio](dokumentaatio/classdiagram.png)
 
