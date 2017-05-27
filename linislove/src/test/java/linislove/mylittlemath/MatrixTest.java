@@ -38,7 +38,7 @@ public class MatrixTest {
     }
 
     @Test
-    public void createstRightMatrix(){
+    public void createsRightMatrix(){
         String vectorQueue = "(1,2/3),(2,4/3)";
         Rational[][] expectedArray = new Rational[2][2];
         expectedArray[0][0] = new Rational(1);

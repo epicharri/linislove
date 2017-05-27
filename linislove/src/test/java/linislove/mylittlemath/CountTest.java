@@ -5,6 +5,8 @@
  */
 package linislove.mylittlemath;
 
+import java.math.BigInteger;
+import static java.math.BigInteger.valueOf;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -53,19 +55,14 @@ public class CountTest {
 
     @Test
     public void productOfTwoRationalsGivesRightAnswer() {
-        for (int i = 0; i < 10; i++) {
-            int numA = (int) Math.random() * 100;
-            int denomA = (int) Math.random() * 100 + 1;
-            int numB = (int) Math.random() * 100;
-            int denomB = (int) Math.random() * 100 + 1;
-            Rational a = new Rational(numA, denomA);
-            Rational b = new Rational(numB, denomB);
-            Rational ab = Count.product(a, b);
-            int greatestCommonDivider = Count.gcd(numA * numB, denomB * denomB);
-            int productNum = numA * numB / greatestCommonDivider;
-            int productDenom = denomA * denomB / greatestCommonDivider;
-            assertEquals(productNum, ab.getNumerator());
-            assertEquals(productDenom, ab.getDenominator());
-        }
+        BigInteger numA = new BigInteger("9000000000");
+        BigInteger denomA = new BigInteger("18000000000");
+        BigInteger numB = new BigInteger("40000000000");
+        BigInteger denomB = new BigInteger("160000000000");
+        Rational a = new Rational(numA, denomA);
+        Rational b = new Rational(numB, denomB);
+        Rational ab = Count.product(a, b);
+        assertEquals(BigInteger.ONE, ab.getNumerator());
+        assertEquals(new BigInteger("8"), ab.getDenominator());
     }
 }

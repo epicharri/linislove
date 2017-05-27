@@ -5,7 +5,7 @@
  */
 package linislove.mylittlemath;
 
-import static linislove.mylittlemath.Count.gcd;
+import java.math.BigInteger;
 
 /**
  *
@@ -13,29 +13,30 @@ import static linislove.mylittlemath.Count.gcd;
  */
 public class Rational {
 
-    private int numerator;
-    private int denominator;
-    private int origNum;
-    private int origDenom;
+    private BigInteger numerator;
+    private BigInteger denominator;
+    private String origNum;
+    private String origDenom;
 
-    public Rational(int numerator, int denominator) {
+    public Rational(Object numerator, Object denominator) {
         setRational(numerator, denominator);
     }
 
     public Rational(String number) {
         this(0);
+        number = number.replaceAll("\\s","");
         if (number.matches("\\-?\\d+\\/\\-?\\d+")) {
             String[] ratNumber = number.split("\\/");
-            setRational(Integer.parseInt(ratNumber[0]), Integer.parseInt(ratNumber[1]));
+            setRational(ratNumber[0], ratNumber[1]);
         } else if (number.matches("\\-?\\d+")) {
             setRational(Integer.parseInt(number), 1);
         } else {
             throw new RuntimeException("Syöte '" + number
-                    + "' ei ole kokonaisluku eikä rationaaliluku.");
+                    + "' ei ole rationaaliluku.");
         }
     }
 
-    public Rational(int numerator) {
+    public Rational(Object numerator) {
         this(numerator, 1);
     }
 
@@ -44,57 +45,69 @@ public class Rational {
     }
 
     private void simplify() {
-        if (numerator == 0) {
-            denominator = 1;
+        if (numerator.compareTo(BigInteger.ZERO) == 0) {
+            denominator = BigInteger.ONE;
             return;
         }
-        if (denominator == 1) {
+        if (denominator.compareTo(BigInteger.ONE) == 0) {
             return;
         }
-        int a = Count.gcd(numerator, denominator);
-        numerator = numerator / a;
-        denominator = denominator / a;
-        numerator = Math.abs(numerator) * signum();
-        denominator = Math.abs(denominator);
+        BigInteger divider = numerator.gcd(denominator);
+        numerator = numerator.divide(divider);
+        denominator = denominator.divide(divider);
+        numerator = signumOfRational().multiply(numerator.abs());
+        denominator = denominator.abs();
     }
 
-    public int signum() {
-        int signN = -1;
-        if (numerator >= 0) {
-            signN = 1;
-        }
-        if (numerator == 0) {
-            signN = 0;
-        }
-        int signD = -1;
-        if (denominator > 0) {
-            signD = 1;
-        }
-        return signN * signD;
+    public BigInteger signumOfRational() {
+        int signN = this.numerator.compareTo(BigInteger.ZERO);
+        int signD = this.denominator.compareTo(BigInteger.ZERO);
+        return BigInteger.valueOf(signN * signD);
     }
 
-    public final void setRational(int numerator, int denominator) {
-        this.numerator = numerator;
-        this.denominator = denominator;
-        this.origNum = numerator;
-        this.origDenom = denominator;
+    public final void setRational(Object num, Object denom) {
+        setNumerator(num);
+        setDenominator(denom);
         simplify();
     }
+    
 
-    public int getNumerator() {
+    public BigInteger getNumerator() {
         return numerator;
     }
 
-    public void setNumerator(int numerator) {
-        this.numerator = numerator;
+    public void setNumerator(Object num) {
+        if (num.getClass() == BigInteger.class){
+            this.numerator = (BigInteger) num;
+            this.origNum = num.toString();
+        }
+        if (num.getClass() == String.class){
+            this.numerator = new BigInteger((String) num);
+            this.origNum = (String) num;
+        }
+        if (num.getClass() == Integer.class){
+            this.numerator = BigInteger.valueOf((Integer) num);
+            this.origNum = num.toString();
+        }
     }
 
-    public int getDenominator() {
+    public BigInteger getDenominator() {
         return denominator;
     }
 
-    public void setDenominator(int denominator) {
-        this.denominator = denominator;
+    public void setDenominator(Object denom) {
+        if (denom.getClass() == BigInteger.class){
+            this.denominator = (BigInteger) denom;
+            this.origDenom = denom.toString();
+        }
+        if (denom.getClass() == String.class){
+            this.denominator = new BigInteger((String) denom);
+            this.origDenom = (String) denom;
+        }           
+        if (denom.getClass() == Integer.class){
+            this.denominator = BigInteger.valueOf((Integer) denom);
+            this.origDenom = denom.toString();
+        }
     }
 
     @Override
@@ -109,20 +122,16 @@ public class Rational {
             return false;
         }
         final Rational other = (Rational) obj;
-        if (this.numerator != other.numerator) {
-            return false;
-        }
-        int upstairs = this.denominator * other.numerator;
-        int downstairs = this.numerator * other.denominator;
-        return upstairs == downstairs;
-    }
+        return (this.numerator.equals(other.numerator) &&
+                this.denominator.equals(other.denominator));
+}
 
     @Override
     public String toString() {
-        if (numerator == 0) {
+        if (numerator.equals(BigInteger.ZERO)) {
             return "" + numerator;
         }
-        if (denominator == 1) {
+        if (denominator.equals(BigInteger.ONE)) {
             return "" + numerator;
         }
         return numerator + "/" + denominator;
@@ -131,5 +140,4 @@ public class Rational {
     public String original() {
         return origNum + "/" + origDenom;
     }
-
 }

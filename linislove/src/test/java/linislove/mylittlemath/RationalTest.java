@@ -5,6 +5,7 @@
  */
 package linislove.mylittlemath;
 
+import java.math.BigInteger;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -83,9 +84,9 @@ public class RationalTest {
         Rational b = new Rational(-1, -1);
         Rational c = new Rational(1, 1);
         Rational d = new Rational(0, 1000);
-        assertEquals(-1, a.signum());
-        assertEquals(1, b.signum());
-        assertEquals(1, c.signum());
-        assertEquals(0, d.signum());
+        assertEquals(BigInteger.ONE.negate(), a.signumOfRational());
+        assertEquals(BigInteger.ONE, b.signumOfRational());
+        assertEquals(BigInteger.ONE, c.signumOfRational());
+        assertEquals(BigInteger.ZERO, d.signumOfRational());
     }
 }

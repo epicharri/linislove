@@ -5,6 +5,8 @@
  */
 package linislove.mylittlemath;
 
+import java.math.BigInteger;
+
 /**
  *
  * @author harrikah
@@ -12,8 +14,8 @@ package linislove.mylittlemath;
 public class Count {
 
     public static Rational product(Rational a, Rational b) {
-        int upstairs = a.getNumerator() * b.getNumerator();
-        int downstairs = a.getDenominator() * b.getDenominator();
+        BigInteger upstairs = a.getNumerator().multiply(b.getNumerator());
+        BigInteger downstairs = a.getDenominator().multiply(b.getDenominator());
         return new Rational(upstairs, downstairs);
     }
 
@@ -23,13 +25,17 @@ public class Count {
     }
 
     public static Rational opposite(Rational a) {
-        return new Rational(a.getNumerator() * -1, a.getDenominator());
+        return new Rational(a.getNumerator().negate(), a.getDenominator());
     }
 
     public static Rational sum(Rational a, Rational b) {
-        int upstairs = a.getNumerator() * b.getDenominator()
-                + b.getNumerator() * a.getDenominator();
-        int downstairs = a.getDenominator() * b.getDenominator();
+        if (a.getDenominator().equals(b.getDenominator())){
+            return new Rational(a.getNumerator().add(b.getNumerator()),
+                    a.getDenominator());
+        }
+        BigInteger upstairs = a.getNumerator().multiply(b.getDenominator())
+                .add(b.getNumerator().multiply(a.getDenominator()));
+        BigInteger downstairs = a.getDenominator().multiply(b.getDenominator());
         return new Rational(upstairs, downstairs);
     }
 
@@ -38,37 +44,7 @@ public class Count {
     }
 
     public static int signum(Rational a) {
-        int numSign = (a.getNumerator() >= 0) ? 1 : -1;
-        numSign = (a.getNumerator() == 0) ? 0 : numSign;
-        int denomSign = (a.getDenominator() > 0) ? 1 : -1;
-        int ratSign = (numSign * denomSign >= 0) ? 1 : -1;
-        ratSign = (numSign == 0) ? 0 : ratSign;
-        return ratSign;
-    }
-
-    // antaa supistetun rationaaliluvun
-    public static Rational simplify(Rational rational) {
-        if (rational.getNumerator() == 0) {
-            return new Rational(0, 1);
-        }
-        if (rational.getDenominator() == 1) {
-            return new Rational(rational.getNumerator(), 1);
-        }
-        int a = gcd(rational.getNumerator(), rational.getDenominator());
-        Rational simplified = new Rational(rational.getNumerator() / a,
-                rational.getDenominator() / a);
-        int sign = Count.signum(simplified);
-        simplified.setNumerator(Math.abs(simplified.getNumerator()) * sign);
-        simplified.setDenominator(Math.abs(simplified.getDenominator()));
-        return simplified;
-    }
-
-    // Palauttaa gcd:n eli syt:n: Eukleideen algoritmin implementaatio
-    public static int gcd(int num, int denom) {
-        if (denom == 0) {
-            return num;
-        }
-        return gcd(denom, num % denom);
+        return a.signumOfRational().intValue();
     }
 
     public static int powint(int a, int x) {
@@ -88,19 +64,21 @@ public class Count {
         }
     }
 
+    public static int minusOnePoweredTo(int n){
+        return (n%2 == 0) ? 1 : -1;
+    }
+    
     public static Rational det(Matrix matrix) {
+        if (matrix.getM() != matrix.getN() || matrix.getN() == 0) return null;
         return determinant(matrix.getMatrixArray(), matrix.getM(), matrix.getN());
     }
 
     public static Rational determinant(Rational[][] A, int m, int n) {
-        Rational det = new Rational(0, 1);
-        if (n != m || n == 0) {
-            return null;
-        }
+        Rational detA = new Rational(0, 1);
         if (n == 1) {
-            det = A[0][0];
+            detA = A[0][0];
         } else if (n == 2) {
-            det = difference(product(A[0][0], A[1][1]),
+            detA = difference(product(A[0][0], A[1][1]),
                     product(A[1][0], A[0][1]));
         } else {
             for (int j1 = 0; j1 < n; j1++) {
@@ -118,11 +96,17 @@ public class Count {
                         j2++;
                     }
                 }
-                det = Count.sum(det, product(product(new Rational(powint(-1, 1 + j1 + 1)),
+                detA = Count.sum(detA, product(product(new Rational(minusOnePoweredTo(1 + j1 + 1)),
                         A[0][j1]), determinant(c, n - 1, n - 1)));
             }
         }
-        return det;
+        return detA;
     }
 
+    public static int gcd(int num, int denom) {
+        if (denom == 0) {
+            return num;
+        }
+        return gcd(denom, num % denom);
+    }
 }

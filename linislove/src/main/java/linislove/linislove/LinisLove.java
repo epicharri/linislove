@@ -5,6 +5,9 @@
  */
 package linislove.linislove;
 
+import java.math.BigInteger;
+import java.time.Duration;
+import java.time.Instant;
 import java.util.*;
 import linislove.mylittlemath.Count;
 import linislove.mylittlemath.Matrix;
@@ -16,12 +19,10 @@ import linislove.mylittlemath.Rational;
  */
 public class LinisLove {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         // Tässä main -metodissa toistaiseksi vain testaillaan logiikan
         // toimivuutta. Tämä on siis tavallaan hiekkalaatikkona nyt.
         // Luokkakaavion url: http://yuml.me/diagram/scruffy;dir:LR/class/edit/%2F%2F Luokkakaavio, [LinisLove(main)]-[Gui], [Gui]-[Logic], [Logic]-[Matrix], [Matrix]-[Count], [Matrix]-[Rational], [Rational]-[Count]
-        
-        
         Rational a = new Rational(55, -200);
         Rational b = new Rational(-100, -45);
         Rational zero = new Rational(0, 20);
@@ -64,18 +65,26 @@ public class LinisLove {
 
         //String w = "(1,1,1),(-1/2,-2,-2/3),(0,1,1)";
         String w = "";
-        int n = 5;
+        int n = 6;
         for (int i = 0; i < n; i++) {
             w += "(";
             for (int j = 0; j < n; j++) {
-                int num = (int) (Math.random() * 5);
-                int denom = (int) (Math.random() * 5) + 1;
+                BigInteger num3 = BigInteger.valueOf((int) (Math.random() * Integer.MAX_VALUE));
+                BigInteger denom3 = BigInteger.valueOf((int) (Math.random() * Integer.MAX_VALUE) + 1);
+                BigInteger num1 = BigInteger.valueOf((int) (Math.random() * Integer.MAX_VALUE));
+                BigInteger denom1 = BigInteger.valueOf((int) (Math.random() * Integer.MAX_VALUE) + 1);
+                BigInteger num2 = BigInteger.valueOf((int) (Math.random() * Integer.MAX_VALUE));
+                BigInteger denom2 = BigInteger.valueOf((int) (Math.random() * Integer.MAX_VALUE) + 1);
 
                 int sign = (int) (Math.random() * 2) - 1;
                 if (sign == 0) {
                     sign = 1;
                 }
-                w += num + "/" + denom;
+                
+                BigInteger num = BigInteger.valueOf(sign).multiply(num1).multiply(num2).multiply(num3);
+                BigInteger denom = BigInteger.valueOf(sign).multiply(denom1).multiply(denom2).multiply(denom3);
+                
+                w += num+"/"+denom;
                 if (j < n - 1) {
                     w += ",";
                 } else {
@@ -90,13 +99,25 @@ public class LinisLove {
         System.out.println("");
         System.out.println(B);
         System.out.println("");
+        
+        Instant start = Instant.now();
+        
         Rational detB = Count.det(B);
+        
+        Instant end = Instant.now();
+
+        
         String textB = (detB.equals(new Rational(0))) ? "0, on vektorijono "
                 + "lineaarisesti riippuvainen." : "erisuuri kuin 0, on "
                 + "vektorijono vapaa.";
         System.out.println("Matriisin determinantti on " + detB + ". "
                 + "Koska vektorijonosta muodostetun matriisin determinantti on "
                 + textB);
+        System.out.println("Osoittajassa numeroita " + detB.getNumerator().toString().length());
+        System.out.println("Nimittäjässä numeroita " + detB.getDenominator().toString().length());
+        System.out.println("Determinantin laskemiseen kului aikaa " + Duration.between(start, end).toMillis()/1000.00 + " sekuntia.");
+
+        
 
     }
 
