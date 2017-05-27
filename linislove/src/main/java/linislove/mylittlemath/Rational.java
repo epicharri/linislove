@@ -30,6 +30,12 @@ public class Rational {
             setRational(ratNumber[0], ratNumber[1]);
         } else if (number.matches("\\-?\\d+")) {
             setRational(Integer.parseInt(number), 1);
+        } else if (number.matches("\\-?\\d*\\.\\d+")) {
+            int digitsBeforePoint = number.indexOf(".");
+            number = number.replaceAll("\\.", "");
+            int numberOfDigits = number.length();
+            BigInteger divider = BigInteger.TEN.pow(numberOfDigits - digitsBeforePoint);
+            setRational(number, divider);
         } else {
             throw new RuntimeException("Syöte '" + number
                     + "' ei ole rationaaliluku.");

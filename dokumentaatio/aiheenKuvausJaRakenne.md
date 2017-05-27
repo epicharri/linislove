@@ -9,7 +9,7 @@ Toiminnot:
 
 Erityistä:
 Vektorien komponentit syötetään rationaalilukuina ja determinantti lasketaan rationaalilukuna. Näin determinantille saadaan täysin tarkka arvo ja siitä voidaan siten tehdä suoraan johtopäätös vektorijonon vapauteen liittyen.
-
+Syötteenä voi myös antaa desimaaliluvun jossa pilkun asemasta käytetään pistettä. Sovellus olettaa niiden olevan tarkkoja lukuja ja muuntaa luvun rationaaliluvuksi. Desimaalilukusyötettä ei muunneta missään vaiheessa liukuluvuksi, vaan suoraan merkkijonosyötteestä rationaaliluvuksi.
 
 ![Luokkakaavio](classdiagram.png)
 

@@ -10,4 +10,5 @@ Päivä | Tunnit | Kuvaus
 25.5.2017 | 7.0 | Luokkien kehittämistä, testit, pit- ja checkstyle -asiat, luokkakaavio
 26.5.2017 | 6.5 | Muunnos käyttämään BigIntegereitä Integereiden sijaan ja optimointia
 27.5.2017 | 2.0 | BigIntegereiksi vaihtamisen takia testien muokkaus
+27.5.2017 | 1.0 | Syötteen desimaalilukujen muunto rationaaliluvuiksi
 ... | ... | ...

@@ -49,7 +49,7 @@ public class LinisLove {
                 + text);
 
         System.out.println("--------------");
-        String vv = "(10,-11/17,7/113),(17/33,1/3,2/5),(0,0,0)";
+        String vv = "(10,-11/17,7/113),(17/33,1/3,2/5),(.333333333333333333,324523424523452.244444,45265677456745.344)";
         Matrix matrixv = new Matrix(vv);
         System.out.println("");
         System.out.println(matrixv);
@@ -69,22 +69,17 @@ public class LinisLove {
         for (int i = 0; i < n; i++) {
             w += "(";
             for (int j = 0; j < n; j++) {
-                BigInteger num3 = BigInteger.valueOf((int) (Math.random() * Integer.MAX_VALUE));
-                BigInteger denom3 = BigInteger.valueOf((int) (Math.random() * Integer.MAX_VALUE) + 1);
-                BigInteger num1 = BigInteger.valueOf((int) (Math.random() * Integer.MAX_VALUE));
-                BigInteger denom1 = BigInteger.valueOf((int) (Math.random() * Integer.MAX_VALUE) + 1);
-                BigInteger num2 = BigInteger.valueOf((int) (Math.random() * Integer.MAX_VALUE));
-                BigInteger denom2 = BigInteger.valueOf((int) (Math.random() * Integer.MAX_VALUE) + 1);
-
-                int sign = (int) (Math.random() * 2) - 1;
-                if (sign == 0) {
-                    sign = 1;
+            
+                BigInteger num = BigInteger.ONE;
+                BigInteger denom = BigInteger.ONE;
+                for (int k = 0; k < 10; k++){
+                    BigInteger num1 = BigInteger.valueOf((int) (Math.random() * Integer.MAX_VALUE));
+                    BigInteger denom1 = BigInteger.valueOf((int) (Math.random() * Integer.MAX_VALUE) + 1);
+                    num = num.multiply(num1);
+                    denom = denom.multiply(denom1);
                 }
                 
-                BigInteger num = BigInteger.valueOf(sign).multiply(num1).multiply(num2).multiply(num3);
-                BigInteger denom = BigInteger.valueOf(sign).multiply(denom1).multiply(denom2).multiply(denom3);
-                
-                w += num+"/"+denom;
+                w += num+"13/"+denom+"17";
                 if (j < n - 1) {
                     w += ",";
                 } else {
