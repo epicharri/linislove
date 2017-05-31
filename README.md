@@ -6,5 +6,7 @@ Lineaarialgebran ongelmien ratkaisutyökalu
 * komponentin voi myös antaa desimaalilukuna ja sovellus muuttaa ne suoraan merkkijonosyötteestä rationaaliluvuksi
 * sovellus antaa determinantin rationaalilukuna joten se on tarkka, eikä arvio kuten esimerkiksi Octave Onlinessa. Näin ollen determinantin avulla voidaan täydellä varmuudella ilmoittaa onko vektorijono vapaa vai ei
 * Lukujen suuruutta ei ole rajoitettu. Rationaaliluvun osoittajassa ja nimittäjässä siis olla niin paljon numeroita kuin vain kone jaksaa laskea.
+* Kvadraattisen yhtälöryhmän ratkaisu Cramerin säännöllä
 
 [Aiheen kuvaus](dokumentaatio/aiheenKuvausJaRakenne.md)
+[Tuntikirjanpito](dokumentaatio/tuntikirjanpito.md)
