@@ -11,4 +11,7 @@ Päivä | Tunnit | Kuvaus
 26.5.2017 | 6.5 | Muunnos käyttämään BigIntegereitä Integereiden sijaan ja optimointia
 27.5.2017 | 2.0 | BigIntegereiksi vaihtamisen takia testien muokkaus
 27.5.2017 | 1.0 | Syötteen desimaalilukujen muunto rationaaliluvuiksi
+29.5.2017 | 3.0 | Luokkien edelleenkehittämistä
+30.5.2017 | 5.0 | Luokkien edelleenkehittämistä
+31.5.2017 | 5.0 | Count.transpose, solveByCramerRule
 ... | ... | ...

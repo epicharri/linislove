@@ -23,6 +23,7 @@ public class LinisLove {
         // Tässä main -metodissa toistaiseksi vain testaillaan logiikan
         // toimivuutta. Tämä on siis tavallaan hiekkalaatikkona nyt.
         // Luokkakaavion url: http://yuml.me/diagram/scruffy;dir:LR/class/edit/%2F%2F Luokkakaavio, [LinisLove(main)]-[Gui], [Gui]-[Logic], [Logic]-[Matrix], [Matrix]-[Count], [Matrix]-[Rational], [Rational]-[Count]
+        /*
         Rational a = new Rational(55, -200);
         Rational b = new Rational(-100, -45);
         Rational zero = new Rational(0, 20);
@@ -36,10 +37,15 @@ public class LinisLove {
         System.out.println("a + " + wholeNumber.original() + " = " + Count.sum(a, wholeNumber));
         System.out.println("a - b = " + Count.difference(a, b));
 
-        String v = "(1,0,0),(0,1,0),(0,0,1)";
-        Matrix matrix = new Matrix(v);
+        String v = "(1,2,3),(5,7,11),(13,17,19),(23,29,31)";
+        
+        Matrix matrixE = new Matrix(v);
+        System.out.println(matrixE);
+        Matrix matrixTr = Count.transpose(matrixE);
         System.out.println("");
-        System.out.println(matrix);
+        System.out.println(matrixTr);
+        Matrix matrix = Count.multiply(matrixTr, matrixE);
+        
         Rational detMatrix = Count.det(matrix);
         String text = (detMatrix.equals(new Rational(0))) ? "0, on vektorijono "
                 + "lineaarisesti riippuvainen." : "erisuuri kuin 0, on "
@@ -47,9 +53,29 @@ public class LinisLove {
         System.out.println("Matriisin determinantti on " + detMatrix + ". "
                 + "Koska vektorijonosta muodostetun matriisin determinantti on "
                 + text);
+        Matrix matrixT = Count.transpose(matrix);
+        System.out.println("Transpoosi: \n" + matrixT);
+        System.out.println("ja sen determinantti on " + Count.det(matrixT));
 
+        */
+        
         System.out.println("--------------");
-        String vv = "(10,-11/17,7/113),(17/33,1/3,2/5),(.333333333333333333,324523424523452.244444,45265677456745.344)";
+        
+        Matrix group = new Matrix("(1,0,2),(0,1,0),(0,0,1)");
+        Matrix bb = new Matrix("(3),(5),(7)");
+        Matrix solve = Count.solveByCramerRule(group, bb);
+        System.out.println("Yhtälöryhmästä muodostettu matriisi A: ");
+        System.out.println(group);
+        System.out.println("Kaavan Ax=b matriisi b: ");
+        System.out.println(bb);
+        System.out.println("Yhtälöryhmän ratkaisu: ");
+        System.out.println("x_1 = " + solve.getNumber(0, 0));
+        System.out.println("x_2 = " + solve.getNumber(1, 0));
+        System.out.println("x_3 = " + solve.getNumber(2, 0));
+        
+        /*
+        System.out.println("---------------");
+        String vv = "(0.33333333333333333333,1/5),(5,3)";
         Matrix matrixv = new Matrix(vv);
         System.out.println("");
         System.out.println(matrixv);
@@ -60,6 +86,12 @@ public class LinisLove {
         System.out.println("Matriisin determinantti on " + detMatrixv + ". "
                 + "Koska vektorijonosta muodostetun matriisin determinantti on "
                 + textv);
+        System.out.println("Matriisin transpoosi on: ");
+        Matrix transposeMatrix = Count.transpose(matrixv);
+        System.out.println(transposeMatrix);
+        System.out.println("Transpoosimatriisin determinantti on:");
+        System.out.println(Count.det(transposeMatrix));
+        
 
         System.out.println("--------------");
 
@@ -112,8 +144,22 @@ public class LinisLove {
         System.out.println("Nimittäjässä numeroita " + detB.getDenominator().toString().length());
         System.out.println("Determinantin laskemiseen kului aikaa " + Duration.between(start, end).toMillis()/1000.00 + " sekuntia.");
 
-        
+        start = Instant.now();
+        Matrix Bpoweredto2 = Count.multiply(B, B);
+        end = Instant.now();
+        System.out.println("Matriisin korottamiseen toiseen potenssiin kului aikaa " + Duration.between(start, end).toMillis()/1000.00 + " sekuntia.");        
 
+        Instant start2 = Instant.now();
+        Rational detC = Count.det(Bpoweredto2);
+        Instant end2 = Instant.now();
+
+        System.out.println("Sen korotetun determinantti on " + detC);
+        
+        System.out.println("Determinantin laskemiseen kului aikaa " + Duration.between(start2, end2).toMillis()/1000.00 + " sekuntia.");
+        System.out.println("Osoittajassa numeroita " + detC.getNumerator().toString().length());
+        System.out.println("Nimittäjässä numeroita " + detC.getDenominator().toString().length());
+        
+*/
     }
 
     public int one() {

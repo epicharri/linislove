@@ -103,6 +103,83 @@ public class Count {
         return detA;
     }
 
+    public static Matrix transpose(Matrix A){
+        int n = A.getM();
+        int m = A.getN();
+        Rational[][] arrayT = new Rational[n][m];
+        Rational[][] arrayA = A.getMatrixArray();
+        for (int i = 0; i < m; i++){
+            for (int j = 0; j < n; j++){
+                arrayT[j][i] = arrayA[i][j];
+            }
+        }
+        return new Matrix(arrayT, m, n, A.getLongest());        
+    }
+
+    public static Matrix multiply(Matrix A, Matrix B){
+        Rational[][] a = A.getMatrixArray();
+        Rational[][] b = B.getMatrixArray();
+        int aN = A.getN();
+        int aM = A.getM();
+        int bN = B.getN();
+        int bM = B.getM();
+        if (aN != bM) throw new RuntimeException("Matriisikertolasku ei ole määritelty näillä matriiseilla.");
+        Matrix AB = new Matrix(aM, bN);
+        Rational[][] ab = AB.getMatrixArray();
+        
+        for (int i = 0; i < AB.getM(); i++){
+            for (int j = 0; j < AB.getN(); j++){
+                for (int k = 0; k < aN; k++){
+                    if (ab[i][j] == null) ab[i][j] = new Rational(0);
+                    AB.setNumber(Count.sum(ab[i][j], 
+                        Count.product(a[k][i], b[j][k])), j, i);
+                }
+            }
+        }
+        return AB;       
+    }
+
+    public static Matrix solveByCramerRule(Matrix A, Matrix b){
+        if (A.getM() != A.getN()) throw new RuntimeException(""
+                + "Cramerin säännöllä voi ratkaista vain kvadraattisia "
+                + "yhtälöryhmiä.");
+        if (!(A.getM() == b.getM())) {
+            throw new RuntimeException("Matriisit annettava siten että "
+                    + "A:ssa ja b:ssä on saman verran rivejä.");
+        }
+        Matrix valuesOfX = new Matrix(A.getM(), 1);
+        Rational detA = det(A);
+        Rational detAreciprocal = reciprocal(detA);
+        for (int i = 0; i < b.getM(); i++){
+            Rational deti = det(substitute(A, b, i));
+            Rational x = product(deti, detAreciprocal);
+            valuesOfX.setNumber(x, i, 0);
+        }
+        return valuesOfX;
+    }
+    
+    public static Matrix substitute(Matrix A, Matrix b, int j){
+        Matrix replaced = createCopy(A);
+        for (int i = 0; i < b.getM(); i++){
+            Rational number = b.getNumber(i, 0);
+            replaced.setNumber(number, i, j);
+        }
+        return replaced;
+    }
+    
+    public static Matrix createCopy(Matrix A){
+        Matrix copy = new Matrix(A.getM(), A.getN());
+        for (int i = 0; i < A.getM(); i++){
+            for (int j = 0; j < A.getN(); j++){
+                Rational number = A.getNumber(i, j);
+                copy.setNumber(number, i, j);
+            }
+        }
+        return copy;
+        
+    }
+    
+    
     public static int gcd(int num, int denom) {
         if (denom == 0) {
             return num;
