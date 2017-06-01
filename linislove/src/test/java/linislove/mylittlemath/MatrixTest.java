@@ -55,4 +55,14 @@ public class MatrixTest {
         assertEquals(2, a.getM());
         assertEquals(2, a.getN());
     }
+    
+    @Test
+    public void givesRightString(){
+        Matrix matrix = new Matrix("(1/2,1/2),"
+                + "(0,500000000000000000/500000000000000000)");
+        String expected = "1/2  1/2  \n0    1    \n";
+        assertEquals(expected, matrix.toString());
+    }
+    
+    
 }

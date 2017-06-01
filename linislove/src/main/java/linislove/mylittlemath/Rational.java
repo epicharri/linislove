@@ -17,6 +17,7 @@ public class Rational {
     private BigInteger denominator;
     private String origNum;
     private String origDenom;
+    public static final Rational ZERO = new Rational(0, 1);
 
     public Rational(Object numerator, Object denominator) {
         setRational(numerator, denominator);
@@ -24,7 +25,7 @@ public class Rational {
 
     public Rational(String number) {
         this(0);
-        number = number.replaceAll("\\s","");
+        number = number.replaceAll("\\s", "");
         if (number.matches("\\-?\\d+\\/\\-?\\d+")) {
             String[] ratNumber = number.split("\\/");
             setRational(ratNumber[0], ratNumber[1]);
@@ -50,7 +51,7 @@ public class Rational {
         this(0);
     }
 
-    private void simplify() {
+    public void simplify() {
         if (numerator.compareTo(BigInteger.ZERO) == 0) {
             denominator = BigInteger.ONE;
             return;
@@ -76,22 +77,21 @@ public class Rational {
         setDenominator(denom);
         simplify();
     }
-    
 
     public BigInteger getNumerator() {
         return numerator;
     }
 
     public void setNumerator(Object num) {
-        if (num.getClass() == BigInteger.class){
+        if (num.getClass() == BigInteger.class) {
             this.numerator = (BigInteger) num;
             this.origNum = num.toString();
         }
-        if (num.getClass() == String.class){
+        if (num.getClass() == String.class) {
             this.numerator = new BigInteger((String) num);
             this.origNum = (String) num;
         }
-        if (num.getClass() == Integer.class){
+        if (num.getClass() == Integer.class) {
             this.numerator = BigInteger.valueOf((Integer) num);
             this.origNum = num.toString();
         }
@@ -102,15 +102,15 @@ public class Rational {
     }
 
     public void setDenominator(Object denom) {
-        if (denom.getClass() == BigInteger.class){
+        if (denom.getClass() == BigInteger.class) {
             this.denominator = (BigInteger) denom;
             this.origDenom = denom.toString();
         }
-        if (denom.getClass() == String.class){
+        if (denom.getClass() == String.class) {
             this.denominator = new BigInteger((String) denom);
             this.origDenom = (String) denom;
-        }           
-        if (denom.getClass() == Integer.class){
+        }
+        if (denom.getClass() == Integer.class) {
             this.denominator = BigInteger.valueOf((Integer) denom);
             this.origDenom = denom.toString();
         }
@@ -128,9 +128,9 @@ public class Rational {
             return false;
         }
         final Rational other = (Rational) obj;
-        return (this.numerator.equals(other.numerator) &&
-                this.denominator.equals(other.denominator));
-}
+        return (this.numerator.equals(other.numerator)
+                && this.denominator.equals(other.denominator));
+    }
 
     @Override
     public String toString() {

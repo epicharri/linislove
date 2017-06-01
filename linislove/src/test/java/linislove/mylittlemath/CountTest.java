@@ -13,6 +13,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Rule;
+import org.junit.rules.ExpectedException;
 
 /**
  *
@@ -40,6 +42,32 @@ public class CountTest {
     }
 
     @Test
+    public void cramerRuleWorksOk(){
+        Matrix a = new Matrix("(1,0,0),(0,1,0),(0,0,1)");
+        Matrix b = new Matrix("(3),(5),(7)");
+        Matrix x = Count.solveByCramerRule(a, b);
+        Matrix expectedX = new Matrix("(3),(5),(7)");
+        assertEquals(expectedX, x);
+    }
+
+    @Rule public ExpectedException thrown = ExpectedException.none();
+    @Test
+    public void reciprocalForZeroDoesNotExist(){
+        thrown.expect(RuntimeException.class);
+        thrown.expectMessage("Nollalla ei ole käänteislukua.");
+        Rational a = Count.reciprocal(Rational.ZERO);
+    }
+    
+    @Test
+    public void givesRigthDeterminant(){
+        Matrix a = new Matrix("(100,200,300),(10/7,4/7,3/7),(0,0,0)");
+        Matrix b = new Matrix("(2,4),(0,2)");
+        assertEquals(Rational.ZERO, Count.det(a));
+        assertEquals(new Rational(4), Count.det(b));
+    }
+    
+    
+    @Test
     public void methodGCDgivesGreatestCommonDivider() {
         assertEquals(1, Count.gcd(13, 7));
         assertEquals(1, Count.gcd(1, 0));
@@ -64,5 +92,16 @@ public class CountTest {
         Rational ab = Count.product(a, b);
         assertEquals(BigInteger.ONE, ab.getNumerator());
         assertEquals(new BigInteger("8"), ab.getDenominator());
+    }
+    
+    @Test
+    public void multiplyMatrixGivesRigthAnswer(){
+        Matrix a = new Matrix("(1,2,3),(4/5,5/6,7/8),(1,1,1)");
+        Matrix b = new Matrix("(3,5,7),(11,13,17),(19,23,31)");
+        Matrix ab = Count.multiply(a,b);
+        Matrix expected = new Matrix("(82,3383/120,33)," +
+                "(100,839/24,41)," +
+                "(134,5627/120,55)");
+        assertEquals(expected, ab);
     }
 }

@@ -57,13 +57,17 @@ public class LinisLove {
         System.out.println("Transpoosi: \n" + matrixT);
         System.out.println("ja sen determinantti on " + Count.det(matrixT));
 
-        */
-        
+         */
+
         System.out.println("--------------");
-        
-        Matrix group = new Matrix("(1,0,2),(0,1,0),(0,0,1)");
-        Matrix bb = new Matrix("(3),(5),(7)");
+        Matrix group = new Matrix("(2,0,-1),(1,5,1),(2,3,0)");
+        //Matrix group = new Matrix("(-3, -3, 5),(2,2,-3),(-7,-6,10)");
+        Matrix bb = new Matrix("(1),(2),(3)");
+        Instant start4 = Instant.now();
         Matrix solve = Count.solveByCramerRule(group, bb);
+        Instant end4 = Instant.now();
+        System.out.println("Aikaa ratkaisuun kului " + 1.0 * Duration.between(start4, end4).toMillis() / 1000 + "sekuntia.");
+
         System.out.println("Yhtälöryhmästä muodostettu matriisi A: ");
         System.out.println(group);
         System.out.println("Kaavan Ax=b matriisi b: ");
@@ -72,8 +76,30 @@ public class LinisLove {
         System.out.println("x_1 = " + solve.getNumber(0, 0));
         System.out.println("x_2 = " + solve.getNumber(1, 0));
         System.out.println("x_3 = " + solve.getNumber(2, 0));
-        
+
+        System.out.println("---");
+        Matrix a = new Matrix("(1,2,3),(4/5,5/6,7/8),(1,1,1)");
+        Matrix b = new Matrix("(3,5,7),(11,13,17),(19,23,31)");
+        Matrix ab = Count.multiply(a, b);
+        System.out.println(ab);
         /*
+        Matrix group1 = new Matrix("(-3, -3, 5),(2,2,-3),(-7,-6,10)");
+        Matrix bb1 = new Matrix("(1),(2),(3)");
+        Instant start41 = Instant.now();        
+        Matrix solvex = Count.solveByCramerRule(group1, bb1);
+        Instant end41 = Instant.now();
+        System.out.println("Aikaa ratkaisuun kului "+ 1.0 * Duration.between(start41, end41).toMillis()/1000 + "sekuntia.");
+        
+        System.out.println("Yhtälöryhmästä muodostettu matriisi A: ");
+        System.out.println(group1);
+        System.out.println("Kaavan Ax=b matriisi b: ");
+        System.out.println(bb1);
+        System.out.println("Yhtälöryhmän ratkaisu: ");
+        System.out.println("x_1 = " + solvex.getNumber(0, 0));
+        System.out.println("x_2 = " + solvex.getNumber(1, 0));
+        System.out.println("x_3 = " + solvex.getNumber(2, 0));
+         */
+ /*
         System.out.println("---------------");
         String vv = "(0.33333333333333333333,1/5),(5,3)";
         Matrix matrixv = new Matrix(vv);
@@ -159,7 +185,7 @@ public class LinisLove {
         System.out.println("Osoittajassa numeroita " + detC.getNumerator().toString().length());
         System.out.println("Nimittäjässä numeroita " + detC.getDenominator().toString().length());
         
-*/
+         */
     }
 
     public int one() {

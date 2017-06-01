@@ -14,4 +14,5 @@ Päivä | Tunnit | Kuvaus
 29.5.2017 | 3.0 | Luokkien edelleenkehittämistä
 30.5.2017 | 5.0 | Luokkien edelleenkehittämistä
 31.5.2017 | 5.0 | Count.transpose, solveByCramerRule
+1.6.2017  | 5.0 | Luokkien kehittämistä, testit ja raportit
 ... | ... | ...

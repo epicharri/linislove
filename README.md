@@ -8,5 +8,8 @@ Lineaarialgebran ongelmien ratkaisutyökalu
 * Lukujen suuruutta ei ole rajoitettu. Rationaaliluvun osoittajassa ja nimittäjässä siis olla niin paljon numeroita kuin vain kone jaksaa laskea.
 * Kvadraattisen yhtälöryhmän ratkaisu Cramerin säännöllä
 
-[Aiheen kuvaus](dokumentaatio/aiheenKuvausJaRakenne.md)
-[Tuntikirjanpito](dokumentaatio/tuntikirjanpito.md)
+* [Aiheen kuvaus](dokumentaatio/aiheenKuvausJaRakenne.md)
+* [Tuntikirjanpito](dokumentaatio/tuntikirjanpito.md)
+* [Pit-raportti](https://htmlpreview.github.io/?https://github.com/epicharri/linislove/blob/master/dokumentaatio/pit/201706012040/index.html)
+* [Checkstyle -raportti](https://htmlpreview.github.io/?https://github.com/epicharri/linislove/blob/master/dokumentaatio/checkstyle/checkstyle.html)
+

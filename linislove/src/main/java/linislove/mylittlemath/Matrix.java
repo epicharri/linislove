@@ -5,6 +5,8 @@
  */
 package linislove.mylittlemath;
 
+import java.util.Arrays;
+
 /**
  *
  * @author harrikah
@@ -26,16 +28,16 @@ public class Matrix {
                     + "vektoreita.");
         }
     }
-    
-    public Matrix(Rational[][] A, int m, int n, int sizeOfLongest){
+
+    public Matrix(Rational[][] A, int m, int n, int sizeOfLongest) {
         this.vectorQueue = "";
         sizeOfLongestRationalNumber = sizeOfLongest;
         this.m = m;
         this.n = n;
         this.matrix = A;
     }
-    
-    public Matrix(int m, int n){
+
+    public Matrix(int m, int n) {
         this.vectorQueue = "";
         this.sizeOfLongestRationalNumber = 0;
         this.m = m;
@@ -43,31 +45,33 @@ public class Matrix {
         this.matrix = new Rational[n][m];
     }
 
-    public int getLongest(){
+    public int getLongest() {
         return this.sizeOfLongestRationalNumber;
     }
-    
+
     // i on rivit ja j on sarakkeet, vakiintuneen käytännön mukaisesti
-    public void setNumber(Rational number, int i, int j){
+    public void setNumber(Rational number, int i, int j) {
         if (i + 1 > this.m || j + 1 > this.n) {
             throw new RuntimeException("Matriisissa ei ole kohtaa jonka "
-                    + "i -indeksi on " + i + " ja j -indeksi on " + j + 
-                    "Matriisissa on " + m + "riviä ja " + n + "saraketta");
+                    + "i -indeksi on " + i + " ja j -indeksi on " + j
+                    + "Matriisissa on " + m + "riviä ja " + n + "saraketta");
         }
         this.matrix[j][i] = number;
         int sizeOfNumber = number.toString().length();
-        if (sizeOfLongestRationalNumber < sizeOfNumber){
+        if (sizeOfLongestRationalNumber < sizeOfNumber) {
             sizeOfLongestRationalNumber = sizeOfNumber;
         }
     }
-    
-    public Rational getNumber(int i, int j){
-        if (i < this.m && j < this.n && i >= 0 && j >= 0){
+
+    public Rational getNumber(int i, int j) {
+        if (i < this.m && j < this.n && i >= 0 && j >= 0) {
             return this.matrix[j][i];
-        } else throw new RuntimeException("Matriisissa ei ole indeksiä "
-                + "(i,j) = " + "(" + i + "," + j + ")");
+        } else {
+            throw new RuntimeException("Matriisissa ei ole indeksiä "
+                    + "(i,j) = " + "(" + i + "," + j + ")");
+        }
     }
-    
+
     private String[] vectors(String v) {
         v = v.trim();
         v = v.replaceAll("//s", "");
@@ -130,4 +134,30 @@ public class Matrix {
         //return this.vectorQueue.isEmpty() ? myMatrix : "Matriisi vektorijonosta " + this.vectorQueue + ":" + "\n\n" + myMatrix;
         return myMatrix;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 71 * hash + Arrays.deepHashCode(this.matrix);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Matrix other = (Matrix) obj;
+        if (!Arrays.deepEquals(this.matrix, other.matrix)) {
+            return false;
+        }
+        return true;
+    }
+
 }
