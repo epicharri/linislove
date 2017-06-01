@@ -1,14 +1,10 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
  */
 package linislove.mylittlemath;
 
 import java.math.BigInteger;
 
 /**
- *
  * @author harrikah
  */
 public class Count {
@@ -200,30 +196,4 @@ public class Count {
         }
         return gcd(denom, num % denom);
     }
-
-    /*
-    public static Matrix(String equationGroup){
-        
-    
-    
-    // String eqGroup = "-2x1 + 7x2 - (3/4)x3 = 0; 0x1 + 1x2 - 3x3 = 0; 2x1 - 4x2 + 0x3 = 0";
-    private static String[] equations(String equationGroup){
-        equationGroup = equationGroup.replaceAll("\\s", "");
-        String[] e = equationGroup.split(";");
-        return e;
-    }
-    
-    private static String rightSideOfEquationsToVectorQueue(String[] equations){
-        String vectorQueue = "(";
-        for (int i = 0; i < equations.length; i++){
-            String leftAndRight[] = equations[i].split("=");
-            vectorQueue+= leftAndRight[1] + ")";
-            if (i < equations.length - 1) vectorQueue+=",";
-        }
-        return vectorQueue;
-    }
-    
-    private static nextVectorFromString(String ){
-        
-    }*/
 }
