@@ -42,14 +42,14 @@ public class MatrixTest {
         String vectorQueue = "(1,2/3),(2,4/3)";
         Rational[][] expectedArray = new Rational[2][2];
         expectedArray[0][0] = new Rational(1);
-        expectedArray[0][1] = new Rational(2, 3);
-        expectedArray[1][0] = new Rational(2);
+        expectedArray[1][0] = new Rational(2, 3);
+        expectedArray[0][1] = new Rational(2);
         expectedArray[1][1] = new Rational(4, 3);
         Matrix a = new Matrix(new SetOfVectors(vectorQueue));
         Rational[][] vectorArrayOfMatrixA = a.getMatrixArray();
         for (int i = 0; i < a.getM(); i++) {
             for (int j = 0; j < a.getN(); j++) {
-                assertEquals(expectedArray[j][i], vectorArrayOfMatrixA[j][i]);
+                assertEquals(expectedArray[i][j], vectorArrayOfMatrixA[i][j]);
             }
         }
         assertEquals(2, a.getM());

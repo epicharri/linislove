@@ -20,4 +20,5 @@ Päivä | Tunnit | Kuvaus
 5.6.2017  | 4.0 | Gui -kehittämistä ja luokkien kehitystä
 6.6.2017  | 4.5 | Gui -kehittämistä ja luokkien kehitystä
 7.6.2017  | 5.0 | Gui -kehittämistä ja muuta korjausta
-8.6.2017  | 4.0 | Korjattu laskutoimitusten koodia
+8.6.2017  | 8.0 | Korjauksia, testit, Javadoc, dokumentaatio
+

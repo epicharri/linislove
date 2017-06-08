@@ -9,10 +9,21 @@ import java.math.BigInteger;
 
 /**
  *
- * @author harrikah
+ * Luokka tarkastaa laskujen tuloksia.
  */
 public class Check {
 
+    /**
+     * Metodi palauttaa kerroinmatriisin ja tulosmatriisin mukaisen yhtälöryhmän
+     * tulostettavassa muodossa.
+     *
+     * @param A Matriisi A eli kerroinmatriisi yhtälöstä Ax=b
+     * @param b Matriisi b eli tulosmatriisi yhtälöstä Ax=b
+     * @return Palauttaa yhtälöryhmän tulostettavassa muodossa, esimerkki: x_1 +
+     * 2x_2 = 3 -(4/5)x_1 + 17x_2 = 9775/12005777
+     *
+     */
+    /*
     public static String linearSystem(Matrix A, Matrix b) {
         String print = "";
         int m = A.getM();
@@ -79,5 +90,5 @@ public class Check {
         }
         return "Yhtälöryhmän ratkaisu on tarkistettu ja on täsmälleen oikein.";
     }
-
+*/
 }

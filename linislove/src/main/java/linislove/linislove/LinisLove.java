@@ -5,14 +5,18 @@
  */
 package linislove.linislove;
 
+import javafx.application.Application;
+import linislove.ui.Gui;
+
 /**
  *
- * @author harrikah
+ * main luokka. Tämä luokka pelkästään käynnistää graafisen käyttöliittymän.
  */
 public class LinisLove {
 
     public static void main(String[] args) throws InterruptedException {
 
+        Application.launch(Gui.class, args);
         // TÄMÄ LUOKKA EDELLEEN HIEKKALAATIKKONA. Testaan siis tässä koodia
         // ennen kuin implementoin sen luokkiin.
         /*

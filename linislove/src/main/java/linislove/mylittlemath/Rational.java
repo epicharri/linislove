@@ -1,15 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package linislove.mylittlemath;
 
 import java.math.BigInteger;
 
 /**
+ * Rationaalilukujen luokka. Rationaaliluku muodostuu kahdesta kokonaisluvusta,
+ * osoittajasta ja nimittäjästä. Kokonaisluvut ovat BigInteger -luokan olioita.
+ * Sen ansiosta laskutoimitukset voidaan tehdä rajattoman suuruisilla luvuilla.
  *
- * @author harrikah
  */
 public class Rational {
 
@@ -19,6 +16,12 @@ public class Rational {
     private String origDenom;
     public static final Rational ZERO = new Rational(0, 1);
 
+    /**
+     * Konstruktori, luo osoittajasta ja nimittäjästä rationaaliluvun.
+     *
+     * @param numerator nimittäjä
+     * @param denominator osoittaja
+     */
     public Rational(Object numerator, Object denominator) {
         setRational(numerator, denominator);
     }

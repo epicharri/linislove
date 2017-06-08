@@ -1,15 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package linislove.mylittlemath;
 
 import java.util.Arrays;
 
 /**
+ * Matriisiluokka. Ylläpitää tietoa matriisiin kuuluvista rationaaliluvuista.
  *
- * @author harrikah
  */
 public class Matrix {
 
@@ -19,6 +14,11 @@ public class Matrix {
     private int m;
     private int n;
 
+    /**
+     * Konstruktori, luo Matrix -olion annetusta vektorijonosta.
+     *
+     * @param v SetOfVectors -luokan olio josta luodaan matriisi
+     */
     public Matrix(SetOfVectors v) {
         this.vectorQueue = v.getVectorQueue();
         this.sizeOfLongestRationalNumber = v.getLongest();
@@ -63,7 +63,7 @@ public class Matrix {
 
     public Rational getNumber(int i, int j) {
         if (i < this.m && j < this.n && i >= 0 && j >= 0) {
-            return this.matrix[j][i];
+            return this.matrix[i][j];
         } else {
             throw new RuntimeException("Matriisissa ei ole indeksiä "
                     + "(i,j) = " + "(" + i + "," + j + ")");
@@ -118,7 +118,7 @@ public class Matrix {
         String myMatrix = "";
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
-                String number = matrix[j][i].toString();
+                String number = matrix[i][j].toString();
                 int spacesNeeded = this.sizeOfLongestRationalNumber
                         - number.length() + 2;
                 String spaces = "";

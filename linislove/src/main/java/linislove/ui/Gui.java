@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package linislove.ui;
 
 import javafx.application.Application;
@@ -11,6 +6,7 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
@@ -24,65 +20,62 @@ import linislove.mylittlemath.SetOfVectors;
 
 /**
  *
- * @author harrikah
+ * Graafinen käyttöliittymä. Ohjelmaa käytetään tämän käyttöliittymän avulla.
  */
 public class Gui extends Application {
 
+    /**
+     * Metodi luo käyttöliittymän komponentit.
+     *
+     * @param stage
+     * @throws Exception
+     */
     @Override
     public void start(Stage stage) throws Exception {
 
         ActionEvent event = new ActionEvent();
-        // 1. Luodaan sovelluksen käyttämä sanakirja
-        /*Sanakirja sanakirja = new Sanakirja();
 
-	// 2. Luodaan näkymät ("alinäkymät")
-	Harjoittelunakyma harjoittelunakyma = new Harjoittelunakyma(sanakirja)
-	Syottonakyma syottonakyma = new Syottonakyma(sanakirja);
-         */
-        // 3. Luodaan päätason layout
         BorderPane layout = new BorderPane();
 
-        // 3.1. Luodaan päätason asettelun menu
         HBox menu = new HBox();
         menu.setPadding(new Insets(20, 20, 20, 20));
         menu.setSpacing(10);
         TextField text = new TextField();
         TextField textRight = new TextField();
+        Label label = new Label("Syötä vektorijono vasemman puoleiseen laatikkoon muodossa (1,0),(1,1).\n"
+                + " Ohjelman suoritus loppuu jos syötät useamman vektorin "
+                + "kuin avaruuden\n"
+                + " dimensio tai eri avaruuksien vektoreita. "
+                + "Ohjelma siis ei tarkista vielä onko syöte oikein.\n");
+        text.setPromptText("Syötä vektorijono");
+        Button buttonA = new Button("Vapaa vai sidottu?");
+        //Button buttonB = new Button("Twilight Answer");
 
-        // 3.2. Luodaan valikon napit
-        Button buttonA = new Button("LinisLove <3");
-        Button buttonB = new Button("Twilight Answer");
-
-        // 3.3. Lisätään napit valikkoon
-        menu.getChildren().addAll(text, buttonA, textRight);
+        menu.getChildren().addAll(label, text, buttonA, textRight);
         layout.setTop(menu);
 
         buttonA.setOnAction((event2) -> {
 
+            // Tässä on logiikkaan kuuluvaa koodia mukana testaamistarkoituksessa.
+            // Lopullisessa ohjelmassa logiikkakoodia ei ole käyttöliittymässä.
             String queue = text.getText();
             Matrix matrix = new Matrix(new SetOfVectors(queue));
             Rational det = Count.det(matrix);
-            String freedom = (det.equals(Rational.ZERO)) ? "Jono on sidottu" : "Jono on vapaa";
-            textRight.setText(freedom);
-
+            try {
+                String freedom = (det.equals(Rational.ZERO)) ? "Jono on sidottu" : "Jono on vapaa";
+                textRight.setText(freedom);
+            } catch (Exception e) {
+                textRight.setText("Väärä syöte.");
+            }
         });
-
-        // 4. Liitetään alinäkymät nappeihin. Napin painaminen vaihtaa alinäkymää.
-        //lisaanappi.setOnAction((event) -> layout.setCenter(syottonakyma.getNakyma()));
-        //harjoittelenappi.setOnAction((event) -> layout.setCenter(harjoittelunakyma.getNakyma()));
-        // 5. Näytetään ensin syöttönäkymä
-        //asettelu.setCenter(syottonakyma.getNakyma());
-        // 6. Luodaan päänäkymä ja asetetaan päätason layout siihen
         Scene scene = new Scene(layout, 400, 300);
         scene.getStylesheets().add(getClass().getResource("/materialdesign.css").toExternalForm());
         scene.getStylesheets().add(getClass().getResource("/elementsofharmony.css").toExternalForm());
         Image heart = new Image(getClass().getResource("/like.png").toExternalForm());
         stage.getIcons().add(heart);
         stage.setTitle("LinisLove");
-        // 7. Näytetään sovellus
         stage.setScene(scene);
         stage.show();
-        // layout.setStyle("-fx-background-color: blue");
 
     }
 

@@ -1,14 +1,20 @@
-/*
- */
 package linislove.mylittlemath;
 
 import java.math.BigInteger;
 
 /**
- * @author harrikah
+ * Count -luokka suorittaa rationaalilukujen (Rational) sekä matriisien (Matrix)
+ * laskutoimituksia.
  */
 public class Count {
 
+    /**
+     * Laskee rationaalilukujen kertolaskun.
+     *
+     * @param a Rationaaliluku jolla kerrotaan.
+     * @param b Rationaaliluku jota kerrotaan.
+     * @return Rationaaliluku joka on a:n ja b:n tulo, siis a*b.
+     */
     public static Rational product(Rational a, Rational b) {
         BigInteger upstairs = a.getNumerator().multiply(b.getNumerator());
         BigInteger downstairs = a.getDenominator().multiply(b.getDenominator());
@@ -44,23 +50,6 @@ public class Count {
 
     public static int signum(Rational a) {
         return a.signumOfRational().intValue();
-    }
-
-    public static int powint(int a, int x) {
-        if (x < 0) {
-            throw new RuntimeException("Exponentti ei ole positiivinen");
-        }
-        if (x == 0) {
-            return 1;
-        }
-        if (x == 1) {
-            return a;
-        }
-        if (x % 2 == 0) {
-            return powint(a * a, x / 2);
-        } else {
-            return a * powint(a * a, x / 2);
-        }
     }
 
     public static int minusOnePoweredTo(int n) {
@@ -148,6 +137,7 @@ public class Count {
         return AB;
     }
 
+    /*
     public static Matrix solveByCramerRule(Matrix A, Matrix b) {
         if (A.getM() != A.getN()) {
             throw new RuntimeException(""
@@ -172,6 +162,7 @@ public class Count {
         }
         return valuesOfX;
     }
+     */
 
     public static Matrix substitute(Matrix A, Matrix b, int j) {
         Matrix replaced = createCopy(A);
