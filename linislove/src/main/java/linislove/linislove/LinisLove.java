@@ -5,14 +5,6 @@
  */
 package linislove.linislove;
 
-import java.math.BigInteger;
-import java.time.Duration;
-import java.time.Instant;
-import java.util.*;
-import linislove.mylittlemath.Count;
-import linislove.mylittlemath.Matrix;
-import linislove.mylittlemath.Rational;
-
 /**
  *
  * @author harrikah
@@ -20,8 +12,46 @@ import linislove.mylittlemath.Rational;
 public class LinisLove {
 
     public static void main(String[] args) throws InterruptedException {
+
+        // TÄMÄ LUOKKA EDELLEEN HIEKKALAATIKKONA. Testaan siis tässä koodia
+        // ennen kuin implementoin sen luokkiin.
+        /*
+        String regexForDecimalNumber = "\\d*\\.\\d+";
+        String regexForRationalNumber = "\\d+\\/\\d+";
+        String regexForWholeNumber = "\\d+";
+
+        String regexForNumber = 
+                "(" +
+                regexForDecimalNumber + "|" +
+                regexForRationalNumber + "|" +
+                regexForWholeNumber +
+                ")";
+
+ 
+        
+        String rat = "1/7";
+        String dec = "12.345";
+        String whole = "1234567890";
+        
+        
+        System.out.println(rat);
+        System.out.println(rat.matches(regexForNumber));
+        System.out.println(dec);
+        System.out.println(dec.matches(regexForNumber));
+        System.out.println(whole);
+        System.out.println(whole.matches(regexForNumber));
+         */
+ /*
+        String regexForVector = 
+                "\\(" +
+                "(" +
+                regexForNumber + "\\," +
+                "\\)";
+        String regexForSetOfVectors = "\\(d";
+         */
+        //Application.launch(Gui.class, args);
         // Tässä main -metodissa toistaiseksi vain testaillaan logiikan
-        // toimivuutta. Tämä on siis tavallaan hiekkalaatikkona nyt.
+        // toivuutta. Tämä on siis tavallaan hiekkalaatikkona nyt.
         // Luokkakaavion url: http://yuml.me/diagram/scruffy;dir:LR/class/edit/%2F%2F Luokkakaavio, [LinisLove(main)]-[Gui], [Gui]-[Logic], [Logic]-[Matrix], [Matrix]-[Count], [Matrix]-[Rational], [Rational]-[Count]
         /*
         Rational a = new Rational(55, -200);
@@ -58,11 +88,12 @@ public class LinisLove {
         System.out.println("ja sen determinantti on " + Count.det(matrixT));
 
          */
-
+ /*
         System.out.println("--------------");
-        Matrix group = new Matrix("(2,0,-1),(1,5,1),(2,3,0)");
+        //Matrix group = new Matrix("(2,0,-1),(1,5,1),(2,3,0)");
         //Matrix group = new Matrix("(-3, -3, 5),(2,2,-3),(-7,-6,10)");
-        Matrix bb = new Matrix("(1),(2),(3)");
+        Matrix group = new Matrix("(3,2,-1),(2,-2,4),(-1,1/2,-1)");
+        Matrix bb = new Matrix("(1),(-2),(0)");
         Instant start4 = Instant.now();
         Matrix solve = Count.solveByCramerRule(group, bb);
         Instant end4 = Instant.now();
@@ -122,22 +153,27 @@ public class LinisLove {
         System.out.println("--------------");
 
         //String w = "(1,1,1),(-1/2,-2,-2/3),(0,1,1)";
+        
         String w = "";
-        int n = 6;
+        int e = 100000000;
+        int f = Integer.MAX_VALUE/10;
+        int n = 8;
         for (int i = 0; i < n; i++) {
             w += "(";
             for (int j = 0; j < n; j++) {
             
                 BigInteger num = BigInteger.ONE;
                 BigInteger denom = BigInteger.ONE;
-                for (int k = 0; k < 10; k++){
-                    BigInteger num1 = BigInteger.valueOf((int) (Math.random() * Integer.MAX_VALUE));
-                    BigInteger denom1 = BigInteger.valueOf((int) (Math.random() * Integer.MAX_VALUE) + 1);
-                    num = num.multiply(num1);
-                    denom = denom.multiply(denom1);
+                for (int k = 0; k < 1; k++){
+                    BigInteger num1 = BigInteger.valueOf((int) (Math.random() * Integer.MAX_VALUE/e));
+                    BigInteger denom1 = BigInteger.valueOf((int) (Math.random() * Integer.MAX_VALUE/f) + 1);
+                    //num = num.multiply(num1);
+                    //denom = denom.multiply(denom1);
+                    num=num1;
+                    denom=denom1;
                 }
                 
-                w += num+"13/"+denom+"17";
+                w += num+"/"+denom;
                 if (j < n - 1) {
                     w += ",";
                 } else {
@@ -148,11 +184,44 @@ public class LinisLove {
                 w += ",";
             }
         }
+        String b5 = "";
+        for (int i = 0; i < n; i++){
+            BigInteger num5 = BigInteger.valueOf((int) (Math.random() * Integer.MAX_VALUE/e));
+            BigInteger denom5 = BigInteger.valueOf((int) (Math.random() * Integer.MAX_VALUE/f) + 1);
+            b5+= "(" + num5+"/"+denom5 + ")";
+            
+            if (i < n-1) b5+=",";
+        }
         Matrix B = new Matrix(w);
+        Matrix B5 = new Matrix(b5);
+        System.out.println("Yhtälöryhmä on seuraava: ");
+        System.out.println(Check.linearSystem(B, B5));
         System.out.println("");
+
+        System.out.println("Yhtälöryhmästä muodostettu matriisi A: ");
         System.out.println(B);
-        System.out.println("");
+        System.out.println("Kaavan Ax=b matriisi b: ");
+        System.out.println(B5);
         
+        
+        
+        Instant start5 = Instant.now();
+        Matrix solve5 = Count.solveByCramerRule(B, B5);
+        Instant end5 = Instant.now();        
+        
+        System.out.println("Yhtälöryhmän ratkaisu: ");
+        for (int i = 0; i < solve5.getM(); i++){
+            System.out.println("x_"+(i+1)+" = " + solve5.getNumber(i,0));
+        }
+        System.out.println("");
+        System.out.println("Aikaa ratkaisuun kului " + 1.0 * Duration.between(start5, end5).toMillis() / 1000 + " sekuntia.");
+        System.out.println(Check.checkAnswer(B, solve5, B5));
+        System.out.println("Ratkaisumatriisi x: ");
+        System.out.println(solve5);
+        
+        
+        
+        /*
         Instant start = Instant.now();
         
         Rational detB = Count.det(B);
@@ -191,4 +260,5 @@ public class LinisLove {
     public int one() {
         return 1;
     }
+
 }

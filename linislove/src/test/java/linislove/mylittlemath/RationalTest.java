@@ -39,14 +39,11 @@ public class RationalTest {
     }
 
     @Test
-    public void simplifyWorks(){
-        Rational number = new Rational(0);
-        number.setNumerator(222);
-        number.setDenominator(444);
-        number.simplify();
+    public void simplifyWorks() {
+        Rational number = new Rational(222, "444");
         assertEquals(new Rational("1/2"), number);
     }
-    
+
     @Test
     public void createRationalNumberZero() {
         Rational number = new Rational(0);

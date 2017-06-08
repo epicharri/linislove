@@ -6,7 +6,6 @@
 package linislove.mylittlemath;
 
 import java.math.BigInteger;
-import static java.math.BigInteger.valueOf;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -40,7 +39,7 @@ public class CountTest {
     @After
     public void tearDown() {
     }
-
+    /*
     @Test
     public void cramerRuleWorksOk(){
         Matrix a = new Matrix("(1,0,0),(0,1,0),(0,0,1)");
@@ -49,24 +48,26 @@ public class CountTest {
         Matrix expectedX = new Matrix("(3),(5),(7)");
         assertEquals(expectedX, x);
     }
+     */
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
 
-    @Rule public ExpectedException thrown = ExpectedException.none();
     @Test
-    public void reciprocalForZeroDoesNotExist(){
+    public void reciprocalForZeroDoesNotExist() {
         thrown.expect(RuntimeException.class);
         thrown.expectMessage("Nollalla ei ole käänteislukua.");
         Rational a = Count.reciprocal(Rational.ZERO);
     }
-    
+
     @Test
-    public void givesRigthDeterminant(){
-        Matrix a = new Matrix("(100,200,300),(10/7,4/7,3/7),(0,0,0)");
-        Matrix b = new Matrix("(2,4),(0,2)");
+    public void givesRigthDeterminant() {
+        Matrix a = new Matrix(
+                new SetOfVectors("(100,200,300),(10/7,4/7,3/7),(0,0,0)"));
+        Matrix b = new Matrix(new SetOfVectors("(2,4),(0,2)"));
         assertEquals(Rational.ZERO, Count.det(a));
         assertEquals(new Rational(4), Count.det(b));
     }
-    
-    
+
     @Test
     public void methodGCDgivesGreatestCommonDivider() {
         assertEquals(1, Count.gcd(13, 7));
@@ -93,15 +94,13 @@ public class CountTest {
         assertEquals(BigInteger.ONE, ab.getNumerator());
         assertEquals(new BigInteger("8"), ab.getDenominator());
     }
-    
+
     @Test
-    public void multiplyMatrixGivesRigthAnswer(){
-        Matrix a = new Matrix("(1,2,3),(4/5,5/6,7/8),(1,1,1)");
-        Matrix b = new Matrix("(3,5,7),(11,13,17),(19,23,31)");
-        Matrix ab = Count.multiply(a,b);
-        Matrix expected = new Matrix("(82,3383/120,33)," +
-                "(100,839/24,41)," +
-                "(134,5627/120,55)");
+    public void multiplyMatrixGivesRigthAnswer() {
+        Matrix a = new Matrix(new SetOfVectors("(2,0,0),(0,2,0),(0,0,2)"));
+        Matrix b = new Matrix(new SetOfVectors("(3.3,5/5,7),(11,13,17),(19,23,31)"));
+        Matrix ab = Count.multiply(a, b);
+        Matrix expected = new Matrix(new SetOfVectors("(6.6,10/5,14),(22,26,34),(38,46,62)"));
         assertEquals(expected, ab);
     }
 }

@@ -17,52 +17,51 @@ import static org.junit.Assert.*;
  * @author harrikah
  */
 public class MatrixTest {
-    
+
     public MatrixTest() {
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
-    
+
     @Before
     public void setUp() {
     }
-    
+
     @After
     public void tearDown() {
     }
 
     @Test
-    public void createsRightMatrix(){
+    public void createsRightMatrix() {
         String vectorQueue = "(1,2/3),(2,4/3)";
         Rational[][] expectedArray = new Rational[2][2];
         expectedArray[0][0] = new Rational(1);
-        expectedArray[1][0] = new Rational(2,3);
-        expectedArray[0][1] = new Rational(2);
-        expectedArray[1][1] = new Rational(4,3);
-        Matrix a = new Matrix(vectorQueue);
+        expectedArray[0][1] = new Rational(2, 3);
+        expectedArray[1][0] = new Rational(2);
+        expectedArray[1][1] = new Rational(4, 3);
+        Matrix a = new Matrix(new SetOfVectors(vectorQueue));
         Rational[][] vectorArrayOfMatrixA = a.getMatrixArray();
-        for (int i = 0; i < a.getM(); i++){
-            for (int j = 0; j < a.getN(); j++){
+        for (int i = 0; i < a.getM(); i++) {
+            for (int j = 0; j < a.getN(); j++) {
                 assertEquals(expectedArray[j][i], vectorArrayOfMatrixA[j][i]);
             }
         }
         assertEquals(2, a.getM());
         assertEquals(2, a.getN());
     }
-    
+
     @Test
-    public void givesRightString(){
-        Matrix matrix = new Matrix("(1/2,1/2),"
-                + "(0,500000000000000000/500000000000000000)");
-        String expected = "1/2  1/2  \n0    1    \n";
+    public void givesRightString() {
+        Matrix matrix = new Matrix(new SetOfVectors("(1/2,1/2),"
+                + "(0,2/2)"));
+        String expected = "1/2  0    \n1/2  1    \n";
         assertEquals(expected, matrix.toString());
     }
-    
-    
+
 }

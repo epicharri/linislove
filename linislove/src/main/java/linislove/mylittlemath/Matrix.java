@@ -19,14 +19,12 @@ public class Matrix {
     private int m;
     private int n;
 
-    public Matrix(String v) {
-        this.vectorQueue = v;
-        sizeOfLongestRationalNumber = 0;
-        if (!createMatrix(v)) {
-            throw new RuntimeException("Matriisia ei voitu luoda antamastasi"
-                    + "vektorijonosta, koska jono sisältää eri vektoriavaruuksien"
-                    + "vektoreita.");
-        }
+    public Matrix(SetOfVectors v) {
+        this.vectorQueue = v.getVectorQueue();
+        this.sizeOfLongestRationalNumber = v.getLongest();
+        this.matrix = v.getMatrixArray();
+        this.m = matrix.length;
+        this.n = matrix[0].length;
     }
 
     public Matrix(Rational[][] A, int m, int n, int sizeOfLongest) {
@@ -56,7 +54,7 @@ public class Matrix {
                     + "i -indeksi on " + i + " ja j -indeksi on " + j
                     + "Matriisissa on " + m + "riviä ja " + n + "saraketta");
         }
-        this.matrix[j][i] = number;
+        this.matrix[i][j] = number;
         int sizeOfNumber = number.toString().length();
         if (sizeOfLongestRationalNumber < sizeOfNumber) {
             sizeOfLongestRationalNumber = sizeOfNumber;
@@ -72,28 +70,20 @@ public class Matrix {
         }
     }
 
-    private String[] vectors(String v) {
-        v = v.trim();
-        v = v.replaceAll("//s", "");
-        v = v.replaceAll("\\(", "");
-        v = v.replaceAll("\\),", "@");
-        v = v.replaceAll("\\)", "");
-        String[] vectorArray = v.split("@");
-        return vectorArray;
-    }
-
-    private boolean createMatrix(String v) {
-        String[] vectorArray = vectors(v);
-        this.m = vectorArray.length; // rows eli rivit
-        this.n = vectorArray[0].split(",").length; // columns eli sarakkeet
+    private boolean createMatrixFromString(String v) {
+        // String v:n oltava muodossa v = "m1n1 m1n2 m1n3;m2n1 m2n2 m2n3",
+        // missä esim. m1n2 on 1. rivin (m1) 2. sarakkeessa (n2) oleva alkio.
+        String[] rows = parseMatrixRowsOfString(v);
+        this.m = rows.length; // rows eli rivit
+        this.n = rows[0].split(",").length; // columns eli sarakkeet
         this.matrix = new Rational[n][m];
         for (int i = 0; i < m; i++) {
-            String[] elementsOfVector = vectorArray[i].split(",");
-            if (elementsOfVector.length != n) {
+            String[] elementsOfRow = rows[i].split(",");
+            if (elementsOfRow.length != n) {
                 return false;
             }
             for (int j = 0; j < n; j++) {
-                Rational number = new Rational(elementsOfVector[j]);
+                Rational number = new Rational(elementsOfRow[j]);
                 if (number.toString().length() > this.sizeOfLongestRationalNumber) {
                     sizeOfLongestRationalNumber = number.toString().length();
                 }
@@ -101,6 +91,14 @@ public class Matrix {
             }
         }
         return true;
+    }
+
+    private String[] parseMatrixRowsOfString(String v) {
+        v = v.trim();
+        v = v.replaceAll("//s+", ",");
+        String[] rows = v.split(";");
+        // PITÄÄ SIT TESTATA ettei tule tyhjiä rivejä!!!!!
+        return rows;
     }
 
     public Rational[][] getMatrixArray() {
@@ -154,10 +152,7 @@ public class Matrix {
             return false;
         }
         final Matrix other = (Matrix) obj;
-        if (!Arrays.deepEquals(this.matrix, other.matrix)) {
-            return false;
-        }
-        return true;
+        return Arrays.deepEquals(this.matrix, other.matrix);
     }
 
 }

@@ -15,4 +15,9 @@ Päivä | Tunnit | Kuvaus
 30.5.2017 | 5.0 | Luokkien edelleenkehittämistä
 31.5.2017 | 5.0 | Count.transpose, solveByCramerRule
 1.6.2017  | 5.0 | Luokkien kehittämistä, testit ja raportit
-... | ... | ...
+2.6.2017  | 4.0 | Aloitettu GUI
+3.6.2017  | 5.0 | Teorian lukemista ja algoritmien kehittämistä
+5.6.2017  | 4.0 | Gui -kehittämistä ja luokkien kehitystä
+6.6.2017  | 4.5 | Gui -kehittämistä ja luokkien kehitystä
+7.6.2017  | 5.0 | Gui -kehittämistä ja muuta korjausta
+8.6.2017  | 4.0 | Korjattu laskutoimitusten koodia

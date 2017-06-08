@@ -136,8 +136,12 @@ public class Count {
                     if (ab[i][j] == null) {
                         ab[i][j] = new Rational(0);
                     }
-                    AB.setNumber(Count.sum(ab[i][j],
-                            Count.product(a[k][i], b[j][k])), j, i);
+                    AB.setNumber(
+                            Count.sum(
+                                    ab[i][j],
+                                    Count.product(a[i][k], b[k][j])
+                            ),
+                            i, j);
                 }
             }
         }
@@ -196,4 +200,12 @@ public class Count {
         }
         return gcd(denom, num % denom);
     }
+
+    public static Rational abs(Rational a) {
+        if (Count.signum(a) >= 0) {
+            return a;
+        }
+        return Count.opposite(a);
+    }
+
 }

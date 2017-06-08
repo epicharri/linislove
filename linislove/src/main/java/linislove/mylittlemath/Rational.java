@@ -72,17 +72,39 @@ public class Rational {
         return BigInteger.valueOf(signN * signD);
     }
 
-    public final void setRational(Object num, Object denom) {
+    /**
+     *
+     * @param num
+     * @param denom
+     */
+    private void setRational(Object num, Object denom) {
+        if (!decentElementsOfFraction(num, denom)) {
+            throw new RuntimeException("Rationaaliluvun muodostaminen "
+                    + "mahdollinen vain luokista Integer, String ja "
+                    + "BigInteger");
+        }
         setNumerator(num);
         setDenominator(denom);
         simplify();
+    }
+
+    private boolean decentElementsOfFraction(Object num, Object denom) {
+        Class n = num.getClass();
+        Class d = denom.getClass();
+        return isDecent(n) && isDecent(d);
+    }
+
+    private boolean isDecent(Object x) {
+        return x == BigInteger.class
+                || x == String.class
+                || x == Integer.class;
     }
 
     public BigInteger getNumerator() {
         return numerator;
     }
 
-    public void setNumerator(Object num) {
+    private void setNumerator(Object num) {
         if (num.getClass() == BigInteger.class) {
             this.numerator = (BigInteger) num;
             this.origNum = num.toString();
@@ -101,7 +123,7 @@ public class Rational {
         return denominator;
     }
 
-    public void setDenominator(Object denom) {
+    private void setDenominator(Object denom) {
         if (denom.getClass() == BigInteger.class) {
             this.denominator = (BigInteger) denom;
             this.origDenom = denom.toString();
