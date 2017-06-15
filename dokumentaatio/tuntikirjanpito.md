@@ -21,4 +21,7 @@ Päivä | Tunnit | Kuvaus
 6.6.2017  | 4.5 | Gui -kehittämistä ja luokkien kehitystä
 7.6.2017  | 5.0 | Gui -kehittämistä ja muuta korjausta
 8.6.2017  | 8.0 | Korjauksia, testit, Javadoc, dokumentaatio
-
+12.6.2017 | 4.0 | Korjauksia
+13.6.2017 | 3.5 | Korjauksia
+14.6.2017 | 4.5 | Gui, LinearSystem
+15.6.2017 | 6.0 | Gui, LinearSystem ja Solution -luokat

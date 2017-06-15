@@ -137,7 +137,6 @@ public class Count {
         return AB;
     }
 
-    /*
     public static Matrix solveByCramerRule(Matrix A, Matrix b) {
         if (A.getM() != A.getN()) {
             throw new RuntimeException(""
@@ -148,7 +147,7 @@ public class Count {
             throw new RuntimeException("Matriisit annettava siten että "
                     + "A:ssa ja b:ssä on saman verran rivejä.");
         }
-        Matrix valuesOfX = new Matrix(A.getM(), 1);
+        Matrix valuesOfX = new Matrix(b.getM(), 1);
         Rational detA = det(A);
         if (detA.equals(Rational.ZERO)) {
             throw new RuntimeException("Yhtälö"
@@ -162,7 +161,15 @@ public class Count {
         }
         return valuesOfX;
     }
-     */
+
+    public static String giveSolutions(Matrix x) {
+        String printable = "";
+        for (int i = 0; i < x.getM(); i++) {
+            printable += "x" + (i + 1) + " = " + x.getNumber(i, 0);
+            printable += (i < x.getM() - 1) ? "\n" : "";
+        }
+        return printable;
+    }
 
     public static Matrix substitute(Matrix A, Matrix b, int j) {
         Matrix replaced = createCopy(A);

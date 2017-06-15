@@ -23,7 +23,6 @@ public class Check {
      * 2x_2 = 3 -(4/5)x_1 + 17x_2 = 9775/12005777
      *
      */
-    /*
     public static String linearSystem(Matrix A, Matrix b) {
         String print = "";
         int m = A.getM();
@@ -36,7 +35,7 @@ public class Check {
             for (int j = 0; j < n; j++) {
                 Rational number = A.getNumber(i, j);
                 String element = giveCoefficientAndVariableX(number, j);
-                print += element + " ";
+                print += (element.isEmpty()) ? "" : element + " ";
             }
             print += "= " + b.getNumber(i, 0) + "\n";
         }
@@ -47,8 +46,11 @@ public class Check {
         String print = "";
 
         int sign = Count.signum(number);
-        if (sign == 0) {
-            return "";
+        if (sign == 0 && j > 0) {
+            return "+ 0";
+        }
+        if (sign == 0 && j == 0) {
+            return "0";
         }
         if (j > 0 && sign > 0) {
             print += "+ ";
@@ -59,6 +61,7 @@ public class Check {
         if (sign < 0) {
             number = Count.opposite(number);
         }
+        if (number.equals(Rational.ONE)) return print + "x_" + (j + 1);
         if (number.getDenominator().equals(BigInteger.ONE)) {
             print += number.toString();
         } else {
@@ -90,5 +93,4 @@ public class Check {
         }
         return "Yhtälöryhmän ratkaisu on tarkistettu ja on täsmälleen oikein.";
     }
-*/
 }

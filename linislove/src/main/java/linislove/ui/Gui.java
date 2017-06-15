@@ -1,18 +1,23 @@
 package linislove.ui;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import linislove.logic.Solution;
 import linislove.mylittlemath.Count;
 import linislove.mylittlemath.Matrix;
 import linislove.mylittlemath.Rational;
@@ -40,35 +45,52 @@ public class Gui extends Application {
         HBox menu = new HBox();
         menu.setPadding(new Insets(20, 20, 20, 20));
         menu.setSpacing(10);
-        TextField text = new TextField();
-        TextField textRight = new TextField();
-        Label label = new Label("Syötä vektorijono vasemman puoleiseen laatikkoon muodossa (1,0),(1,1).\n"
-                + " Ohjelman suoritus loppuu jos syötät useamman vektorin "
-                + "kuin avaruuden\n"
-                + " dimensio tai eri avaruuksien vektoreita. "
-                + "Ohjelma siis ei tarkista vielä onko syöte oikein.\n");
-        text.setPromptText("Syötä vektorijono");
-        Button buttonA = new Button("Vapaa vai sidottu?");
-        //Button buttonB = new Button("Twilight Answer");
+        //TextField input = new TextField();
+        TextArea input = new TextArea();
+        Label label = new Label("Syötä vektorijono:");
+        input.setPromptText("Syötä vektorijono");        
 
-        menu.getChildren().addAll(label, text, buttonA, textRight);
+        input.setMinWidth(400);
+        input.setMaxWidth(300);
+        input.prefColumnCountProperty().bind(input.textProperty().length());
+       
+        
+        
+        
+        TextArea answer = new TextArea();
+
+        Button buttonA = new Button("Selvitä vapaus");
+        Button buttonB = new Button("Ratkaise yhtälöryhmä");
+
+        menu.getChildren().addAll(label, input, buttonA, buttonB, answer);
         layout.setTop(menu);
 
-        buttonA.setOnAction((event2) -> {
+        buttonA.setOnAction((eventA) -> {
 
             // Tässä on logiikkaan kuuluvaa koodia mukana testaamistarkoituksessa.
             // Lopullisessa ohjelmassa logiikkakoodia ei ole käyttöliittymässä.
-            String queue = text.getText();
+            String queue = input.getText();
             Matrix matrix = new Matrix(new SetOfVectors(queue));
             Rational det = Count.det(matrix);
             try {
                 String freedom = (det.equals(Rational.ZERO)) ? "Jono on sidottu" : "Jono on vapaa";
-                textRight.setText(freedom);
+                answer.setText(freedom);
             } catch (Exception e) {
-                textRight.setText("Väärä syöte.");
+                answer.setText("Väärä syöte.");
             }
         });
-        Scene scene = new Scene(layout, 400, 300);
+        
+        buttonB.setOnAction((eventB) -> {
+            String system = input.getText();
+            try {
+                String solution = Solution.solveLinearSystem(system);
+                answer.setText(solution);
+            } catch (Exception e) {
+                answer.setText("Väärä syöte.");
+            }
+        });
+        
+        Scene scene = new Scene(layout, 1000, 500);
         scene.getStylesheets().add(getClass().getResource("/materialdesign.css").toExternalForm());
         scene.getStylesheets().add(getClass().getResource("/elementsofharmony.css").toExternalForm());
         Image heart = new Image(getClass().getResource("/like.png").toExternalForm());

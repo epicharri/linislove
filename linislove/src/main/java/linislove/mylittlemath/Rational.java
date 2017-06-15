@@ -15,6 +15,7 @@ public class Rational {
     private String origNum;
     private String origDenom;
     public static final Rational ZERO = new Rational(0, 1);
+    public static final Rational ONE = new Rational(1,1);
 
     /**
      * Konstruktori, luo osoittajasta ja nimittäjästä rationaaliluvun.
@@ -29,12 +30,14 @@ public class Rational {
     public Rational(String number) {
         this(0);
         number = number.replaceAll("\\s", "");
-        if (number.matches("\\-?\\d+\\/\\-?\\d+")) {
+        if (number.matches("(\\+|\\-)?\\(?(\\+|\\-)?\\d+\\/(\\+|\\-)?\\d+\\)?")) {
             String[] ratNumber = number.split("\\/");
+            ratNumber[0] = removeRedundantMinuses(ratNumber[0].replaceAll("\\(", ""));
+            ratNumber[1] = ratNumber[1].replaceAll("\\)", "");
             setRational(ratNumber[0], ratNumber[1]);
-        } else if (number.matches("\\-?\\d+")) {
+        } else if (number.matches("(\\+|\\-)?\\d+")) {
             setRational(Integer.parseInt(number), 1);
-        } else if (number.matches("\\-?\\d*\\.\\d+")) {
+        } else if (number.matches("(\\-|\\+)?\\d*\\.\\d+")) {
             int digitsBeforePoint = number.indexOf(".");
             number = number.replaceAll("\\.", "");
             int numberOfDigits = number.length();
@@ -122,6 +125,16 @@ public class Rational {
         }
     }
 
+    private String removeRedundantMinuses(String number){
+        int numberOfMinuses = 0;
+        for (int i = 0; i < number.length(); i++){
+            if (number.charAt(i) == '-') numberOfMinuses++;
+        }
+        number = number.replaceAll("-", "");
+        if (numberOfMinuses %2 == 1) return "-" + number;
+        return number;
+    }
+    
     public BigInteger getDenominator() {
         return denominator;
     }

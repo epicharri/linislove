@@ -9,7 +9,7 @@ import java.util.Arrays;
 public class Matrix {
 
     private Rational[][] matrix;
-    private final String vectorQueue;
+    private final String originalSetOrLinearSystem;
     private int sizeOfLongestRationalNumber;
     private int m;
     private int n;
@@ -20,15 +20,23 @@ public class Matrix {
      * @param v SetOfVectors -luokan olio josta luodaan matriisi
      */
     public Matrix(SetOfVectors v) {
-        this.vectorQueue = v.getVectorQueue();
+        this.originalSetOrLinearSystem = v.getVectorQueue();
         this.sizeOfLongestRationalNumber = v.getLongest();
         this.matrix = v.getMatrixArray();
         this.m = matrix.length;
         this.n = matrix[0].length;
     }
 
+    public Matrix(LinearSystem l) {
+        this.originalSetOrLinearSystem = l.getSystem();
+        this.sizeOfLongestRationalNumber = l.getSizeOfLongestRationalNumber();
+        this.matrix = l.getA();
+        this.m = l.getA().length;
+        this.n = l.getA()[0].length;
+    }
+
     public Matrix(Rational[][] A, int m, int n, int sizeOfLongest) {
-        this.vectorQueue = "";
+        this.originalSetOrLinearSystem = "";
         sizeOfLongestRationalNumber = sizeOfLongest;
         this.m = m;
         this.n = n;
@@ -36,11 +44,11 @@ public class Matrix {
     }
 
     public Matrix(int m, int n) {
-        this.vectorQueue = "";
+        this.originalSetOrLinearSystem = "";
         this.sizeOfLongestRationalNumber = 0;
         this.m = m;
         this.n = n;
-        this.matrix = new Rational[n][m];
+        this.matrix = new Rational[m][n];
     }
 
     public int getLongest() {
@@ -129,7 +137,7 @@ public class Matrix {
             }
             myMatrix += "\n";
         }
-        //return this.vectorQueue.isEmpty() ? myMatrix : "Matriisi vektorijonosta " + this.vectorQueue + ":" + "\n\n" + myMatrix;
+        //return this.originalSetOrLinearSystem.isEmpty() ? myMatrix : "Matriisi vektorijonosta " + this.originalSetOrLinearSystem + ":" + "\n\n" + myMatrix;
         return myMatrix;
     }
 
