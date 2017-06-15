@@ -37,9 +37,11 @@
                 <configuration>
                     <targetClasses>
                         <param>linislove.mylittlemath.*</param>
+                        <param>linislove.logic.*</param>
                     </targetClasses>
                     <targetTests>
                         <param>linislove.mylittlemath.*</param>
+                        <param>linislove.logic.*</param>
                     </targetTests>
                 </configuration>
             </plugin>

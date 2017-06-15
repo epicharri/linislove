@@ -10,6 +10,7 @@ import linislove.mylittlemath.Check;
 import linislove.mylittlemath.Count;
 import linislove.mylittlemath.LinearSystem;
 import linislove.mylittlemath.Matrix;
+import linislove.mylittlemath.SetOfVectors;
 import linislove.ui.Gui;
 
 /**
@@ -25,13 +26,21 @@ public class LinisLove {
         //        + "x1 = 3;"
           //      + "x1+x2+x3=9/17";
           
-       // String system = "5x1-3x2-x3=1;-3x1+5x2+3x3=2;-x1+3x2+1x3 =3";        
-        String system = "x1-x2+(1/7)x3 =1;2/3x2+x3 = (5/7);x4=7;x1+x2+x3+x4=17;";
+        // String system = "5x1-3x2-x3=1;-3x1+5x2+3x3=2;-x1+3x2+1x3 =3";     
+        /*
+        Matrix matrix = new Matrix(new SetOfVectors("(1/2,1/2),"
+                + "(0,2/2)"));        
+        System.out.println(matrix);
+        */
+        
+        // Tämä luokka edelleen hiekkalaatikkona testailua varten.
+        
+        String system = "x1-x2-(-1/7)x3 =1;2/3x2+x3 = (5/7);x4=7;x1+x2+x3+x4=17;";
         LinearSystem l = new LinearSystem(system);
         System.out.println("Syötit yhtälöryhmän:");
         Matrix A = new Matrix(l);
         Matrix b = new Matrix(l.getB(), l.getB().length, 1, l.getSizeOfLongestRationalNumber());
-        System.out.println(Check.linearSystem(A, b));
+        System.out.println(l);
         System.out.println("Josta saamme matriisin A:");
         System.out.println(A);
         System.out.println("ja matriisin b:");
@@ -41,8 +50,8 @@ public class LinisLove {
         System.out.println("Ratkaisu:");
         System.out.println(Count.giveSolutions(x));
         System.out.println("");
-        System.out.println(Check.checkAnswer(A,x,b));
-        Application.launch(Gui.class, args);
+        //System.out.println(Check.checkAnswer(A,x,b));
+        //Application.launch(Gui.class, args);
         // TÄMÄ LUOKKA EDELLEEN HIEKKALAATIKKONA. Testaan siis tässä koodia
         // ennen kuin implementoin sen luokkiin.
         /*

@@ -60,7 +60,7 @@ public class MatrixTest {
     public void givesRightString() {
         Matrix matrix = new Matrix(new SetOfVectors("(1/2,1/2),"
                 + "(0,2/2)"));
-        String expected = "1/2  0    \n1/2  1    \n";
+        String expected = "(1/2)  0      \n(1/2)  1      \n";
         assertEquals(expected, matrix.toString());
     }
 

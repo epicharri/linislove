@@ -5,6 +5,7 @@
  */
 package linislove.mylittlemath;
 
+import java.math.BigInteger;
 import java.util.HashMap;
 
 /**
@@ -19,7 +20,7 @@ import java.util.HashMap;
 public class LinearSystem {
 
     private Rational[][] a;
-    private int[] subScriptsOfUnknowns;
+    //private int[] subScriptsOfUnknowns;
     private Rational[][] b;
     private int sizeOfLongestRationalNumber;
     private String system;
@@ -185,6 +186,64 @@ public class LinearSystem {
         s = s.replaceAll(";\\z", "");
         s = s.replaceAll("^;", "");
         return s;
+    }
+
+    @Override
+    public String toString() {
+        return linearSystem();
+    }
+
+    private String linearSystem() {
+
+        String print = "";
+        int m = a.length;
+        int n = a[0].length;
+        int bm = b.length;
+        int bn = b[0].length;
+        if (bm != m) {
+            return "Matriisit A ja b eri "
+                    + "korkuisia. A:ssa rivejä " + m + " ja b:ssä " + bm;
+        }
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                Rational number = a[i][j];
+                String element = giveCoefficientAndVariableX(number, j);
+                print += (element.isEmpty()) ? "" : element + " ";
+            }
+            print += "= " + b[i][0] + "\n";
+        }
+        return print;
+    }
+
+    private static String giveCoefficientAndVariableX(Rational number, int j) {
+        String print = "";
+
+        int sign = Count.signum(number);
+        if (sign == 0 && j > 0) {
+            return "+ 0";
+        }
+        if (sign == 0 && j == 0) {
+            return "0";
+        }
+        if (j > 0 && sign > 0) {
+            print += "+ ";
+        }
+        if (sign < 0) {
+            print += "-";
+        }
+        if (sign < 0) {
+            number = Count.opposite(number);
+        }
+        if (number.equals(Rational.ONE)) {
+            return print + "x_" + (j + 1);
+        }
+        if (number.getDenominator().equals(BigInteger.ONE)) {
+            print += number.toString();
+        } else {
+            print += number;
+        }
+        print += "x_" + (j + 1);
+        return print;
     }
 
 }

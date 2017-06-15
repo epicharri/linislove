@@ -25,3 +25,4 @@ Päivä | Tunnit | Kuvaus
 13.6.2017 | 3.5 | Korjauksia
 14.6.2017 | 4.5 | Gui, LinearSystem
 15.6.2017 | 6.0 | Gui, LinearSystem ja Solution -luokat
+15.6.2017 | 2.0 | Testit ja raportit

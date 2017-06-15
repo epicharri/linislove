@@ -35,12 +35,12 @@ public class Matrix {
         this.n = l.getA()[0].length;
     }
 
-    public Matrix(Rational[][] A, int m, int n, int sizeOfLongest) {
+    public Matrix(Rational[][] a, int m, int n, int sizeOfLongest) {
         this.originalSetOrLinearSystem = "";
         sizeOfLongestRationalNumber = sizeOfLongest;
         this.m = m;
         this.n = n;
-        this.matrix = A;
+        this.matrix = a;
     }
 
     public Matrix(int m, int n) {
@@ -76,37 +76,6 @@ public class Matrix {
             throw new RuntimeException("Matriisissa ei ole indeksiä "
                     + "(i,j) = " + "(" + i + "," + j + ")");
         }
-    }
-
-    private boolean createMatrixFromString(String v) {
-        // String v:n oltava muodossa v = "m1n1 m1n2 m1n3;m2n1 m2n2 m2n3",
-        // missä esim. m1n2 on 1. rivin (m1) 2. sarakkeessa (n2) oleva alkio.
-        String[] rows = parseMatrixRowsOfString(v);
-        this.m = rows.length; // rows eli rivit
-        this.n = rows[0].split(",").length; // columns eli sarakkeet
-        this.matrix = new Rational[n][m];
-        for (int i = 0; i < m; i++) {
-            String[] elementsOfRow = rows[i].split(",");
-            if (elementsOfRow.length != n) {
-                return false;
-            }
-            for (int j = 0; j < n; j++) {
-                Rational number = new Rational(elementsOfRow[j]);
-                if (number.toString().length() > this.sizeOfLongestRationalNumber) {
-                    sizeOfLongestRationalNumber = number.toString().length();
-                }
-                this.matrix[j][i] = number;
-            }
-        }
-        return true;
-    }
-
-    private String[] parseMatrixRowsOfString(String v) {
-        v = v.trim();
-        v = v.replaceAll("//s+", ",");
-        String[] rows = v.split(";");
-        // PITÄÄ SIT TESTATA ettei tule tyhjiä rivejä!!!!!
-        return rows;
     }
 
     public Rational[][] getMatrixArray() {

@@ -48,15 +48,12 @@ public class Gui extends Application {
         //TextField input = new TextField();
         TextArea input = new TextArea();
         Label label = new Label("Syötä vektorijono:");
-        input.setPromptText("Syötä vektorijono");        
+        input.setPromptText("Syötä vektorijono");
 
         input.setMinWidth(400);
         input.setMaxWidth(300);
         input.prefColumnCountProperty().bind(input.textProperty().length());
-       
-        
-        
-        
+
         TextArea answer = new TextArea();
 
         Button buttonA = new Button("Selvitä vapaus");
@@ -79,7 +76,7 @@ public class Gui extends Application {
                 answer.setText("Väärä syöte.");
             }
         });
-        
+
         buttonB.setOnAction((eventB) -> {
             String system = input.getText();
             try {
@@ -89,7 +86,7 @@ public class Gui extends Application {
                 answer.setText("Väärä syöte.");
             }
         });
-        
+
         Scene scene = new Scene(layout, 1000, 500);
         scene.getStylesheets().add(getClass().getResource("/materialdesign.css").toExternalForm());
         scene.getStylesheets().add(getClass().getResource("/elementsofharmony.css").toExternalForm());

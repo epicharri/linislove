@@ -34,7 +34,7 @@ public class SetOfVectors {
     public SetOfVectors(String v) {
         this.vectorQueue = v;
         sizeOfLongestRationalNumber = 0;
-        if (!parseVectorQueueToMatrixArray(v)) {
+        if (!parseStringOfSetOfVectorsToMatrixArray(v)) {
             throw new RuntimeException("Matriisia ei voitu luoda antamastasi"
                     + "vektorijonosta, koska jono sisältää eri vektoriavaruuksien"
                     + "vektoreita.");
@@ -50,7 +50,7 @@ public class SetOfVectors {
         return vector;
     }
 
-    private boolean parseVectorQueueToMatrixArray(String v) {
+    private boolean parseStringOfSetOfVectorsToMatrixArray(String v) {
 
         String[] vector = vectors(v);
         int n = vector.length; // columns eli sarakkeet, vektorien määrä

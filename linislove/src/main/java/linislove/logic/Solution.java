@@ -14,7 +14,7 @@ import linislove.mylittlemath.Matrix;
  * @author harrikah
  */
 public class Solution {
-    
+
     public static String solveLinearSystem(String system) {
         LinearSystem linearSystem = new LinearSystem(system);
         Matrix A = new Matrix(linearSystem);

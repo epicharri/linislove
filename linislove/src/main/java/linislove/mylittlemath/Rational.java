@@ -15,7 +15,7 @@ public class Rational {
     private String origNum;
     private String origDenom;
     public static final Rational ZERO = new Rational(0, 1);
-    public static final Rational ONE = new Rational(1,1);
+    public static final Rational ONE = new Rational(1, 1);
 
     /**
      * Konstruktori, luo osoittajasta ja nimittäjästä rationaaliluvun.
@@ -45,7 +45,7 @@ public class Rational {
             setRational(number, divider);
         } else {
             throw new RuntimeException("Syöte '" + number
-                    + "' ei ole rationaaliluku.");
+                    + "' ei ole sallittu luku.");
         }
     }
 
@@ -125,16 +125,20 @@ public class Rational {
         }
     }
 
-    private String removeRedundantMinuses(String number){
+    private String removeRedundantMinuses(String number) {
         int numberOfMinuses = 0;
-        for (int i = 0; i < number.length(); i++){
-            if (number.charAt(i) == '-') numberOfMinuses++;
+        for (int i = 0; i < number.length(); i++) {
+            if (number.charAt(i) == '-') {
+                numberOfMinuses++;
+            }
         }
         number = number.replaceAll("-", "");
-        if (numberOfMinuses %2 == 1) return "-" + number;
+        if (numberOfMinuses % 2 == 1) {
+            return "-" + number;
+        }
         return number;
     }
-    
+
     public BigInteger getDenominator() {
         return denominator;
     }
@@ -178,7 +182,7 @@ public class Rational {
         if (denominator.equals(BigInteger.ONE)) {
             return "" + numerator;
         }
-        return numerator + "/" + denominator;
+        return "(" + numerator + "/" + denominator + ")";
     }
 
     public String original() {

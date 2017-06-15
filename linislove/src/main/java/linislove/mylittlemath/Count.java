@@ -106,26 +106,26 @@ public class Count {
         return new Matrix(arrayT, m, n, A.getLongest());
     }
 
-    public static Matrix multiply(Matrix A, Matrix B) {
-        Rational[][] a = A.getMatrixArray();
-        Rational[][] b = B.getMatrixArray();
-        int aN = A.getN();
-        int aM = A.getM();
-        int bN = B.getN();
-        int bM = B.getM();
+    public static Matrix multiply(Matrix matrixA, Matrix matrixB) {
+        Rational[][] a = matrixA.getMatrixArray();
+        Rational[][] b = matrixB.getMatrixArray();
+        int aN = matrixA.getN();
+        int aM = matrixA.getM();
+        int bN = matrixB.getN();
+        int bM = matrixB.getM();
         if (aN != bM) {
             throw new RuntimeException("Matriisikertolasku ei ole määritelty näillä matriiseilla.");
         }
-        Matrix AB = new Matrix(aM, bN);
-        Rational[][] ab = AB.getMatrixArray();
+        Matrix matrixAb = new Matrix(aM, bN);
+        Rational[][] ab = matrixAb.getMatrixArray();
 
-        for (int i = 0; i < AB.getM(); i++) {
-            for (int j = 0; j < AB.getN(); j++) {
+        for (int i = 0; i < matrixAb.getM(); i++) {
+            for (int j = 0; j < matrixAb.getN(); j++) {
                 for (int k = 0; k < aN; k++) {
                     if (ab[i][j] == null) {
                         ab[i][j] = new Rational(0);
                     }
-                    AB.setNumber(
+                    matrixAb.setNumber(
                             Count.sum(
                                     ab[i][j],
                                     Count.product(a[i][k], b[k][j])
@@ -134,28 +134,28 @@ public class Count {
                 }
             }
         }
-        return AB;
+        return matrixAb;
     }
 
-    public static Matrix solveByCramerRule(Matrix A, Matrix b) {
-        if (A.getM() != A.getN()) {
+    public static Matrix solveByCramerRule(Matrix a, Matrix b) {
+        if (a.getM() != a.getN()) {
             throw new RuntimeException(""
                     + "Cramerin säännöllä voi ratkaista vain kvadraattisia "
                     + "yhtälöryhmiä.");
         }
-        if (!(A.getM() == b.getM())) {
+        if (!(a.getM() == b.getM())) {
             throw new RuntimeException("Matriisit annettava siten että "
                     + "A:ssa ja b:ssä on saman verran rivejä.");
         }
         Matrix valuesOfX = new Matrix(b.getM(), 1);
-        Rational detA = det(A);
+        Rational detA = det(a);
         if (detA.equals(Rational.ZERO)) {
             throw new RuntimeException("Yhtälö"
                     + "ryhmällä ei ole yksikäsitteistä ratkaisua.");
         }
         Rational detAreciprocal = reciprocal(detA);
         for (int i = 0; i < b.getM(); i++) {
-            Rational deti = det(substitute(A, b, i));
+            Rational deti = det(substitute(a, b, i));
             Rational x = product(deti, detAreciprocal);
             valuesOfX.setNumber(x, i, 0);
         }

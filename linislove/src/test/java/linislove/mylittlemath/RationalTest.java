@@ -55,7 +55,7 @@ public class RationalTest {
     @Test
     public void createRationalNumberOfTwoWholeNumbers() {
         Rational number = new Rational(31, 7);
-        String expRes = ("31/7");
+        String expRes = ("(31/7)");
         String res = number.toString();
         assertEquals(expRes, res);
     }
@@ -63,7 +63,7 @@ public class RationalTest {
     @Test
     public void createRationalNumberOfString() {
         Rational number = new Rational("210/9");
-        String expRes = ("70/3");
+        String expRes = ("(70/3)");
         String res = number.toString();
         assertEquals(expRes, res);
     }
@@ -78,7 +78,7 @@ public class RationalTest {
     @Test
     public void originalRationalNumberIsAsParameterWasWhenCreatingNumber() {
         Rational number = new Rational("210/9");
-        String expRes = ("70/3");
+        String expRes = ("(70/3)");
         String res = number.toString();
         assertEquals(expRes, res);
         assertEquals("210/9", number.original());
