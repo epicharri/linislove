@@ -10,10 +10,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
+import javafx.scene.layout.Background;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -47,17 +50,25 @@ public class Gui extends Application {
         menu.setSpacing(10);
         //TextField input = new TextField();
         TextArea input = new TextArea();
-        Label label = new Label("Syötä vektorijono:");
-        input.setPromptText("Syötä vektorijono");
-
+        Label label = new Label("");
+        input.setPromptText("Syötä vektorijono tai yhtälöryhmä.");
+        Tooltip tooltipInput = new Tooltip("Syötä tähän vektorijono tai "
+                + "yhtälöryhmä.");
+        Tooltip.install(input, tooltipInput);
         input.setMinWidth(400);
         input.setMaxWidth(300);
         input.prefColumnCountProperty().bind(input.textProperty().length());
 
         TextArea answer = new TextArea();
 
-        Button buttonA = new Button("Selvitä vapaus");
-        Button buttonB = new Button("Ratkaise yhtälöryhmä");
+        Button buttonA = new Button("Vapaus");
+        Button buttonB = new Button("Ratkaise");
+        buttonA.setMinWidth(100);
+        buttonB.setMinWidth(100);
+        Tooltip tooltipA = new Tooltip("Ratkaisee onko vektorijono vapaa.");
+        Tooltip.install(buttonA, tooltipA);
+        Tooltip tooltipB = new Tooltip("Ratkaisee kvadraattisen yhtälöryhmän\njos sille löytyy yksikäsitteinen ratkaisu.");
+        Tooltip.install(buttonB, tooltipB);
 
         menu.getChildren().addAll(label, input, buttonA, buttonB, answer);
         layout.setTop(menu);
@@ -66,24 +77,33 @@ public class Gui extends Application {
 
             // Tässä on logiikkaan kuuluvaa koodia mukana testaamistarkoituksessa.
             // Lopullisessa ohjelmassa logiikkakoodia ei ole käyttöliittymässä.
+            answer.setText("Ratkaistaan vektorijonon vapautta.");
             String queue = input.getText();
-            Matrix matrix = new Matrix(new SetOfVectors(queue));
-            Rational det = Count.det(matrix);
+            
             try {
-                String freedom = (det.equals(Rational.ZERO)) ? "Jono on sidottu" : "Jono on vapaa";
+                Matrix matrix = new Matrix(new SetOfVectors(queue));
+                Rational det = Count.det(matrix);
+                String freedom = "Vektorijonosta muodostetun matriisin\n"
+                        + "determinantti on " + det + ".\n";
+                if (det.equals(Rational.ZERO)) freedom+= "Koska determinantti "
+                        + "on 0, on vektorijono lineaarisesti\n riippuvainen "
+                        + "eli sidottu.";
+                else freedom+= "Koska determinantti on nollasta eriävä, \n"
+                        + "on vektorijono lineaarisesti riippumaton eli vapaa.";
                 answer.setText(freedom);
             } catch (Exception e) {
-                answer.setText("Väärä syöte.");
+                answer.setText("Väärä syöte vektorijonoksi.");
             }
         });
 
         buttonB.setOnAction((eventB) -> {
+            answer.setText("Ratkaistaan yhtälöryhmää.");
             String system = input.getText();
             try {
                 String solution = Solution.solveLinearSystem(system);
                 answer.setText(solution);
             } catch (Exception e) {
-                answer.setText("Väärä syöte.");
+                answer.setText("Väärä syöte yhtälöryhmäksi.");
             }
         });
 

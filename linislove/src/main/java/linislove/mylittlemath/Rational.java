@@ -36,7 +36,7 @@ public class Rational {
             ratNumber[1] = ratNumber[1].replaceAll("\\)", "");
             setRational(ratNumber[0], ratNumber[1]);
         } else if (number.matches("(\\+|\\-)?\\d+")) {
-            setRational(Integer.parseInt(number), 1);
+            setRational(number, 1);
         } else if (number.matches("(\\-|\\+)?\\d*\\.\\d+")) {
             int digitsBeforePoint = number.indexOf(".");
             number = number.replaceAll("\\.", "");

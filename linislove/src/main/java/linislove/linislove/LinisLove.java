@@ -51,7 +51,7 @@ public class LinisLove {
         System.out.println(Count.giveSolutions(x));
         System.out.println("");
         //System.out.println(Check.checkAnswer(A,x,b));
-        //Application.launch(Gui.class, args);
+        Application.launch(Gui.class, args);
         // TÄMÄ LUOKKA EDELLEEN HIEKKALAATIKKONA. Testaan siis tässä koodia
         // ennen kuin implementoin sen luokkiin.
         /*
