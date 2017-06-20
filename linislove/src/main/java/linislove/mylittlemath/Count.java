@@ -21,6 +21,11 @@ public class Count {
         return new Rational(upstairs, downstairs);
     }
 
+    /**
+     * Palauttaa rationaaliluvun käänteisalkion kertolaskun suhteen.
+     * @param a     Rationaaliluku jonka käänteisalkio halutaan.
+     * @return      Luvun a käänteisalkio.
+     */
     public static Rational reciprocal(Rational a) {
         if (!a.getNumerator().equals(BigInteger.ZERO)) {
             return new Rational(a.getDenominator(), a.getNumerator());
@@ -44,10 +49,20 @@ public class Count {
         return new Rational(upstairs, downstairs);
     }
 
+    /**
+     * Metodi palauttaa kahden rationaaliluvun (Rational -luokan olio) erotuksen.
+     * @param a     Luku josta vähennetään.
+     * @param b     Luku joka vähennetään.
+     * @return      Luku joka on edellisten erotus eli a-b
+     */
     public static Rational difference(Rational a, Rational b) {
         return sum(a, opposite(b));
     }
 
+    public static Rational divide(Rational a, Rational b){
+        return product(a, reciprocal(b));
+    }
+    
     public static int signum(Rational a) {
         return a.signumOfRational().intValue();
     }
@@ -103,7 +118,7 @@ public class Count {
                 arrayT[j][i] = arrayA[i][j];
             }
         }
-        return new Matrix(arrayT, m, n, A.getLongest());
+        return new Matrix(arrayT);
     }
 
     public static Matrix multiply(Matrix matrixA, Matrix matrixB) {
@@ -163,14 +178,23 @@ public class Count {
     }
 
     public static String giveSolutions(Matrix x) {
-        String printable = "";
+        String str = "";
         for (int i = 0; i < x.getM(); i++) {
-            printable += "x" + (i + 1) + " = " + x.getNumber(i, 0);
-            printable += (i < x.getM() - 1) ? "\n" : "";
+            str += "x" + (i + 1) + " = " + x.getNumber(i, 0);
+            str += (i < x.getM() - 1) ? "\n" : "";
         }
-        return printable;
+        return str;
     }
 
+    public static String giveSolutions(Rational[] x) {
+        String str = "";
+        for (int i = 0; i < x.length; i++) {
+            str += "x_" + (i + 1) + " = " + x[i];
+            str += (i < x.length - 1) ? "\n" : "";
+        }
+        return str;
+    }
+    
     public static Matrix substitute(Matrix A, Matrix b, int j) {
         Matrix replaced = createCopy(A);
         for (int i = 0; i < b.getM(); i++) {
@@ -180,25 +204,39 @@ public class Count {
         return replaced;
     }
 
-    public static Matrix createCopy(Matrix A) {
-        Matrix copy = new Matrix(A.getM(), A.getN());
-        for (int i = 0; i < A.getM(); i++) {
-            for (int j = 0; j < A.getN(); j++) {
-                Rational number = A.getNumber(i, j);
-                copy.setNumber(number, i, j);
-            }
-        }
-        return copy;
-
+    public static Matrix createCopy(Matrix a) {
+        return new Matrix(createCopy(a.getMatrixArray()));
     }
-
+    
+    public static Rational[][] createCopy(Rational[][] a){
+        int m = a.length;
+        int n = a[0].length;
+        Rational[][] copy = new Rational[m][n];
+        for (int i = 0; i < m; i++){
+            System.arraycopy(a[i], 0, copy[i], 0, n);
+        }       
+        return copy;
+    }
+    
+    public static Rational[] createCopy(Rational[] a){
+        int n = a.length;
+        Rational[] copy = new Rational[n];
+        System.arraycopy(a, 0, copy, 0, n);       
+        return copy;
+    }    
+    
+    public static boolean firstGreaterThanSecond(Rational a, Rational b){
+        int sign = signum(difference(a,b));
+        return sign > 0;
+    }
+    
     public static int gcd(int num, int denom) {
         if (denom == 0) {
             return num;
         }
         return gcd(denom, num % denom);
     }
-
+    
     public static Rational abs(Rational a) {
         if (Count.signum(a) >= 0) {
             return a;

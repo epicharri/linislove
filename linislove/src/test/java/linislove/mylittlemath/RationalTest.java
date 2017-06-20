@@ -75,14 +75,6 @@ public class RationalTest {
         assertTrue(a.toString().equals(b.toString()));
     }
 
-    @Test
-    public void originalRationalNumberIsAsParameterWasWhenCreatingNumber() {
-        Rational number = new Rational("210/9");
-        String expRes = ("(70/3)");
-        String res = number.toString();
-        assertEquals(expRes, res);
-        assertEquals("210/9", number.original());
-    }
 
     @Test
     public void signumGivesRightSign() {

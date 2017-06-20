@@ -12,8 +12,8 @@ public class Rational {
 
     private BigInteger numerator;
     private BigInteger denominator;
-    private String origNum;
-    private String origDenom;
+    //private String origNum;
+    //private String origDenom;
     public static final Rational ZERO = new Rational(0, 1);
     public static final Rational ONE = new Rational(1, 1);
 
@@ -113,15 +113,15 @@ public class Rational {
     private void setNumerator(Object num) {
         if (num.getClass() == BigInteger.class) {
             this.numerator = (BigInteger) num;
-            this.origNum = num.toString();
+            //this.origNum = num.toString();
         }
         if (num.getClass() == String.class) {
             this.numerator = new BigInteger((String) num);
-            this.origNum = (String) num;
+            //this.origNum = (String) num;
         }
         if (num.getClass() == Integer.class) {
             this.numerator = BigInteger.valueOf((Integer) num);
-            this.origNum = num.toString();
+            //this.origNum = num.toString();
         }
     }
 
@@ -146,15 +146,15 @@ public class Rational {
     private void setDenominator(Object denom) {
         if (denom.getClass() == BigInteger.class) {
             this.denominator = (BigInteger) denom;
-            this.origDenom = denom.toString();
+            //this.origDenom = denom.toString();
         }
         if (denom.getClass() == String.class) {
             this.denominator = new BigInteger((String) denom);
-            this.origDenom = (String) denom;
+            //this.origDenom = (String) denom;
         }
         if (denom.getClass() == Integer.class) {
             this.denominator = BigInteger.valueOf((Integer) denom);
-            this.origDenom = denom.toString();
+            //this.origDenom = denom.toString();
         }
     }
 
@@ -185,7 +185,9 @@ public class Rational {
         return "(" + numerator + "/" + denominator + ")";
     }
 
+    /*
     public String original() {
         return origNum + "/" + origDenom;
     }
+    */
 }

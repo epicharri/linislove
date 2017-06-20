@@ -123,16 +123,16 @@ public class LinearSystem {
     private int[] nextXandIndex(String equation, int index) {
         String subscript = "";
         int lastIndex = equation.length() - 1;
-        while (index <= lastIndex) {
-            Character a = equation.charAt(index);
-            if (a.toString().matches("\\d")) {
-                subscript += a;
+        while (index < lastIndex && equation.charAt(index) != '=') {
+            Character c = equation.charAt(index);
+            if (c.toString().matches("\\d")) {
+                subscript += c;
             } else {
                 break;
             }
             index++;
         }
-        if (subscript.isEmpty() || !subscript.matches("\\d")) {
+        if (subscript.isEmpty() || !subscript.matches("\\d+")) {
             throw new RuntimeException("Muuttujalla x ei ole alaindeksiä "
                     + "joten yhtälöryhmä on väärin syötetty.");
         }
@@ -149,9 +149,9 @@ public class LinearSystem {
             if (index > lastIndex) {
                 return numberAndIndex(number, index);
             }
-            char a = equation.charAt(index);
-            if (a != 'x') {
-                number += a;
+            char c = equation.charAt(index);
+            if (c != 'x') {
+                number += c;
             } else {
                 index++;
                 if (number.isEmpty() || number.equals("+")) {

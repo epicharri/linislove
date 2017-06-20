@@ -37,15 +37,6 @@ public class LinisLoveTest {
     public void tearDown() {
     }
 
-    /**
-     * Test of one method, of class LinisLove.
-     */
-    @Test
-    public void testOne() {
-        LinisLove instance = new LinisLove();
-        int expResult = 1;
-        int result = instance.one();
-        assertEquals(expResult, result);
-    }
+
 
 }

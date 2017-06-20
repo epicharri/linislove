@@ -7,7 +7,9 @@ package linislove.logic;
 
 import linislove.mylittlemath.Count;
 import linislove.mylittlemath.LinearSystem;
+import linislove.mylittlemath.LinearSystemSolver;
 import linislove.mylittlemath.Matrix;
+import linislove.mylittlemath.Rational;
 
 /**
  *
@@ -17,10 +19,7 @@ public class Solution {
 
     public static String solveLinearSystem(String system) {
         LinearSystem linearSystem = new LinearSystem(system);
-        Matrix A = new Matrix(linearSystem);
-        Matrix b = new Matrix(linearSystem.getB(), linearSystem.getB().length, 1,
-                linearSystem.getSizeOfLongestRationalNumber());
-        Matrix x = Count.solveByCramerRule(A, b);
+        Rational[] x = LinearSystemSolver.solveSystem(linearSystem);
         return Count.giveSolutions(x);
     }
 }

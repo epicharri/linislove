@@ -1,6 +1,8 @@
 package linislove.mylittlemath;
 
 import java.util.Arrays;
+import java.util.OptionalInt;
+import java.util.stream.Stream;
 
 /**
  * Matriisiluokka. Ylläpitää tietoa matriisiin kuuluvista rationaaliluvuista.
@@ -9,10 +11,10 @@ import java.util.Arrays;
 public class Matrix {
 
     private Rational[][] matrix;
-    private final String originalSetOrLinearSystem;
-    private int sizeOfLongestRationalNumber;
-    private int m;
-    private int n;
+    //private final String originalSetOrLinearSystem;
+    //private int sizeOfLongestRationalNumber;
+    //private int m;
+    //private int n;
 
     /**
      * Konstruktori, luo Matrix -olion annetusta vektorijonosta.
@@ -20,57 +22,63 @@ public class Matrix {
      * @param v SetOfVectors -luokan olio josta luodaan matriisi
      */
     public Matrix(SetOfVectors v) {
-        this.originalSetOrLinearSystem = v.getVectorQueue();
-        this.sizeOfLongestRationalNumber = v.getLongest();
+        //this.originalSetOrLinearSystem = v.getVectorQueue();
+        //this.sizeOfLongestRationalNumber = v.getLongest();
         this.matrix = v.getMatrixArray();
-        this.m = matrix.length;
-        this.n = matrix[0].length;
+        //this.m = matrix.length;
+        //this.n = matrix[0].length;
     }
 
     public Matrix(LinearSystem l) {
-        this.originalSetOrLinearSystem = l.getSystem();
-        this.sizeOfLongestRationalNumber = l.getSizeOfLongestRationalNumber();
+        //int rows = l.getA().length;
+        //int cols = l.getA()[0].length;
+        //this.originalSetOrLinearSystem = l.getSystem();
+        //this.sizeOfLongestRationalNumber = l.getSizeOfLongestRationalNumber();
         this.matrix = l.getA();
-        this.m = l.getA().length;
-        this.n = l.getA()[0].length;
+        //this.m = l.getA().length;
+        //this.n = l.getA()[0].length;
     }
 
-    public Matrix(Rational[][] a, int m, int n, int sizeOfLongest) {
-        this.originalSetOrLinearSystem = "";
-        sizeOfLongestRationalNumber = sizeOfLongest;
-        this.m = m;
-        this.n = n;
-        this.matrix = a;
+    public Matrix(Rational[][] a) {
+        //this.originalSetOrLinearSystem = "";
+        //sizeOfLongestRationalNumber = sizeOfLongest;
+        //this.m = m;
+        //this.n = n;
+        this.matrix = Count.createCopy(a);
     }
-
+    
     public Matrix(int m, int n) {
-        this.originalSetOrLinearSystem = "";
-        this.sizeOfLongestRationalNumber = 0;
-        this.m = m;
-        this.n = n;
+        //this.originalSetOrLinearSystem = "";
+        //this.sizeOfLongestRationalNumber = 0;
+        //this.m = m;
+        //this.n = n;
         this.matrix = new Rational[m][n];
     }
 
-    public int getLongest() {
+    
+    
+    /*public int getLongest() {
         return this.sizeOfLongestRationalNumber;
-    }
+    }*/
 
     // i on rivit ja j on sarakkeet, vakiintuneen käytännön mukaisesti
     public void setNumber(Rational number, int i, int j) {
-        if (i + 1 > this.m || j + 1 > this.n) {
+        if (i + 1 > getM() || j + 1 > getN()) {
             throw new RuntimeException("Matriisissa ei ole kohtaa jonka "
                     + "i -indeksi on " + i + " ja j -indeksi on " + j
-                    + "Matriisissa on " + m + "riviä ja " + n + "saraketta");
+                    + "Matriisissa on " + getM() + "riviä ja " + getN() + "saraketta");
         }
         this.matrix[i][j] = number;
+        /*
         int sizeOfNumber = number.toString().length();
         if (sizeOfLongestRationalNumber < sizeOfNumber) {
             sizeOfLongestRationalNumber = sizeOfNumber;
         }
+        */
     }
 
     public Rational getNumber(int i, int j) {
-        if (i < this.m && j < this.n && i >= 0 && j >= 0) {
+        if (i < getM() && j < getN() && i >= 0 && j >= 0) {
             return this.matrix[i][j];
         } else {
             throw new RuntimeException("Matriisissa ei ole indeksiä "
@@ -83,33 +91,49 @@ public class Matrix {
     }
 
     public int getN() {
-        return this.n;
+        return this.matrix[0].length;
     }
 
     public int getM() {
-        return this.m;
+        return this.matrix.length;
     }
 
     @Override
     public String toString() {
-        String myMatrix = "";
+        String str = "";
+        int m = getM();
+        int n = getN();
+        int longest = longestNumber();
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
-                String number = matrix[i][j].toString();
-                int spacesNeeded = this.sizeOfLongestRationalNumber
-                        - number.length() + 2;
-                String spaces = "";
-                for (int s = 0; s < spacesNeeded; s++) {
-                    spaces += " ";
-                }
-                myMatrix += number + spaces;
+                str += numberWithSpaces(i, j, longest);
             }
-            myMatrix += "\n";
+            str += "\n";
         }
-        //return this.originalSetOrLinearSystem.isEmpty() ? myMatrix : "Matriisi vektorijonosta " + this.originalSetOrLinearSystem + ":" + "\n\n" + myMatrix;
-        return myMatrix;
+        return str;
     }
 
+    private String numberWithSpaces(int i, int j, int longest){
+        String number = matrix[i][j].toString();
+        int spacesNeeded = longest - number.length() + 2;
+        for (int s = 0; s < spacesNeeded; s++) {
+            number+= " ";
+        }
+        return number;
+    }
+    private int longestNumber(){
+        int m = getM();
+        int n = getN();
+        int longest = 0;
+        for (int i = 0; i < m; i ++){
+            for (int j = 0; j < n; j++) {
+                int lengthOfNumber = this.matrix[i][j].toString().length();
+                longest = lengthOfNumber > longest ? lengthOfNumber : longest;
+            }
+        }
+        return longest;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 7;

@@ -17,27 +17,26 @@ public class Check {
      * Metodi palauttaa kerroinmatriisin ja tulosmatriisin mukaisen yhtälöryhmän
      * tulostettavassa muodossa.
      *
-     * @param A Matriisi A eli kerroinmatriisi yhtälöstä Ax=b
+     * @param a Matriisi a eli kerroinmatriisi yhtälöstä Ax=b
      * @param b Matriisi b eli tulosmatriisi yhtälöstä Ax=b
      * @return Palauttaa yhtälöryhmän tulostettavassa muodossa, esimerkki: x_1 +
      * 2x_2 = 3 -(4/5)x_1 + 17x_2 = 9775/12005777
      *
      */
 
-    /*
-    public static String checkAnswer(Matrix A, Matrix x, Matrix b) {
-        int m = A.getM();
-        int n = A.getN();
-        if (b.getM() != m) {
+    public static String checkAnswer(Rational[][] a, Rational[] x, Rational b[][]) {
+        int m = a.length;
+        int n = a.length;
+        if (b.length != m) {
             return "Matriisit A ja b eri "
-                    + "korkuisia. A:ssa rivejä " + m + " ja b:ssä " + b.getM();
+                    + "korkuisia. A:ssa rivejä " + m + " ja b:ssä " + b.length;
         }
         for (int i = 0; i < m; i++) {
-            Rational numberB = b.getNumber(i, 0);
+            Rational numberB = b[i][0];
             Rational sumOfRow = new Rational(0);
             for (int j = 0; j < n; j++) {
-                Rational numberA = A.getNumber(i, j);
-                Rational numberX = x.getNumber(j, 0);
+                Rational numberA = a[i][j];
+                Rational numberX = x[j];
                 Rational ax = Count.product(numberA, numberX);
                 sumOfRow = Count.sum(sumOfRow, ax);
             }
@@ -47,5 +46,8 @@ public class Check {
         }
         return "Yhtälöryhmän ratkaisu on tarkistettu ja on täsmälleen oikein.";
     }
-     */
+     
+    public static String checkAnswer(LinearSystem system, Rational[] answers){
+        return checkAnswer(system.getA(), answers, system.getB());
+    }
 }

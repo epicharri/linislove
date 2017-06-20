@@ -5,13 +5,19 @@
  */
 package linislove.linislove;
 
+import java.time.Duration;
+import java.time.Instant;
 import javafx.application.Application;
+import linislove.logic.RandomLinearSystem;
 import linislove.mylittlemath.Check;
 import linislove.mylittlemath.Count;
 import linislove.mylittlemath.LinearSystem;
 import linislove.mylittlemath.Matrix;
 import linislove.mylittlemath.SetOfVectors;
 import linislove.ui.Gui;
+
+import linislove.mylittlemath.LinearSystemSolver;
+import linislove.mylittlemath.Rational;
 
 /**
  *
@@ -21,6 +27,82 @@ public class LinisLove {
 
     public static void main(String[] args) throws InterruptedException {
 
+        /*
+        int m = 3;
+        int n = 3;
+        Rational x[] = new Rational[m];
+        /*
+        double b[] = new double[m];
+        double a[][] = new double[m][n];
+        for (int i = 0; i < m; i++){
+            for (int j = 0; j < n; j++){
+                double number = (double) ((int) (Math.random()*10));
+                a[i][j] = number;
+            }
+        }
+        for (int i = 0; i < m; i++) {
+            double number = (double) ((int) (Math.random()*10));
+            b[i] = number;
+        }
+        */
+        // tehdäänkin ihan oma:
+        /*
+        Rational a[][] = {
+            {Rational.ONE, Rational.ZERO, Rational.ZERO},
+            {Rational.ZERO, Rational.ONE, Rational.ZERO},
+            {Rational.ZERO, Rational.ZERO, Rational.ONE}
+        };
+        Rational b[] = {
+            new Rational(1),
+            new Rational(2),
+            new Rational(3)
+        };
+
+        int index[] = new int[m];
+        Instant start = Instant.now();
+        x = LinearSystemSolver.solve(a, b, index);
+        Instant end = Instant.now();
+
+        for (int i=0; i<m; i++) System.out.println("I_" + (i+1) + " = " + x[i]);        
+
+        System.out.println("Aika kului: " + 
+                Duration.between(start, end).toMillis()/1000.00 + " sekuntia.");
+        */
+        int numberOfUnknowns = 50;
+        int maxNum = 10;
+        int maxDenom = 6;
+        Instant start;
+        Instant end;
+        
+        start = Instant.now();
+        LinearSystem system = RandomLinearSystem.create(
+                numberOfUnknowns,
+                maxNum, maxDenom);
+        end = Instant.now();
+        
+        //System.out.println("Yhtälöryhmä: ");
+        System.out.println(system);
+        System.out.println("");
+        System.out.println("Aikaa yhtälöryhmän arpomiseen ja merkkijonon muodostamiseen kului: " + 
+                Duration.between(start, end).toMillis()/1000.00 + " sekuntia.");
+        
+        //int[] index = new int[system.getB().length];
+        start = Instant.now();
+        Rational[] x = LinearSystemSolver.solveSystem(system); 
+        end = Instant.now();
+        System.out.println("Ratkaisut:");
+        for (int i = 0; i < x.length; i++){
+            System.out.println("x_" + (i+1) + " = " + x[i]);
+        }
+        System.out.println("");
+        System.out.println("Aikaa ratkaisemiseen  kului: " + 
+                Duration.between(start, end).toMillis()/1000.00 + " sekuntia.");
+        //System.out.println("systeemi tulostettuna: ");
+        //System.out.println(system);
+        System.out.println("");
+        System.out.println(Check.checkAnswer(system, x));
+        System.out.println("");
+        
         //String system = "(2/3)x1 - x2 = 3; 3x1 + 5x2 = 1";
         //String system = "(-2/+3)x1 + 1.227 x2 - 1179/2557x3 = 0.1234;"
         //        + "x1 = 3;"
@@ -34,6 +116,8 @@ public class LinisLove {
         */
         
         // Tämä luokka edelleen hiekkalaatikkona testailua varten.
+        
+        /*
         
         String system = "x1-x2-(-1/7)x3 =1;2/3x2+x3 = (5/7);x4=7;x1+x2+x3+x4=17;";
         LinearSystem l = new LinearSystem(system);
@@ -296,8 +380,6 @@ public class LinisLove {
          */
     }
 
-    public int one() {
-        return 1;
-    }
+    
 
 }

@@ -26,3 +26,6 @@ Päivä | Tunnit | Kuvaus
 14.6.2017 | 4.5 | Gui, LinearSystem
 15.6.2017 | 6.0 | Gui, LinearSystem ja Solution -luokat
 15.6.2017 | 2.0 | Testit ja raportit
+19.6.2017 | 2.0 | Algoritmien kokeilua
+20.6.2017 | 8.0 | Yhtälöryhmän ratkaiseminen Gaussin eliminointimenetelmällä
+21.6.2017 | 2.5 | Gaussin jatkoa
