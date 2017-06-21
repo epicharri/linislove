@@ -190,7 +190,11 @@ public class LinearSystem {
 
     @Override
     public String toString() {
-        return linearSystem();
+        if (system.isEmpty()) {
+            return linearSystem();
+        }
+        String equations = system;
+        return equations.replaceAll(";", ";\n");
     }
 
     private String linearSystem() {

@@ -68,9 +68,11 @@ public class LinisLove {
         System.out.println("Aika kului: " + 
                 Duration.between(start, end).toMillis()/1000.00 + " sekuntia.");
         */
-        int numberOfUnknowns = 50;
+        System.out.println("Testausta konsoliin. Tämä ei tulostu lopullisessa "
+                + "palautuksessa.");
+        int numberOfUnknowns = 30;
         int maxNum = 10;
-        int maxDenom = 6;
+        int maxDenom = 10;
         Instant start;
         Instant end;
         
@@ -102,6 +104,9 @@ public class LinisLove {
         System.out.println("");
         System.out.println(Check.checkAnswer(system, x));
         System.out.println("");
+        
+        Application.launch(Gui.class, args);
+
         
         //String system = "(2/3)x1 - x2 = 3; 3x1 + 5x2 = 1";
         //String system = "(-2/+3)x1 + 1.227 x2 - 1179/2557x3 = 0.1234;"

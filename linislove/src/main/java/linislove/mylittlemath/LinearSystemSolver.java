@@ -1,35 +1,33 @@
-// An example of solving a linear equation set via the
-// partial-pivoting Gaussian elimination.
+/**
+ * Luokka on tarkoitettu kvadraattisen lineaarisen yhtälöryhmän
+ * ratkaisemiseen.
+ */
 package linislove.mylittlemath;
-
-import java.lang.*;
-import java.time.Duration;
-import java.time.Instant;
 
 public class LinearSystemSolver {
 
-    public static Rational[] solveSystem(LinearSystem system){
+    public static Rational[] solveSystem(LinearSystem system) {
         int rows = system.getB().length;
         Rational b[] = new Rational[rows];
         Rational[][] originalB = system.getB();
-        for (int i = 0; i < rows; i++){
+        for (int i = 0; i < rows; i++) {
             b[i] = originalB[i][0];
         }
         return solve(Count.createCopy(system.getA()), b);
     }
-    
+
     /**
      * Metodi ratkaisee yhtälön Ab = x Gaussin eliminointimenetelmällä
-     * osittaispivotoimalla.
-     * Huomioitava, että metodi muokkaa parametreina annettuja taulukoita.
-     * @param originalA     Rational[][] taulukko matriisista A
-     * @param originalB     Rational[] taulukko matriisista b
-     * @return              Rational[] taulukko jossa yhtälöryhmän vastaukset.
-     * 
+     * osittaispivotoimalla. Huomioitava, että metodi muokkaa parametreina
+     * annettuja taulukoita.
+     *
+     * @param originalA Rational[][] taulukko matriisista A
+     * @param originalB Rational[] taulukko matriisista b
+     * @return Rational[] taulukko jossa yhtälöryhmän vastaukset.
+     *
      */
-    
     private static Rational[] solve(Rational originalA[][], Rational originalB[]) {
-           
+
         int n = originalB.length;
         int[] index = new int[n];
         Rational x[] = new Rational[n];
@@ -69,12 +67,12 @@ public class LinearSystemSolver {
         }
         return det;
     }
-    */
-    
+     */
     /**
-     * Metodi suorittaa Gaussin eliminointimenetelmällä osittaispivotoinnin.
-     * @param a         Matriisi (Rational[][] a) joka muunnetaan.
-     * @param index     pivotointijärjestys tallennetaan tähän.
+     * Metodi toteuttaa Gaussin eliminointimenetelmällä yläkolmiomatriisin.
+     *
+     * @param a     Matriisi (Rational[][] a) joka muunnetaan.
+     * @param index pivotointijärjestys tallennetaan tähän.
      */
     public static void gaussian(Rational a[][], int index[]) {
         int n = index.length;
@@ -125,7 +123,7 @@ public class LinearSystemSolver {
                     a[index[i]][l] = Count.difference(a[index[i]][l], Count.product(pj, a[index[j]][l]));
                 }
             }
-            
+
         }
     }
 }

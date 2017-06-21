@@ -20,8 +20,10 @@ import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import linislove.logic.RandomLinearSystem;
 import linislove.logic.Solution;
 import linislove.mylittlemath.Count;
+import linislove.mylittlemath.LinearSystem;
 import linislove.mylittlemath.Matrix;
 import linislove.mylittlemath.Rational;
 import linislove.mylittlemath.SetOfVectors;
@@ -63,14 +65,18 @@ public class Gui extends Application {
 
         Button buttonA = new Button("Vapaus");
         Button buttonB = new Button("Ratkaise");
+        Button buttonC = new Button("Arvo yhtälöryhmä");
         buttonA.setMinWidth(100);
         buttonB.setMinWidth(100);
+        buttonC.setMinWidth(100);
         Tooltip tooltipA = new Tooltip("Ratkaisee onko vektorijono vapaa.");
         Tooltip.install(buttonA, tooltipA);
         Tooltip tooltipB = new Tooltip("Ratkaisee kvadraattisen yhtälöryhmän\njos sille löytyy yksikäsitteinen ratkaisu.");
         Tooltip.install(buttonB, tooltipB);
+        Tooltip tooltipC = new Tooltip("Luo satunnainen yhtälöryhmä");
+        Tooltip.install(buttonC, tooltipC);
 
-        menu.getChildren().addAll(label, input, buttonA, buttonB, answer);
+        menu.getChildren().addAll(label, input, buttonA, buttonB, buttonC, answer);
         layout.setTop(menu);
 
         buttonA.setOnAction((eventA) -> {
@@ -79,17 +85,20 @@ public class Gui extends Application {
             // Lopullisessa ohjelmassa logiikkakoodia ei ole käyttöliittymässä.
             answer.setText("Ratkaistaan vektorijonon vapautta.");
             String queue = input.getText();
-            
+
             try {
                 Matrix matrix = new Matrix(new SetOfVectors(queue));
                 Rational det = Count.det(matrix);
                 String freedom = "Vektorijonosta muodostetun matriisin\n"
                         + "determinantti on " + det + ".\n";
-                if (det.equals(Rational.ZERO)) freedom+= "Koska determinantti "
-                        + "on 0, on vektorijono lineaarisesti\n riippuvainen "
-                        + "eli sidottu.";
-                else freedom+= "Koska determinantti on nollasta eriävä, \n"
-                        + "on vektorijono lineaarisesti riippumaton eli vapaa.";
+                if (det.equals(Rational.ZERO)) {
+                    freedom += "Koska determinantti "
+                            + "on 0, on vektorijono lineaarisesti\n riippuvainen "
+                            + "eli sidottu.";
+                } else {
+                    freedom += "Koska determinantti on nollasta eriävä, \n"
+                            + "on vektorijono lineaarisesti riippumaton eli vapaa.";
+                }
                 answer.setText(freedom);
             } catch (Exception e) {
                 answer.setText("Väärä syöte vektorijonoksi.");
@@ -104,6 +113,14 @@ public class Gui extends Application {
                 answer.setText(solution);
             } catch (Exception e) {
                 answer.setText("Väärä syöte yhtälöryhmäksi.");
+            }
+        });
+
+        buttonC.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent eventC) {
+                LinearSystem system = RandomLinearSystem.create(7, 10, 9);
+                input.setText(system.toString());
             }
         });
 
