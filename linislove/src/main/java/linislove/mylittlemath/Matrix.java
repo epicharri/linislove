@@ -11,10 +11,6 @@ import java.util.stream.Stream;
 public class Matrix {
 
     private Rational[][] matrix;
-    //private final String originalSetOrLinearSystem;
-    //private int sizeOfLongestRationalNumber;
-    //private int m;
-    //private int n;
 
     /**
      * Konstruktori, luo Matrix -olion annetusta vektorijonosta.
@@ -25,8 +21,7 @@ public class Matrix {
         //this.originalSetOrLinearSystem = v.getVectorQueue();
         //this.sizeOfLongestRationalNumber = v.getLongest();
         this.matrix = v.getMatrixArray();
-        //this.m = matrix.length;
-        //this.n = matrix[0].length;
+
     }
 
     public Matrix(LinearSystem l) {

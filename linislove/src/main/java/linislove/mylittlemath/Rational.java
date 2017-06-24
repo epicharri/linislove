@@ -1,6 +1,7 @@
 package linislove.mylittlemath;
 
 import java.math.BigInteger;
+import java.util.Objects;
 
 /**
  * Rationaalilukujen luokka. Rationaaliluku muodostuu kahdesta kokonaisluvusta,
@@ -12,52 +13,91 @@ public class Rational {
 
     private BigInteger numerator;
     private BigInteger denominator;
-    //private String origNum;
-    //private String origDenom;
-    public static final Rational ZERO = new Rational(0, 1);
-    public static final Rational ONE = new Rational(1, 1);
+    public static final Rational ZERO = new Rational(BigInteger.ZERO, BigInteger.ONE);
+    public static final Rational ONE = new Rational(BigInteger.ONE, BigInteger.ONE);
 
-    /**
-     * Konstruktori, luo osoittajasta ja nimittäjästä rationaaliluvun.
-     *
-     * @param numerator nimittäjä
-     * @param denominator osoittaja
-     */
-    public Rational(Object numerator, Object denominator) {
+    
+    public Rational(int numerator, int denominator){
+        this(BigInteger.valueOf(numerator), BigInteger.valueOf(denominator));
+    }
+
+    public Rational(int numerator, BigInteger denominator){
+        this(BigInteger.valueOf(numerator), denominator);
+    }
+    public Rational(BigInteger numerator, int denominator){
+        this(numerator, BigInteger.valueOf(denominator));
+    }
+   
+    public Rational(BigInteger numerator, BigInteger denominator){
         setRational(numerator, denominator);
     }
-
+        
+    public Rational(BigInteger numerator) {
+        this(numerator, BigInteger.ONE);
+    }
+    
+    public Rational(int numerator) {
+        this(BigInteger.valueOf(numerator));
+    }
+    
     public Rational(String number) {
-        this(0);
         number = number.replaceAll("\\s", "");
-        if (number.matches("(\\+|\\-)?\\(?(\\+|\\-)?\\d+\\/(\\+|\\-)?\\d+\\)?")) {
-            String[] ratNumber = number.split("\\/");
-            ratNumber[0] = removeRedundantMinuses(ratNumber[0].replaceAll("\\(", ""));
-            ratNumber[1] = ratNumber[1].replaceAll("\\)", "");
-            setRational(ratNumber[0], ratNumber[1]);
-        } else if (number.matches("(\\+|\\-)?\\d+")) {
-            setRational(number, 1);
-        } else if (number.matches("(\\-|\\+)?\\d*\\.\\d+")) {
-            int digitsBeforePoint = number.indexOf(".");
-            number = number.replaceAll("\\.", "");
-            int numberOfDigits = number.length();
-            BigInteger divider = BigInteger.TEN.pow(numberOfDigits - digitsBeforePoint);
-            setRational(number, divider);
-        } else {
-            throw new RuntimeException("Syöte '" + number
-                    + "' ei ole sallittu luku.");
-        }
+        if (isRational(number)) parseRationalFromFractionString(number);
+        else if (isWholeNumber(number)) parseRationalFromWholeNumber(number);
+        else if (isDecimalNumber(number)) parseRationalFromDecimalString(number);
+        else throw new RuntimeException(number + " ei ole luku.");
     }
 
-    public Rational(Object numerator) {
-        this(numerator, 1);
+    /**
+     * Metodi lukee merkkijonon ja asettaa osoittajan ja nimittäjän.
+     * Tätä metodia kutsutaan vain kun on ensin testattu että merkkijono
+     * on kelvollinen muunnettavaksi.
+     * @param number    Merkkijono esimerkiksi muodossa -(-2/-7) tai 3/9. 
+     * Regex: "(\\+|\\-)?\\(?(\\+|\\-)?\\d+\\/(\\+|\\-)?\\d+\\)?".
+     */
+    private void parseRationalFromFractionString(String number) {
+        String[] ratNumber = number.split("\\/");
+        ratNumber[0] = removeRedundantMinuses(ratNumber[0].replaceAll("\\(", ""));
+        ratNumber[1] = ratNumber[1].replaceAll("\\)", "");
+        setRational(new BigInteger(ratNumber[0]), new BigInteger(ratNumber[1]));
     }
-
-    public Rational() {
-        this(0);
+    
+    private void parseRationalFromDecimalString(String number) {
+        number = removeBracketsAndRedundantMinuses(number);
+        int digitsBeforePoint = number.indexOf(".");
+        number = number.replaceAll("\\.", "");
+        int numberOfDigits = number.length();
+        BigInteger divider = BigInteger.TEN.pow(numberOfDigits - digitsBeforePoint);
+        setRational(new BigInteger(number), divider);
     }
-
-    public void simplify() {
+    
+    private void parseRationalFromWholeNumber(String number) {
+        number = removeBracketsAndRedundantMinuses(number);
+        setRational(new BigInteger(number), BigInteger.ONE);
+    }
+    
+    private String removeBrackets(String number) {
+        return number.replaceAll("(\\(|\\))", "");
+    }
+    
+    private String removeBracketsAndRedundantMinuses(String number) {
+        number = removeBrackets(number);
+        return removeRedundantMinuses(number);
+    }
+    
+    private boolean isRational(String number) {
+        return number.matches("(\\+|\\-)?\\(?(\\+|\\-)?\\d+\\/(\\+|\\-)?\\d+\\)?");
+    }
+    
+    private boolean isWholeNumber(String number) {
+        return number.matches("(\\+|\\-)?\\(?(\\+|\\-)?\\d+\\)?");
+    }
+    
+    private boolean isDecimalNumber(String number) {
+        return number.matches("(\\+|\\-)?\\(?(\\-|\\+)?\\d*\\.\\d+\\)?");
+    }
+    
+    private void simplify() {
         if (numerator.compareTo(BigInteger.ZERO) == 0) {
             denominator = BigInteger.ONE;
             return;
@@ -72,57 +112,11 @@ public class Rational {
         denominator = denominator.abs();
     }
 
-    public BigInteger signumOfRational() {
-        int signN = this.numerator.compareTo(BigInteger.ZERO);
-        int signD = this.denominator.compareTo(BigInteger.ZERO);
-        return BigInteger.valueOf(signN * signD);
-    }
-
-    /**
-     *
-     * @param num
-     * @param denom
-     */
-    private void setRational(Object num, Object denom) {
-        if (!decentElementsOfFraction(num, denom)) {
-            throw new RuntimeException("Rationaaliluvun muodostaminen "
-                    + "mahdollinen vain luokista Integer, String ja "
-                    + "BigInteger");
-        }
-        setNumerator(num);
-        setDenominator(denom);
+    private void setRational(BigInteger num, BigInteger denom) {
+        if (denom.equals(BigInteger.ZERO)) throw new RuntimeException("Nollalla ei voi jakaa.");
+        this.numerator = num;
+        this.denominator = denom;
         simplify();
-    }
-
-    private boolean decentElementsOfFraction(Object num, Object denom) {
-        Class n = num.getClass();
-        Class d = denom.getClass();
-        return isDecent(n) && isDecent(d);
-    }
-
-    private boolean isDecent(Object x) {
-        return x == BigInteger.class
-                || x == String.class
-                || x == Integer.class;
-    }
-
-    public BigInteger getNumerator() {
-        return numerator;
-    }
-
-    private void setNumerator(Object num) {
-        if (num.getClass() == BigInteger.class) {
-            this.numerator = (BigInteger) num;
-            //this.origNum = num.toString();
-        }
-        if (num.getClass() == String.class) {
-            this.numerator = new BigInteger((String) num);
-            //this.origNum = (String) num;
-        }
-        if (num.getClass() == Integer.class) {
-            this.numerator = BigInteger.valueOf((Integer) num);
-            //this.origNum = num.toString();
-        }
     }
 
     private String removeRedundantMinuses(String number) {
@@ -138,56 +132,80 @@ public class Rational {
         }
         return number;
     }
+    
+    public BigInteger signumOfRational() {
+        int signN = this.numerator.compareTo(BigInteger.ZERO);
+        int signD = this.denominator.compareTo(BigInteger.ZERO);
+        return BigInteger.valueOf(signN * signD);
+    }
+
+    public BigInteger getNumerator() {
+        return numerator;
+    }
 
     public BigInteger getDenominator() {
         return denominator;
     }
 
-    private void setDenominator(Object denom) {
-        if (denom.getClass() == BigInteger.class) {
-            this.denominator = (BigInteger) denom;
-            //this.origDenom = denom.toString();
-        }
-        if (denom.getClass() == String.class) {
-            this.denominator = new BigInteger((String) denom);
-            //this.origDenom = (String) denom;
-        }
-        if (denom.getClass() == Integer.class) {
-            this.denominator = BigInteger.valueOf((Integer) denom);
-            //this.origDenom = denom.toString();
-        }
-    }
-
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
+        if (this == obj) return true;
+        if (obj == null) return false;
+        if (getClass() != obj.getClass()) return false;
         final Rational other = (Rational) obj;
         return (this.numerator.equals(other.numerator)
                 && this.denominator.equals(other.denominator));
     }
 
+    private boolean possibleToBeLessOrGreater(Object obj){
+        if (this == obj) return false;
+        if (obj == null) return false;
+        return getClass() == obj.getClass();
+    }
+    
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 89 * hash + Objects.hashCode(this.numerator);
+        hash = 89 * hash + Objects.hashCode(this.denominator);
+        return hash;
+    }
+
     @Override
     public String toString() {
-        if (numerator.equals(BigInteger.ZERO)) {
-            return "" + numerator;
-        }
-        if (denominator.equals(BigInteger.ONE)) {
-            return "" + numerator;
-        }
+        if (numerator.equals(BigInteger.ZERO)) return "0";
+        if (denominator.equals(BigInteger.ONE)) return numerator.toString();
         return "(" + numerator + "/" + denominator + ")";
     }
 
-    /*
-    public String original() {
-        return origNum + "/" + origDenom;
+    public boolean isEqualTo(Rational other) {
+        return this.equals(other);
     }
-    */
+
+    /**
+     *
+     * @param other
+     * @return
+     */
+    public boolean greaterThan(Rational other) {
+        if (possibleToBeLessOrGreater(other)){
+            if (Count.signum(Count.difference(this, other)) > 0) return true;
+        }
+        return false;
+    }
+
+    public boolean lessThan(Rational other) {
+        if (possibleToBeLessOrGreater(other)){
+            if (Count.signum(Count.difference(this, other)) < 0) return true;
+        }
+        return false;
+    }
+
+    public boolean greaterOrEqual(Rational other) {
+        return (this.equals(other) || this.greaterThan(other));
+    }
+
+    public boolean lessThanOrEqual(Rational other) {
+        return this.equals(other) || this.lessThan(other);
+    }
 }

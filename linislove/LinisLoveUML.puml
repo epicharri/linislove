@@ -1,0 +1,102 @@
+@startuml
+annotation java.lang.Override
+class java.math.BigInteger
+class java.time.Duration
+class java.time.Instant
+class java.util.Arrays
+class java.util.HashMap
+class java.util.OptionalInt
+class java.util.stream.Stream
+class javafx.application.Application
+class javafx.application.Platform
+class javafx.event.ActionEvent
+class javafx.event.EventHandler
+class javafx.geometry.Insets
+class javafx.scene.Scene
+class javafx.scene.control.Button
+class javafx.scene.control.Label
+class javafx.scene.control.TextArea
+class javafx.scene.control.TextField
+class javafx.scene.control.Tooltip
+class javafx.scene.image.Image
+class javafx.scene.layout.Background
+class javafx.scene.layout.BorderPane
+class javafx.scene.layout.HBox
+class javafx.scene.layout.Region
+class javafx.scene.layout.StackPane
+class javafx.scene.text.Text
+class javafx.stage.Stage
+class linislove.linislove.LinisLove
+class linislove.logic.RandomLinearSystem
+class linislove.logic.Solution
+class linislove.mylittlemath.Check
+class linislove.mylittlemath.Count
+class linislove.mylittlemath.LinearSystem
+class linislove.mylittlemath.LinearSystemSolver
+class linislove.mylittlemath.Matrix
+class linislove.mylittlemath.Rational
+class linislove.mylittlemath.SetOfVectors
+class linislove.ui.Gui
+class linislove.ui.TextInputController
+linislove.linislove.LinisLove ..> java.time.Duration
+linislove.linislove.LinisLove ..> java.time.Instant
+linislove.linislove.LinisLove ..> javafx.application.Application
+linislove.linislove.LinisLove ..> linislove.logic.RandomLinearSystem
+linislove.linislove.LinisLove ..> linislove.mylittlemath.Check
+linislove.linislove.LinisLove ..> linislove.mylittlemath.Count
+linislove.linislove.LinisLove ..> linislove.mylittlemath.LinearSystem
+linislove.linislove.LinisLove ..> linislove.mylittlemath.LinearSystemSolver
+linislove.linislove.LinisLove ..> linislove.mylittlemath.Matrix
+linislove.linislove.LinisLove ..> linislove.mylittlemath.Rational
+linislove.linislove.LinisLove ..> linislove.mylittlemath.SetOfVectors
+linislove.linislove.LinisLove ..> linislove.ui.Gui
+linislove.logic.RandomLinearSystem ..> java.math.BigInteger
+linislove.logic.RandomLinearSystem ..> linislove.mylittlemath.LinearSystem
+linislove.logic.RandomLinearSystem ..> linislove.mylittlemath.Rational
+linislove.logic.Solution ..> linislove.mylittlemath.Count
+linislove.logic.Solution ..> linislove.mylittlemath.LinearSystem
+linislove.logic.Solution ..> linislove.mylittlemath.LinearSystemSolver
+linislove.logic.Solution ..> linislove.mylittlemath.Matrix
+linislove.logic.Solution ..> linislove.mylittlemath.Rational
+linislove.mylittlemath.Check ..> java.math.BigInteger
+linislove.mylittlemath.Count ..> java.math.BigInteger
+linislove.mylittlemath.LinearSystem ..> java.lang.Override
+linislove.mylittlemath.LinearSystem ..> java.math.BigInteger
+linislove.mylittlemath.LinearSystem ..> java.util.HashMap
+linislove.mylittlemath.Matrix ..> java.lang.Override
+linislove.mylittlemath.Matrix ..> java.util.Arrays
+linislove.mylittlemath.Matrix ..> java.util.OptionalInt
+linislove.mylittlemath.Matrix ..> java.util.stream.Stream
+linislove.mylittlemath.Rational ..> java.lang.Override
+linislove.mylittlemath.Rational ..> java.math.BigInteger
+linislove.ui.Gui ..> java.lang.Override
+linislove.ui.Gui --|> javafx.application.Application
+linislove.ui.Gui ..> javafx.application.Platform
+linislove.ui.Gui ..> javafx.event.ActionEvent
+linislove.ui.Gui ..> javafx.event.EventHandler
+linislove.ui.Gui ..> javafx.geometry.Insets
+linislove.ui.Gui ..> javafx.scene.Scene
+linislove.ui.Gui ..> javafx.scene.control.Button
+linislove.ui.Gui ..> javafx.scene.control.Label
+linislove.ui.Gui ..> javafx.scene.control.TextArea
+linislove.ui.Gui ..> javafx.scene.control.TextField
+linislove.ui.Gui ..> javafx.scene.control.Tooltip
+linislove.ui.Gui ..> javafx.scene.image.Image
+linislove.ui.Gui ..> javafx.scene.layout.Background
+linislove.ui.Gui ..> javafx.scene.layout.BorderPane
+linislove.ui.Gui ..> javafx.scene.layout.HBox
+linislove.ui.Gui ..> javafx.scene.layout.Region
+linislove.ui.Gui ..> javafx.scene.layout.StackPane
+linislove.ui.Gui ..> javafx.scene.text.Text
+linislove.ui.Gui ..> javafx.stage.Stage
+linislove.ui.Gui ..> linislove.logic.RandomLinearSystem
+linislove.ui.Gui ..> linislove.logic.Solution
+linislove.ui.Gui ..> linislove.mylittlemath.Count
+linislove.ui.Gui ..> linislove.mylittlemath.LinearSystem
+linislove.ui.Gui ..> linislove.mylittlemath.Matrix
+linislove.ui.Gui ..> linislove.mylittlemath.Rational
+linislove.ui.Gui ..> linislove.mylittlemath.SetOfVectors
+linislove.ui.TextInputController ..> javafx.event.ActionEvent
+linislove.ui.TextInputController ..> javafx.scene.control.Button
+linislove.ui.TextInputController ..> javafx.scene.control.TextField
+@enduml

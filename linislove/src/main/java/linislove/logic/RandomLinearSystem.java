@@ -23,7 +23,6 @@ public class RandomLinearSystem {
      * @return                  LinearSystem -luokan olio.
      */
     public static LinearSystem create(int x, int maxNum, int maxDenom){
-        String system = "";
         StringBuilder str = new StringBuilder();
         for (int i = 0; i < x; i++){
             for (int j = 0; j < x; j++){
@@ -33,29 +32,18 @@ public class RandomLinearSystem {
                         append(randomRational(maxNum, maxDenom).toString()).
                         append('x').
                         append(subscript);
-
-/*                system+= randomPlusOrMinus() + 
-                        randomRational(maxNum, maxDenom) 
-                        + "x" + subscript;
-*/
             }
             str.append('=').append(randomPlusOrMinus()).
-                    append(randomRational(maxNum, maxDenom)).
+                    append(randomRational(maxNum, maxDenom).toString()).
                     append(';');
-/*            system+= "=" +
-                    randomPlusOrMinus() +
-                    randomRational(maxNum, maxDenom) + ";";
-*/
-//testaamista
-            System.out.println(i + ". yhtälörivi.");
-            //testaus sulkeutu
         }
         return new LinearSystem(str.toString());
     }
     
     private static Rational randomRational(int maxNum, int maxDenom){
-        return new Rational(randomInt(maxNum), 
-                randomInt(maxDenom) + 1);
+        maxNum = randomInt(maxNum);
+        maxDenom = randomInt(maxDenom) + 1;
+        return new Rational(maxNum,(maxDenom));
     }
     
     private static int randomInt(int maxInt){

@@ -40,7 +40,7 @@ public class RationalTest {
 
     @Test
     public void simplifyWorks() {
-        Rational number = new Rational(222, "444");
+        Rational number = new Rational(222, 444);
         assertEquals(new Rational("1/2"), number);
     }
 

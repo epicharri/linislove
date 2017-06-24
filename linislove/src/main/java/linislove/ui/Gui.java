@@ -119,7 +119,7 @@ public class Gui extends Application {
         buttonC.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent eventC) {
-                LinearSystem system = RandomLinearSystem.create(7, 10, 9);
+                LinearSystem system = RandomLinearSystem.create(10, 10, 9);
                 input.setText(system.toString());
             }
         });

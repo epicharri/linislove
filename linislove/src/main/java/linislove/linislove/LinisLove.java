@@ -70,7 +70,7 @@ public class LinisLove {
         */
         System.out.println("Testausta konsoliin. Tämä ei tulostu lopullisessa "
                 + "palautuksessa.");
-        int numberOfUnknowns = 30;
+        int numberOfUnknowns = 40;
         int maxNum = 10;
         int maxDenom = 10;
         Instant start;

@@ -20,15 +20,12 @@ import java.util.HashMap;
 public class LinearSystem {
 
     private Rational[][] a;
-    //private int[] subScriptsOfUnknowns;
     private Rational[][] b;
-    private int sizeOfLongestRationalNumber;
     private String system;
     private int maxNumberOfUnknowns;
 
     public LinearSystem(String system) {
         this.system = system;
-        this.sizeOfLongestRationalNumber = 0;
         this.maxNumberOfUnknowns = 0;
         if (!parseLinearSystem()) {
             throw new RuntimeException("Vääränlainen syöte yhtälöryhmälle.");
@@ -52,22 +49,13 @@ public class LinearSystem {
                 Object number = row.get(j + 1);
                 if (number != null) {
                     a[i][j] = new Rational((String) number);
-                    setSizeOfLongestIfNecessary(a[i][j]);
                 }
             }
             Object num = row.get(Integer.MIN_VALUE);
             String number = (String) num;
             b[i][0] = new Rational(number);
-            setSizeOfLongestIfNecessary(b[i][0]);
         }
         return true;
-    }
-
-    private void setSizeOfLongestIfNecessary(Rational number) {
-        int size = number.toString().length();
-        if (size > this.sizeOfLongestRationalNumber) {
-            this.sizeOfLongestRationalNumber = size;
-        }
     }
 
     public Rational[][] getA() {
@@ -76,10 +64,6 @@ public class LinearSystem {
 
     public Rational[][] getB() {
         return b;
-    }
-
-    public int getSizeOfLongestRationalNumber() {
-        return sizeOfLongestRationalNumber;
     }
 
     public String getSystem() {

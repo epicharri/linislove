@@ -29,3 +29,5 @@ Päivä | Tunnit | Kuvaus
 19.6.2017 | 2.0 | Algoritmien kokeilua
 20.6.2017 | 8.0 | Yhtälöryhmän ratkaiseminen Gaussin eliminointimenetelmällä
 21.6.2017 | 2.5 | Gaussin jatkoa
+23.6.2017 | 2.0 | Luokkien uudelleenrakentamista
+24.6.2017 | 4.0 | Luokkien uudelleenrakentamista
