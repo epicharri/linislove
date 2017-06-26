@@ -31,3 +31,4 @@ Päivä | Tunnit | Kuvaus
 21.6.2017 | 2.5 | Gaussin jatkoa
 23.6.2017 | 2.0 | Luokkien uudelleenrakentamista
 24.6.2017 | 4.0 | Luokkien uudelleenrakentamista
+26.6.2017 | 7.0 | Syötteiden tarkistaminen, ilmoitukset jos ei voi ratkaista Gui:hin, laskuoperaatioiden korjausta, testejä

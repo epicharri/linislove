@@ -27,12 +27,14 @@ public class LinearSystem {
     public LinearSystem(String system) {
         this.system = system;
         this.maxNumberOfUnknowns = 0;
-        if (!parseLinearSystem()) {
-            throw new RuntimeException("Vääränlainen syöte yhtälöryhmälle.");
+        try {
+            parseLinearSystem();
+        } catch (Exception e) {
+            throw e;
         }
     }
 
-    private boolean parseLinearSystem() {
+    private void parseLinearSystem() {
         String[] equations = giveEquations(this.system);
         int numberOfEquations = equations.length;
         HashMap[] equationMaps = new HashMap[numberOfEquations];
@@ -40,7 +42,9 @@ public class LinearSystem {
             equationMaps[i] = parseEquation(equations[i]);
         }
         if (numberOfEquations != maxNumberOfUnknowns) {
-            return false;
+            throw new RuntimeException("Yhtälöiden ja tuntemattomien määrä on "
+                    + "erisuuri joten yhtälöryhmä ei ole kvadraattinen. "
+                    + "Sovellus ratkaisee vain kvadraattisia yhtälöryhmiä.");
         }
         initMatricesAandB(numberOfEquations, this.maxNumberOfUnknowns);
         for (int i = 0; i < equationMaps.length; i++) {
@@ -55,7 +59,6 @@ public class LinearSystem {
             String number = (String) num;
             b[i][0] = new Rational(number);
         }
-        return true;
     }
 
     public Rational[][] getA() {
@@ -117,7 +120,7 @@ public class LinearSystem {
             index++;
         }
         if (subscript.isEmpty() || !subscript.matches("\\d+")) {
-            throw new RuntimeException("Muuttujalla x ei ole alaindeksiä "
+            throw new IllegalArgumentException("Muuttujalla x ei ole alaindeksiä "
                     + "joten yhtälöryhmä on väärin syötetty.");
         }
         int[] nextXandI = new int[2];

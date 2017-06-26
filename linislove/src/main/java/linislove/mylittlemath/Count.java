@@ -23,14 +23,15 @@ public class Count {
 
     /**
      * Palauttaa rationaaliluvun käänteisalkion kertolaskun suhteen.
-     * @param a     Rationaaliluku jonka käänteisalkio halutaan.
-     * @return      Luvun a käänteisalkio.
+     *
+     * @param a Rationaaliluku jonka käänteisalkio halutaan.
+     * @return Luvun a käänteisalkio.
      */
     public static Rational reciprocal(Rational a) {
         if (!a.getNumerator().equals(BigInteger.ZERO)) {
             return new Rational(a.getDenominator(), a.getNumerator());
         } else {
-            throw new RuntimeException("Nollalla ei ole käänteislukua.");
+            throw new IllegalArgumentException("Nollalla ei ole käänteislukua.");
         }
     }
 
@@ -50,19 +51,21 @@ public class Count {
     }
 
     /**
-     * Metodi palauttaa kahden rationaaliluvun (Rational -luokan olio) erotuksen.
-     * @param a     Luku josta vähennetään.
-     * @param b     Luku joka vähennetään.
-     * @return      Luku joka on edellisten erotus eli a-b
+     * Metodi palauttaa kahden rationaaliluvun (Rational -luokan olio)
+     * erotuksen.
+     *
+     * @param a Luku josta vähennetään.
+     * @param b Luku joka vähennetään.
+     * @return Luku joka on edellisten erotus eli a-b
      */
     public static Rational difference(Rational a, Rational b) {
         return sum(a, opposite(b));
     }
 
-    public static Rational divide(Rational a, Rational b){
+    public static Rational divide(Rational a, Rational b) {
         return product(a, reciprocal(b));
     }
-    
+
     public static int signum(Rational a) {
         return a.signumOfRational().intValue();
     }
@@ -129,7 +132,7 @@ public class Count {
         int bN = matrixB.getN();
         int bM = matrixB.getM();
         if (aN != bM) {
-            throw new RuntimeException("Matriisikertolasku ei ole määritelty näillä matriiseilla.");
+            throw new IllegalArgumentException("Matriisikertolasku ei ole määritelty näillä matriiseilla.");
         }
         Matrix matrixAb = new Matrix(aM, bN);
         Rational[][] ab = matrixAb.getMatrixArray();
@@ -154,18 +157,18 @@ public class Count {
 
     public static Matrix solveByCramerRule(Matrix a, Matrix b) {
         if (a.getM() != a.getN()) {
-            throw new RuntimeException(""
-                    + "Cramerin säännöllä voi ratkaista vain kvadraattisia "
+            throw new IllegalArgumentException(""
+                    + "Ohjelma ratkaisee vain kvadraattisia "
                     + "yhtälöryhmiä.");
         }
         if (!(a.getM() == b.getM())) {
-            throw new RuntimeException("Matriisit annettava siten että "
+            throw new IllegalArgumentException("Matriisit annettava siten että "
                     + "A:ssa ja b:ssä on saman verran rivejä.");
         }
         Matrix valuesOfX = new Matrix(b.getM(), 1);
         Rational detA = det(a);
         if (detA.equals(Rational.ZERO)) {
-            throw new RuntimeException("Yhtälö"
+            throw new IllegalArgumentException("Yhtälö"
                     + "ryhmällä ei ole yksikäsitteistä ratkaisua.");
         }
         Rational detAreciprocal = reciprocal(detA);
@@ -194,7 +197,7 @@ public class Count {
         }
         return str;
     }
-    
+
     public static Matrix substitute(Matrix A, Matrix b, int j) {
         Matrix replaced = createCopy(A);
         for (int i = 0; i < b.getM(); i++) {
@@ -207,36 +210,24 @@ public class Count {
     public static Matrix createCopy(Matrix a) {
         return new Matrix(createCopy(a.getMatrixArray()));
     }
-    
-    public static Rational[][] createCopy(Rational[][] a){
+
+    public static Rational[][] createCopy(Rational[][] a) {
         int m = a.length;
         int n = a[0].length;
         Rational[][] copy = new Rational[m][n];
-        for (int i = 0; i < m; i++){
+        for (int i = 0; i < m; i++) {
             System.arraycopy(a[i], 0, copy[i], 0, n);
-        }       
+        }
         return copy;
     }
-    
-    public static Rational[] createCopy(Rational[] a){
+
+    public static Rational[] createCopy(Rational[] a) {
         int n = a.length;
         Rational[] copy = new Rational[n];
-        System.arraycopy(a, 0, copy, 0, n);       
+        System.arraycopy(a, 0, copy, 0, n);
         return copy;
-    }    
-    
-    public static boolean firstGreaterThanSecond(Rational a, Rational b){
-        int sign = signum(difference(a,b));
-        return sign > 0;
     }
-    
-    public static int gcd(int num, int denom) {
-        if (denom == 0) {
-            return num;
-        }
-        return gcd(denom, num % denom);
-    }
-    
+
     public static Rational abs(Rational a) {
         if (Count.signum(a) >= 0) {
             return a;

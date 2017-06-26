@@ -14,18 +14,19 @@ import linislove.mylittlemath.Rational;
  * @author harrikah
  */
 public class RandomLinearSystem {
-    
+
     /**
      * Luo satunnaisen kvadraattisen yhtälöryhmän.
-     * @param x                 Tuntemattomien ja samalla yhtälöiden määrä.
-     * @param maxNum            Suurin arvo osoittajalle
-     * @param maxDenom          Suurin arvo nimittäjälle
-     * @return                  LinearSystem -luokan olio.
+     *
+     * @param x Tuntemattomien ja samalla yhtälöiden määrä.
+     * @param maxNum Suurin arvo osoittajalle
+     * @param maxDenom Suurin arvo nimittäjälle
+     * @return LinearSystem -luokan olio.
      */
-    public static LinearSystem create(int x, int maxNum, int maxDenom){
+    public static LinearSystem create(int x, int maxNum, int maxDenom) {
         StringBuilder str = new StringBuilder();
-        for (int i = 0; i < x; i++){
-            for (int j = 0; j < x; j++){
+        for (int i = 0; i < x; i++) {
+            for (int j = 0; j < x; j++) {
                 int subscript = j + 1;
                 str.
                         append(randomPlusOrMinus()).
@@ -39,19 +40,19 @@ public class RandomLinearSystem {
         }
         return new LinearSystem(str.toString());
     }
-    
-    private static Rational randomRational(int maxNum, int maxDenom){
+
+    private static Rational randomRational(int maxNum, int maxDenom) {
         maxNum = randomInt(maxNum);
         maxDenom = randomInt(maxDenom) + 1;
-        return new Rational(maxNum,(maxDenom));
+        return new Rational(maxNum, (maxDenom));
     }
-    
-    private static int randomInt(int maxInt){
+
+    private static int randomInt(int maxInt) {
         return (int) (Math.random() * maxInt);
     }
-    
-    private static String randomPlusOrMinus(){
+
+    private static String randomPlusOrMinus() {
         return (Math.random() >= 0.5) ? "-" : "+";
     }
-    
+
 }

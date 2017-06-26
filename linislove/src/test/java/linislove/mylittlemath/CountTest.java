@@ -69,13 +69,6 @@ public class CountTest {
     }
 
     @Test
-    public void methodGCDgivesGreatestCommonDivider() {
-        assertEquals(1, Count.gcd(13, 7));
-        assertEquals(1, Count.gcd(1, 0));
-        assertEquals(3, Count.gcd(39, 21));
-    }
-
-    @Test
     public void givesRightReciprocal() {
         Rational a = new Rational(-13, 7);
         Rational expectedReciprocal = new Rational(-7, 13);

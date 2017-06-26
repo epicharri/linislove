@@ -35,8 +35,8 @@ public class SetOfVectors {
         this.vectorQueue = v;
         sizeOfLongestRationalNumber = 0;
         if (!parseStringOfSetOfVectorsToMatrixArray(v)) {
-            throw new RuntimeException("Matriisia ei voitu luoda antamastasi"
-                    + "vektorijonosta, koska jono sisältää eri vektoriavaruuksien"
+            throw new IllegalArgumentException("Matriisia ei voitu luoda antamastasi "
+                    + "vektorijonosta, koska jono sisältää eri vektoriavaruuksien "
                     + "vektoreita.");
         }
     }

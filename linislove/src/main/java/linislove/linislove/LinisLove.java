@@ -70,9 +70,21 @@ public class LinisLove {
         */
         System.out.println("Testausta konsoliin. Tämä ei tulostu lopullisessa "
                 + "palautuksessa.");
-        int numberOfUnknowns = 40;
-        int maxNum = 10;
-        int maxDenom = 10;
+        System.out.println("");
+        
+        /*
+        Rational a = new Rational(-1,2);
+        Rational b = a.abs();
+        String inequal = a.greaterThan(b) ? ">" : "<";
+        System.out.println(a + inequal + b);
+        System.out.println(a);
+        System.out.println(b);
+        System.out.println("a * b = " + a.multiply(b));
+        System.out.println("Luvun "+a+" käänteisalkio on "+a.reciprocal());
+        */
+        int numberOfUnknowns = 10;
+        int maxNum = 1000000000;
+        int maxDenom = 1000000000;
         Instant start;
         Instant end;
         
@@ -80,6 +92,7 @@ public class LinisLove {
         LinearSystem system = RandomLinearSystem.create(
                 numberOfUnknowns,
                 maxNum, maxDenom);
+        
         end = Instant.now();
         
         //System.out.println("Yhtälöryhmä: ");
@@ -89,15 +102,18 @@ public class LinisLove {
                 Duration.between(start, end).toMillis()/1000.00 + " sekuntia.");
         
         //int[] index = new int[system.getB().length];
+        
+        
         start = Instant.now();
-        Rational[] x = LinearSystemSolver.solveSystem(system); 
+        Rational[] x = LinearSystemSolver.solveSystem(system);
+        
         end = Instant.now();
         System.out.println("Ratkaisut:");
         for (int i = 0; i < x.length; i++){
             System.out.println("x_" + (i+1) + " = " + x[i]);
         }
         System.out.println("");
-        System.out.println("Aikaa ratkaisemiseen  kului: " + 
+        System.out.println("Aikaa ratkaisemiseen  kului keskimäärin: " + 
                 Duration.between(start, end).toMillis()/1000.00 + " sekuntia.");
         //System.out.println("systeemi tulostettuna: ");
         //System.out.println(system);

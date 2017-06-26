@@ -19,11 +19,10 @@ public class Check {
      *
      * @param a Matriisi a eli kerroinmatriisi yhtälöstä Ax=b
      * @param b Matriisi b eli tulosmatriisi yhtälöstä Ax=b
-     * @return Palauttaa yhtälöryhmän tulostettavassa muodossa, esimerkki: x_1 +
-     * 2x_2 = 3 -(4/5)x_1 + 17x_2 = 9775/12005777
+     * @param x Matriisi x eli ratkaisumatriisi yhtälöstä Ax=b
+     * @return Teksti joka kertoo onko yhtälöryhmän ratkaisu oikein vai väärin.
      *
      */
-
     public static String checkAnswer(Rational[][] a, Rational[] x, Rational b[][]) {
         int m = a.length;
         int n = a.length;
@@ -46,8 +45,8 @@ public class Check {
         }
         return "Yhtälöryhmän ratkaisu on tarkistettu ja on täsmälleen oikein.";
     }
-     
-    public static String checkAnswer(LinearSystem system, Rational[] answers){
+
+    public static String checkAnswer(LinearSystem system, Rational[] answers) {
         return checkAnswer(system.getA(), answers, system.getB());
     }
 }

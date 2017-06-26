@@ -44,17 +44,35 @@ public class LinearSystemSolver {
         }
 
         // Takaisinsijoitus
-        x[n - 1] = Count.product(b[index[n - 1]], Count.reciprocal(a[index[n - 1]][n - 1]));
+        System.out.println("Takaisinsijoitus: jaetaan luvut " + b[index[n-1]] + " ja " + a[index[n-1]][n-1]);
+        
+        
+        Rational numberInDiagonal = a[index[n - 1]][n - 1];
+        
+        try {
+            x[n - 1] = b[index[n - 1]].divide(numberInDiagonal);
+        } catch (Exception e) {
+            throw new IllegalArgumentException("Yhtälöryhmälle ei ole olemassa "
+                    + "yksikäsitteistä ratkaisua.");
+        }
+//        x[n - 1] = Count.product(b[index[n - 1]], Count.reciprocal(a[index[n - 1]][n - 1]));
         for (int i = n - 2; i >= 0; --i) {
             x[i] = b[index[i]];
             for (int j = i + 1; j < n; ++j) {
-                x[i] = Count.difference(x[i], Count.product(a[index[i]][j], x[j]));
+                //x[i] = Count.difference(x[i], Count.product(a[index[i]][j], x[j]));
+                x[i] = x[i].minus(a[index[i]][j].multiply(x[j]));
             }
-            x[i] = Count.product(x[i], Count.reciprocal(a[index[i]][i]));
+            numberInDiagonal = a[index[i]][i];
+            try{
+                x[i] = x[i].divide(numberInDiagonal);
+            } catch (Exception e) {
+                throw new IllegalArgumentException("Yhtälöryhmälle ei ole olemassa "
+                        + "yksikäsitteistä ratkaisua.");
+            }
         }
         return x;
     }
-
+    
     /*
     // Tämä metodi ei valmis, pitää kehittää edelleen.
     public static Rational determinant(LinearSystem system) {
@@ -71,10 +89,11 @@ public class LinearSystemSolver {
     /**
      * Metodi toteuttaa Gaussin eliminointimenetelmällä yläkolmiomatriisin.
      *
-     * @param a     Matriisi (Rational[][] a) joka muunnetaan.
+     * @param a Matriisi (Rational[][] a) joka muunnetaan.
      * @param index pivotointijärjestys tallennetaan tähän.
      */
     public static void gaussian(Rational a[][], int index[]) {
+        //Rational detOfRowOps = Rational.ONE;
         int n = index.length;
         Rational c[] = new Rational[n];
 
@@ -88,10 +107,11 @@ public class LinearSystemSolver {
             Rational c1 = Rational.ZERO;
             for (int j = 0; j < n; ++j) {
                 Rational c0 = Count.abs(a[i][j]);
-                if (Count.firstGreaterThanSecond(c0, c1)) {
+                if (c0.greaterThan(c1)) {
                     c1 = c0;
-                }
+                } 
             }
+            System.out.println("Rivin suurin alkio on " + c1);
             c[i] = c1;
         }
 
@@ -100,9 +120,15 @@ public class LinearSystemSolver {
         for (int j = 0; j < n - 1; ++j) {
             Rational pi1 = Rational.ZERO;
             for (int i = j; i < n; ++i) {
-                Rational pi0 = Count.abs(a[index[i]][j]);
-                pi0 = Count.product(pi0, Count.reciprocal(c[index[i]]));
-                if (Count.firstGreaterThanSecond(pi0, pi1)) {
+                Rational pi0 = a[index[i]][j].abs();
+                //Rational factor = Count.reciprocal(c[index[i]]);
+
+                // Rivioperaatiomatriisin determinantin seuraaminen
+                //detOfRowOps = Count.product(detOfRowOps, factor);
+                System.out.println("Jakolasku: " + pi0 + " jaettuna luvulla " + c[index[i]]);
+                pi0 = pi0.divide(c[index[i]]); 
+                //Count.product(pi0, factor);
+                if (pi0.greaterThan(pi1)) {
                     pi1 = pi0;
                     k = i;
                 }
@@ -113,7 +139,10 @@ public class LinearSystemSolver {
             index[j] = index[k];
             index[k] = itmp;
             for (int i = j + 1; i < n; ++i) {
-                Rational pj = Count.divide(a[index[i]][j], a[index[j]][j]);
+                System.out.println("Nyt jaetaan " + a[index[i]][j] + " luvulla "+ a[index[j]][j]);
+                Rational pj = a[index[i]][j].divide(a[index[j]][j]);
+                
+//                Rational pj = Count.divide(a[index[i]][j], a[index[j]][j]);
 
                 // Sijoitetaan pivotointisuhteet diagonaalin alle
                 a[index[i]][j] = pj;
