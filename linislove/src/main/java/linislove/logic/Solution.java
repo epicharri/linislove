@@ -20,13 +20,17 @@ import linislove.mylittlemath.SetOfVectors;
 public class Solution {
 
     public static String solveLinearSystem(String system) throws Exception {
+        if (lolCat(system)) return lolCatAnswer("yhtälöryhmä");
         LinearSystem linearSystem = new LinearSystem(system);
         Rational[] x = LinearSystemSolver.solveSystem(linearSystem);
         return Count.giveSolutions(x);
     }
     
     public static String solveLinearDependency(String vectorSet) throws Exception {
+        if (lolCat(vectorSet)) return lolCatAnswer("vektorijono");
         try {
+            vectorSet = vectorSet.replaceAll(" ", "");
+            if (vectorSet.matches("\\(\\)")) return freeTrivially();
             Matrix matrixA = new Matrix(new SetOfVectors(vectorSet));
             // Lineaarialgebraa: m on rivien määrä ja n on sarakkeiden määrä.
             // Matriisi on luotu vektoreista ja selvitetään vapautta, joten
@@ -42,6 +46,11 @@ public class Solution {
             throw e;
         }            
     } 
+    
+    private static String freeTrivially(){
+        return "Vektorijono on vapaa koska se on tyhjä. On sovittu, että tyhjä vektorijono on "
+                + "lineaarisesti riippumaton.";
+    }
     
     private static String numberOfVectorsAndDimensionAreEqual(Matrix matrixA) {
         Rational det = Count.det(matrixA);
@@ -90,5 +99,29 @@ public class Solution {
                 + "jos ja vain jos det(A^T * A) != 0. Syöttämästäsi vektorijonosta näin muodostetun matriisin determinantti on "
                 + detAtA + ".\n"
                 + "Koska determinantti on nollasta eriävä, on syöttämäsi vektorijono lineaarisesti riippumaton eli vapaa.";        
+    }
+    
+    private static String lolCatAnswer(String vectorSetOrLinearSystem){
+        return "Lolcat ei ole " + vectorSetOrLinearSystem + ". Sen sijaan lolcat on kuva, "
+                + "jossa on yhdistetty kissan kuva humoristiseen tekstinpätkään. "
+                + "Teksti on yleensä lolcat-kieltä eli \"lolspeakiä\", joka on muunneltua englantia. "
+                + "Lolcat-kielessä tehdään tahallaan aloittelijamaisia virheitä englannin kieliopissa. "
+                + "Esimerkiksi lause \"Can I have a cheeseburger?\" kirjoitetaan lolcat-kielessä "
+                + "tyypillisesti \"I can has cheezburger?\"\n\n"
+                + "Lähde: https://fi.wikipedia.org/wiki/Lolcat"
+                + "\n"
+                + "Ohjelma ei ole tarkoitettu toimimaan Wikipedian korvikkeena, joten kokeile ennemmin "
+                + "syöttää esimerkiksi tällainen vektorijono:\n"
+                + "(1,0,0),(0,13/17,0)\n"
+                + "ja klikkaa nappia 'Vektorijonon vapaus'.\n"
+                + "Huomaa, että vektorijonoa syötettäessä sulkuja saa käyttää vain yllämainitulla tavalla. Älä siis laita rationaalilukuja sulkeisiin.\n\n"
+                + "Yhtälöryhmän ratkaisua voit kokeilla esimerkiksi syötteellä\n"
+                + "(-3/7)x1 + (-2/-5)x2 = 7;\n12.377x1 - 100x2 = 1.11\n"
+                + "ja painamalla yhtälöryhmän ratkaisu -nappia. Voit myös arpoa yhtälöryhmän arpomisnappia painamalla ja klikkaamalla ratkaise -nappia. "
+                + "Kivoja hetkiä sovelluksen parissa!";
+    }
+    
+    private static boolean lolCat(String input){
+        return input.trim().toLowerCase().equals("lolcat");
     }
 }

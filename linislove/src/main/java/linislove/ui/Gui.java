@@ -92,7 +92,6 @@ public class Gui extends Application {
                 answer.setText("Ratkaistaan vektorijonon vapautta.");
                 try {
                     String freedom = Solution.solveLinearDependency(setOfVectors); 
-                    System.out.println(freedom);
                     answer.setText(freedom);
                 } catch (Exception e) {
                     answer.setText(e.getMessage());
