@@ -45,14 +45,22 @@ public class Solution {
     
     private static String numberOfVectorsAndDimensionAreEqual(Matrix matrixA) {
         Rational det = Count.det(matrixA);
+        String space = "R^"+ matrixA.getM();
         String freedom = "Vektorijonosta muodostetun matriisin\n "
                 + "determinantti on " + det + ".\n";
         if (det.equals(Rational.ZERO)) {
             freedom += "Koska determinantti on 0, on vektorijono lineaarisesti "
-                    + "riippuvainen eli sidottu.";
+                    + "riippuvainen eli sidottu. Jono ei myöskään ole vektoriavaruuden "
+                    + space + " kanta, koska vain vapaa jono jossa on " 
+                    + matrixA.getM() + " vektoria virittää avaruuden " + space + ".";
         } else {
             freedom += "Koska determinantti on nollasta eriävä, on vektorijono "
-                    + "lineaarisesti riippumaton eli vapaa.";
+                    + "lineaarisesti riippumaton eli vapaa. \n"
+                    + "Koska vektorijono on vapaa ja siinä olevien vektorien määrä "
+                    + "on sama kuin avaruuden "+ space+ " dimensio, "
+                    + "jono muodostaa avaruuden " + space + " kannan ja "
+                    + "virittää avaruuden "+ space + ". \n"
+                    + "Antamillasi vektoreilla siis pääsee ihan joka paikkaan kyseisessä avaruudessa :)";
                 }
         return freedom;
     }
