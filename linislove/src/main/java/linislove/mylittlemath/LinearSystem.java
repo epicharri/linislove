@@ -7,6 +7,7 @@ package linislove.mylittlemath;
 
 import java.math.BigInteger;
 import java.util.HashMap;
+import java.util.InputMismatchException;
 
 /**
  *
@@ -24,28 +25,32 @@ public class LinearSystem {
     private String system;
     private int maxNumberOfUnknowns;
 
-    public LinearSystem(String system) {
+    public LinearSystem(String system) throws InputMismatchException {
         this.system = system;
         this.maxNumberOfUnknowns = 0;
         try {
             parseLinearSystem();
+        } catch (InputMismatchException e) {
+            throw e;
         } catch (Exception e) {
             throw e;
         }
     }
 
-    private void parseLinearSystem() {
+    private void parseLinearSystem() throws InputMismatchException{
         String[] equations = giveEquations(this.system);
         int numberOfEquations = equations.length;
         HashMap[] equationMaps = new HashMap[numberOfEquations];
         for (int i = 0; i < numberOfEquations; i++) {
             equationMaps[i] = parseEquation(equations[i]);
         }
+        
         if (numberOfEquations != maxNumberOfUnknowns) {
-            throw new RuntimeException("Yhtälöiden ja tuntemattomien määrä on "
+            throw new InputMismatchException("Yhtälöiden ja tuntemattomien määrä on "
                     + "erisuuri joten yhtälöryhmä ei ole kvadraattinen. "
                     + "Sovellus ratkaisee vain kvadraattisia yhtälöryhmiä.");
         }
+
         initMatricesAandB(numberOfEquations, this.maxNumberOfUnknowns);
         for (int i = 0; i < equationMaps.length; i++) {
             HashMap row = equationMaps[i];
@@ -107,7 +112,7 @@ public class LinearSystem {
         return equationRow;
     }
 
-    private int[] nextXandIndex(String equation, int index) {
+    private int[] nextXandIndex(String equation, int index) throws InputMismatchException {
         String subscript = "";
         int lastIndex = equation.length() - 1;
         while (index < lastIndex && equation.charAt(index) != '=') {
@@ -120,7 +125,7 @@ public class LinearSystem {
             index++;
         }
         if (subscript.isEmpty() || !subscript.matches("\\d+")) {
-            throw new IllegalArgumentException("Muuttujalla x ei ole alaindeksiä "
+            throw new InputMismatchException("Muuttujalla x ei ole alaindeksiä "
                     + "joten yhtälöryhmä on väärin syötetty.");
         }
         int[] nextXandI = new int[2];

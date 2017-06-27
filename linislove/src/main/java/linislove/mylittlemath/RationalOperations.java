@@ -6,6 +6,7 @@
 package linislove.mylittlemath;
 
 import java.math.BigInteger;
+import java.lang.IllegalArgumentException;
 
 /**
  *
@@ -162,9 +163,9 @@ public abstract class RationalOperations {
      *
      * @param b Jakaja
      * @return Jakolaskun tulos: a.divide(b) palauttaa a / b. Metodi palauttaa
-     * null, jos jakaja on nolla.
+     * poikkeuksen, jos jakaja on nolla.
      */
-    public Rational divide(Rational b) {
+    public Rational divide(Rational b) throws IllegalArgumentException {
         if (b.getNumerator().equals(BigInteger.ZERO)) {
             throw new IllegalArgumentException("Nollalla ei voi jakaa.");
         }

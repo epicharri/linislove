@@ -96,4 +96,13 @@ public class CountTest {
         Matrix expected = new Matrix(new SetOfVectors("(6.6,10/5,14),(22,26,34),(38,46,62)"));
         assertEquals(expected, ab);
     }
+    
+    @Test
+    public void transposeGivesRightMatrix() {
+        Matrix a = new Matrix(new SetOfVectors("(1,0,0),(0,2,0)"));
+        Matrix t = Count.transpose(a);
+        Matrix expected = new Matrix(new SetOfVectors("(1,0),(0,2),(0,0)"));
+        assertEquals(expected, t);
+    }
+    
 }

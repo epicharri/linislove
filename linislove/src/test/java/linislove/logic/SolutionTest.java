@@ -42,7 +42,7 @@ public class SolutionTest {
     }
 
     @Test
-    public void solveLinearSystemGivesRightAnswerString(){
+    public void solveLinearSystemGivesRightAnswerString() throws Exception{
         String system = "x1-x2-(-1/7)x3 =1;2/3x2+x3 = (5/7);x4=7;x1+x2+x3+x4=17;";
         String expected = "x_1 = (513/70)\n" +
                 "x_2 = (411/70)\n" +

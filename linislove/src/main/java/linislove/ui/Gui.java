@@ -63,15 +63,16 @@ public class Gui extends Application {
         input.prefColumnCountProperty().bind(input.textProperty().length());
 
         TextArea answer = new TextArea();
+        answer.setWrapText(true);
 
-        Button buttonA = new Button("Vapaus");
-        Button buttonB = new Button("Ratkaise");
+        Button buttonA = new Button("Vektorijonon vapaus");
+        Button buttonB = new Button("Ratkaise yhtälöryhmä");
         Button buttonC = new Button("Arvo yhtälöryhmä");
         Button buttonD = new Button("Tyhjennä kentät");
-        buttonA.setMinWidth(100);
-        buttonB.setMinWidth(100);
-        buttonC.setMinWidth(100);
-        buttonD.setMinWidth(100);
+        buttonA.setMinWidth(200);
+        buttonB.setMinWidth(200);
+        buttonC.setMinWidth(200);
+        buttonD.setMinWidth(200);
         Tooltip tooltipA = new Tooltip("Ratkaisee onko vektorijono vapaa.");
         Tooltip.install(buttonA, tooltipA);
         Tooltip tooltipB = new Tooltip("Ratkaisee kvadraattisen yhtälöryhmän\njos sille löytyy yksikäsitteinen ratkaisu.");
@@ -85,26 +86,13 @@ public class Gui extends Application {
         layout.setTop(menu);
 
         buttonA.setOnAction((eventA) -> {
-
-            // Tässä on logiikkaan kuuluvaa koodia mukana testaamistarkoituksessa.
-            // Lopullisessa ohjelmassa logiikkakoodia ei ole käyttöliittymässä.
-            
-            String queue = input.getText();
-            if (!queue.trim().isEmpty()){
+            answer.clear();
+            String setOfVectors = input.getText();
+            if (!setOfVectors.trim().isEmpty()){
                 answer.setText("Ratkaistaan vektorijonon vapautta.");
                 try {
-                    Matrix matrix = new Matrix(new SetOfVectors(queue));
-                    Rational det = Count.det(matrix);
-                    String freedom = "Vektorijonosta muodostetun matriisin\n"
-                            + "determinantti on " + det + ".\n";
-                    if (det.equals(Rational.ZERO)) {
-                        freedom += "Koska determinantti "
-                                + "on 0, on vektorijono lineaarisesti\n riippuvainen "
-                                + "eli sidottu.";
-                    } else {
-                        freedom += "Koska determinantti on nollasta eriävä, \n"
-                                + "on vektorijono lineaarisesti riippumaton eli vapaa.";
-                    }
+                    String freedom = Solution.solveLinearDependency(setOfVectors); 
+                    System.out.println(freedom);
                     answer.setText(freedom);
                 } catch (Exception e) {
                     answer.setText(e.getMessage());

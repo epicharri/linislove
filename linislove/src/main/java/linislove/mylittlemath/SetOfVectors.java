@@ -5,6 +5,7 @@
  */
 package linislove.mylittlemath;
 
+import java.util.InputMismatchException;
 /**
  * Luokka tarkistaa vektorijonon oikeellisuuden ja luo siitä matriisin Matrix
  * -luokan käyttöön.
@@ -15,6 +16,8 @@ public class SetOfVectors {
     private final String vectorQueue;
     private Rational[][] matrix;
     private int sizeOfLongestRationalNumber;
+    private static final String NOTSAMEVECTORSPACE = "Syöttämäsi vektorijono "
+            + "sisältää eri vektoriavaruuksien vektoreita.";
 
     /**
      * Konstruktori luo merkkijonosta olion Matrix-luokkaa varten.
@@ -31,17 +34,13 @@ public class SetOfVectors {
      * Esimerkki: String v = "(1, 2/7), (1.22, 123456)";
      *
      */
-    public SetOfVectors(String v) {
-        this.vectorQueue = v;
+    public SetOfVectors(String vectorSet) throws InputMismatchException {
+        this.vectorQueue = vectorSet;
         sizeOfLongestRationalNumber = 0;
-        if (!parseStringOfSetOfVectorsToMatrixArray(v)) {
-            throw new IllegalArgumentException("Matriisia ei voitu luoda antamastasi "
-                    + "vektorijonosta, koska jono sisältää eri vektoriavaruuksien "
-                    + "vektoreita.");
-        }
+        parseStringOfSetOfVectorsToMatrixArray(vectorSet);
     }
 
-    private String[] vectors(String v) {
+    private String[] parseVectors(String v) {
         v = v.replaceAll("//s", "");
         v = v.replaceAll("\\(", "");
         v = v.replaceAll("\\),", "@");
@@ -50,27 +49,41 @@ public class SetOfVectors {
         return vector;
     }
 
-    private boolean parseStringOfSetOfVectorsToMatrixArray(String v) {
+    /*
+    public int getNumberOfVectors() {
+        return this.matrix[0].length;
+    }
+    
+    public int getDimensionOfVectorSpace() {
+        return this.matrix.length;
+    }
+    */
+    
+    private void parseStringOfSetOfVectorsToMatrixArray(String v) throws InputMismatchException {
 
-        String[] vector = vectors(v);
-        int n = vector.length; // columns eli sarakkeet, vektorien määrä
-        int m = vector[0].split(",").length; // rows eli rivit, komponenttien määrä
+        String[] vectors = parseVectors(v);
+        int n = vectors.length; // columns eli sarakkeet, vektorien määrä
+        int m = vectors[0].split(",").length; // rows eli rivit, komponenttien määrä
         this.matrix = new Rational[m][n];
 
-        for (int j = 0; j < n; j++) {
-            String[] componentsOfVector = vector[j].split(",");
-            if (componentsOfVector.length != m) {
-                return false;
-            }
-            for (int i = 0; i < m; i++) {
-                Rational number = new Rational(componentsOfVector[i]);
-                if (number.toString().length() > this.sizeOfLongestRationalNumber) {
-                    sizeOfLongestRationalNumber = number.toString().length();
+        try {
+            for (int j = 0; j < n; j++) {
+                String[] componentsOfVector = vectors[j].split(",");
+                if (componentsOfVector.length != m) 
+                    throw new InputMismatchException(NOTSAMEVECTORSPACE);
+                for (int i = 0; i < m; i++) {
+                    Rational number = new Rational(componentsOfVector[i]);
+                    if (number.toString().length() > this.sizeOfLongestRationalNumber) {
+                        sizeOfLongestRationalNumber = number.toString().length();
+                    }
+                    this.matrix[i][j] = number;
                 }
-                this.matrix[i][j] = number;
             }
+        } catch (InputMismatchException e) {
+            throw e;
+        } catch (Exception e) {
+            throw e;
         }
-        return true;
     }
 
     public Rational[][] getMatrixArray() {

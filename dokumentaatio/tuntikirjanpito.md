@@ -32,3 +32,4 @@ Päivä | Tunnit | Kuvaus
 23.6.2017 | 2.0 | Luokkien uudelleenrakentamista
 24.6.2017 | 4.0 | Luokkien uudelleenrakentamista
 26.6.2017 | 7.0 | Syötteiden tarkistaminen, ilmoitukset jos ei voi ratkaista Gui:hin, laskuoperaatioiden korjausta, testejä
+27.6.2017 | 4.0 | Lisätty ratkaisut vektorijonon vapauteen kun vektoreita enemmän tai vähemmän kuin avaruuden dimensio. Testien muokkausta ja poikkeuksien tarkentamista.

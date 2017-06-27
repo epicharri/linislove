@@ -25,7 +25,7 @@ import linislove.mylittlemath.Rational;
  */
 public class LinisLove {
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) throws InterruptedException, Exception {
 
         /*
         int m = 3;

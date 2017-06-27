@@ -112,8 +112,8 @@ public class Count {
     }
 
     public static Matrix transpose(Matrix A) {
-        int n = A.getM();
-        int m = A.getN();
+        int m = A.getM();
+        int n = A.getN();
         Rational[][] arrayT = new Rational[n][m];
         Rational[][] arrayA = A.getMatrixArray();
         for (int i = 0; i < m; i++) {

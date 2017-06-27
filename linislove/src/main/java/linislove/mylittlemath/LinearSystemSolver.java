@@ -6,7 +6,7 @@ package linislove.mylittlemath;
 
 public class LinearSystemSolver {
 
-    public static Rational[] solveSystem(LinearSystem system) {
+    public static Rational[] solveSystem(LinearSystem system) throws Exception {
         int rows = system.getB().length;
         Rational b[] = new Rational[rows];
         Rational[][] originalB = system.getB();
@@ -26,7 +26,7 @@ public class LinearSystemSolver {
      * @return Rational[] taulukko jossa yhtälöryhmän vastaukset.
      *
      */
-    private static Rational[] solve(Rational originalA[][], Rational originalB[]) {
+    private static Rational[] solve(Rational originalA[][], Rational originalB[]) throws Exception {
 
         int n = originalB.length;
         int[] index = new int[n];
@@ -42,7 +42,6 @@ public class LinearSystemSolver {
                 b[index[j]] = Count.difference(b[index[j]], Count.product(a[index[j]][i], b[index[i]]));
             }
         }
-
         // Takaisinsijoitus
         System.out.println("Takaisinsijoitus: jaetaan luvut " + b[index[n-1]] + " ja " + a[index[n-1]][n-1]);
         
@@ -52,8 +51,15 @@ public class LinearSystemSolver {
         try {
             x[n - 1] = b[index[n - 1]].divide(numberInDiagonal);
         } catch (Exception e) {
-            throw new IllegalArgumentException("Yhtälöryhmälle ei ole olemassa "
+            throw new IllegalArgumentException("Yhtälöryhmällä ei ole ratkaisua "
+                    + "tai sillä ei ole yksikäsitteistä ratkaisua.");
+            /*
+            if (b[index[n - 1]].isZero() && numberInDiagonal.isZero())
+                throw new IllegalArgumentException("Yhtälöryhmälle ei ole olemassa "
                     + "yksikäsitteistä ratkaisua.");
+            else if (numberInDiagonal.isZero() && !b[index[n - 1]].isZero())
+                throw new IllegalArgumentException("Yhtälöryhmällä ei ole ratkaisua.");
+        */
         }
 //        x[n - 1] = Count.product(b[index[n - 1]], Count.reciprocal(a[index[n - 1]][n - 1]));
         for (int i = n - 2; i >= 0; --i) {
@@ -66,8 +72,14 @@ public class LinearSystemSolver {
             try{
                 x[i] = x[i].divide(numberInDiagonal);
             } catch (Exception e) {
-                throw new IllegalArgumentException("Yhtälöryhmälle ei ole olemassa "
+                throw new IllegalArgumentException("Yhtälöryhmällä ei ole ratkaisua "
+                    + "tai sillä ei ole yksikäsitteistä ratkaisua.");
+                /*
+                if (x[i].isZero() && numberInDiagonal.isZero()) 
+                    throw new IllegalArgumentException("Yhtälöryhmälle ei ole olemassa "
                         + "yksikäsitteistä ratkaisua.");
+                else throw new IllegalArgumentException("Yhtälöryhmällä ei ole ratkaisua.");
+                */
             }
         }
         return x;

@@ -42,7 +42,7 @@ public class RandomLinearSystemTest {
     }
 
     @Test
-    public void randomLinearSystemCreateGivesSystemThatIsPossibleToSolve(){
+    public void randomLinearSystemCreateGivesSystemThatIsPossibleToSolve() throws Exception{
         LinearSystem system = RandomLinearSystem.create(10,10,10);
         Rational[] answers = LinearSystemSolver.solveSystem(system);
         
