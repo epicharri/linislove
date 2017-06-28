@@ -1,12 +1,10 @@
 package linislove.mylittlemath;
 
-import java.math.BigInteger;
-
 /**
  * Count -luokka suorittaa rationaalilukujen (Rational) sekä matriisien (Matrix)
  * laskutoimituksia.
  */
-public class Count {
+public class Count extends MatrixOperations {
 
     /**
      * Laskee rationaalilukujen kertolaskun.
@@ -16,9 +14,7 @@ public class Count {
      * @return Rationaaliluku joka on a:n ja b:n tulo, siis a*b.
      */
     public static Rational product(Rational a, Rational b) {
-        BigInteger upstairs = a.getNumerator().multiply(b.getNumerator());
-        BigInteger downstairs = a.getDenominator().multiply(b.getDenominator());
-        return new Rational(upstairs, downstairs);
+        return a.multiply(b);
     }
 
     /**
@@ -28,26 +24,28 @@ public class Count {
      * @return Luvun a käänteisalkio.
      */
     public static Rational reciprocal(Rational a) {
-        if (!a.getNumerator().equals(BigInteger.ZERO)) {
-            return new Rational(a.getDenominator(), a.getNumerator());
-        } else {
-            throw new IllegalArgumentException("Nollalla ei ole käänteislukua.");
-        }
+        return a.reciprocal();
     }
 
+    /**
+     * Metodi palauttaa rationaaliluvun käänteisalkion yhteenlaskun suhteen.
+     *
+     * @param a
+     * @return Käänteisalkio yhteenlaskun suhteen.
+     */
     public static Rational opposite(Rational a) {
         return new Rational(a.getNumerator().negate(), a.getDenominator());
     }
 
+    /**
+     * Metodi palauttaa kahden rationaaliluvun summan.
+     *
+     * @param a Rationaaliluku (Rational a)
+     * @param b Rationaaliluku (Rational b)
+     * @return Palauttaa rationaaliluvun a + b.
+     */
     public static Rational sum(Rational a, Rational b) {
-        if (a.getDenominator().equals(b.getDenominator())) {
-            return new Rational(a.getNumerator().add(b.getNumerator()),
-                    a.getDenominator());
-        }
-        BigInteger upstairs = a.getNumerator().multiply(b.getDenominator())
-                .add(b.getNumerator().multiply(a.getDenominator()));
-        BigInteger downstairs = a.getDenominator().multiply(b.getDenominator());
-        return new Rational(upstairs, downstairs);
+        return a.plus(b);
     }
 
     /**
@@ -62,133 +60,46 @@ public class Count {
         return sum(a, opposite(b));
     }
 
+    /**
+     * Metodi suorittaa rationaalilukujen laskutoimituksen.
+     *
+     * @param a Rationaaliluku joka jaetaan (Rational a)
+     * @param b Rationaaliluku jolla jaetaan (Rational b)
+     * @return Rationaaliluvun laskutoimituksesta a / b.
+     */
     public static Rational divide(Rational a, Rational b) {
         return product(a, reciprocal(b));
     }
 
+    /**
+     * Metodilla selvitetään mikä rationaaliluvun merkki on.
+     *
+     * @param a Rationaaliluku josta selvitetään merkki
+     * @return Kokonaisluku (int) -1, jos a<0, 0 jos a=0 ja 1 jos a>0.
+     */
     public static int signum(Rational a) {
         return a.signumOfRational().intValue();
     }
 
+    /**
+     * Metodi laskee kokonaisluvuilla (int) paljonko on (-1)^n. Tämä on tehty
+     * välttämään mahdollista Math.pow(double, double) aikaansaamaa virhettä.
+     *
+     * @param n Exponentti.
+     * @return Palauttaa int -kokonaisluvun (-1)^n.
+     */
     public static int minusOnePoweredTo(int n) {
         return (n % 2 == 0) ? 1 : -1;
     }
 
-    public static Rational det(Matrix matrix) {
-        if (matrix.getM() != matrix.getN() || matrix.getN() == 0) {
-            return null;
-        }
-        return determinant(matrix.getMatrixArray(), matrix.getM(), matrix.getN());
-    }
-
-    public static Rational determinant(Rational[][] A, int m, int n) {
-        Rational detA = new Rational(0, 1);
-        if (n == 1) {
-            detA = A[0][0];
-        } else if (n == 2) {
-            detA = difference(product(A[0][0], A[1][1]),
-                    product(A[1][0], A[0][1]));
-        } else {
-            for (int j1 = 0; j1 < n; j1++) {
-                Rational[][] c = new Rational[n - 1][];
-                for (int k = 0; k < (n - 1); k++) {
-                    c[k] = new Rational[n - 1];
-                }
-                for (int i = 1; i < n; i++) {
-                    int j2 = 0;
-                    for (int j = 0; j < n; j++) {
-                        if (j == j1) {
-                            continue;
-                        }
-                        c[i - 1][j2] = A[i][j];
-                        j2++;
-                    }
-                }
-                detA = Count.sum(detA, product(product(new Rational(minusOnePoweredTo(1 + j1 + 1)),
-                        A[0][j1]), determinant(c, n - 1, n - 1)));
-            }
-        }
-        return detA;
-    }
-
-    public static Matrix transpose(Matrix A) {
-        int m = A.getM();
-        int n = A.getN();
-        Rational[][] arrayT = new Rational[n][m];
-        Rational[][] arrayA = A.getMatrixArray();
-        for (int i = 0; i < m; i++) {
-            for (int j = 0; j < n; j++) {
-                arrayT[j][i] = arrayA[i][j];
-            }
-        }
-        return new Matrix(arrayT);
-    }
-
-    public static Matrix multiply(Matrix matrixA, Matrix matrixB) {
-        Rational[][] a = matrixA.getMatrixArray();
-        Rational[][] b = matrixB.getMatrixArray();
-        int aN = matrixA.getN();
-        int aM = matrixA.getM();
-        int bN = matrixB.getN();
-        int bM = matrixB.getM();
-        if (aN != bM) {
-            throw new IllegalArgumentException("Matriisikertolasku ei ole määritelty näillä matriiseilla.");
-        }
-        Matrix matrixAb = new Matrix(aM, bN);
-        Rational[][] ab = matrixAb.getMatrixArray();
-
-        for (int i = 0; i < matrixAb.getM(); i++) {
-            for (int j = 0; j < matrixAb.getN(); j++) {
-                for (int k = 0; k < aN; k++) {
-                    if (ab[i][j] == null) {
-                        ab[i][j] = new Rational(0);
-                    }
-                    matrixAb.setNumber(
-                            Count.sum(
-                                    ab[i][j],
-                                    Count.product(a[i][k], b[k][j])
-                            ),
-                            i, j);
-                }
-            }
-        }
-        return matrixAb;
-    }
-
-    public static Matrix solveByCramerRule(Matrix a, Matrix b) {
-        if (a.getM() != a.getN()) {
-            throw new IllegalArgumentException(""
-                    + "Ohjelma ratkaisee vain kvadraattisia "
-                    + "yhtälöryhmiä.");
-        }
-        if (!(a.getM() == b.getM())) {
-            throw new IllegalArgumentException("Matriisit annettava siten että "
-                    + "A:ssa ja b:ssä on saman verran rivejä.");
-        }
-        Matrix valuesOfX = new Matrix(b.getM(), 1);
-        Rational detA = det(a);
-        if (detA.equals(Rational.ZERO)) {
-            throw new IllegalArgumentException("Yhtälö"
-                    + "ryhmällä ei ole yksikäsitteistä ratkaisua.");
-        }
-        Rational detAreciprocal = reciprocal(detA);
-        for (int i = 0; i < b.getM(); i++) {
-            Rational deti = det(substitute(a, b, i));
-            Rational x = product(deti, detAreciprocal);
-            valuesOfX.setNumber(x, i, 0);
-        }
-        return valuesOfX;
-    }
-
-    public static String giveSolutions(Matrix x) {
-        String str = "";
-        for (int i = 0; i < x.getM(); i++) {
-            str += "x" + (i + 1) + " = " + x.getNumber(i, 0);
-            str += (i < x.getM() - 1) ? "\n" : "";
-        }
-        return str;
-    }
-
+    /**
+     * Metodi palauttaa merkkijonon yhtälöryhmän ratkaisujen vaatimassa
+     * muodossa.
+     *
+     * @param x Rational[] -taulukko
+     * @return Palauttaa merkkijonon siten että sen tuloste on x_1 = 7 x_2 = 3
+     * jos x[0} = 7 ja x[1] = 3.
+     */
     public static String giveSolutions(Rational[] x) {
         String str = "";
         for (int i = 0; i < x.length; i++) {
@@ -198,19 +109,32 @@ public class Count {
         return str;
     }
 
-    public static Matrix substitute(Matrix A, Matrix b, int j) {
-        Matrix replaced = createCopy(A);
-        for (int i = 0; i < b.getM(); i++) {
-            Rational number = b.getNumber(i, 0);
-            replaced.setNumber(number, i, j);
-        }
-        return replaced;
+    /**
+     * Palauttaa rationaaliluvun itseisarvon.
+     *
+     * @param a Luku, josta palautetaan itseisarvo.
+     * @return Luvun Rational a itseisarvo.
+     */
+    public static Rational abs(Rational a) {
+        return a.abs();
     }
 
+     /**
+     * Palauttaa kopion Matrix -oliosta (matriisi).
+     *
+     * @param a Matriisi joka kopioidaan.
+     * @return Kopioitu samansisältöinen matriisi (Matrix -olio).
+     */
     public static Matrix createCopy(Matrix a) {
         return new Matrix(createCopy(a.getMatrixArray()));
     }
 
+    /**
+     * Palauttaa Rational[][] taulukosta kopion.
+     *
+     * @param a Taulukko joka kopioidaan.
+     * @return Kopioitu uusi taulukko.
+     */
     public static Rational[][] createCopy(Rational[][] a) {
         int m = a.length;
         int n = a[0].length;
@@ -221,18 +145,16 @@ public class Count {
         return copy;
     }
 
+    /**
+     * Palauttaa Rational[] taulukosta kopion.
+     *
+     * @param a Taulukko joka kopioidaan.
+     * @return Kopioitu uusi taulukko.
+     */
     public static Rational[] createCopy(Rational[] a) {
         int n = a.length;
         Rational[] copy = new Rational[n];
         System.arraycopy(a, 0, copy, 0, n);
         return copy;
-    }
-
-    public static Rational abs(Rational a) {
-        if (Count.signum(a) >= 0) {
-            return a;
-        }
-        return Count.opposite(a);
-    }
-
+    }   
 }

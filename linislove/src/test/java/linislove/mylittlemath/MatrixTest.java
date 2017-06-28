@@ -5,6 +5,7 @@
  */
 package linislove.mylittlemath;
 
+import java.math.BigInteger;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -64,4 +65,36 @@ public class MatrixTest {
         assertEquals(expected, matrix.toString());
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void geTNumberThrowsException() {
+        Matrix matrix = new Matrix(new SetOfVectors("(1/2,1/2),"
+                + "(0,2/2)"));
+        Rational c = matrix.getNumber(-1, -1);
+        Rational d = matrix.getNumber(2, 2);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void seTNumberThrowsException() {
+        Matrix matrix = new Matrix(new SetOfVectors("(1/2,1/2),"
+                + "(0,2/2)"));
+        matrix.setNumber(new Rational(20), -1, -1);
+        matrix.setNumber(new Rational(20), 2, 2);
+    }
+
+    @Test
+    public void getNumberGivesRightNumber() {
+        Matrix matrix = new Matrix(new SetOfVectors("(1/2,1/2),"
+                + "(0,2/2)"));
+        Rational c = matrix.getNumber(0, 0);
+        assertEquals(new Rational(1, 2), c);
+    }
+
+    @Test
+    public void setNumberWorks() {
+        Matrix matrix = new Matrix(new SetOfVectors("(1/2,1/2),"
+                + "(0,2/2)"));
+        matrix.setNumber(new Rational(new BigInteger("10")), 0, 0);
+        Matrix rightMatrix = new Matrix(new SetOfVectors("(10,1/2),(0,2/2)"));
+        assertEquals(matrix, rightMatrix);
+    }
 }

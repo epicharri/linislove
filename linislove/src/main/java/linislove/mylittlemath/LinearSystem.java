@@ -5,26 +5,31 @@
  */
 package linislove.mylittlemath;
 
-import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.InputMismatchException;
 
 /**
  *
- * Luokka muuntaa merkkijonosyötteestä matriisit yhtälöä Ax=b varten. Syöte on
- * annettava muodossa: "c_1_1x1 + c_1_2x2 + ... + c_1_kxk = b1; c_2_1x1 +
- * c_2_2x2 + ... + c_2_kxk = b_2; ... c_m_1x1 + c_m_2x2 + ... + c_m_kxk = b_m; "
- *
- * Esimerkki: String system = "-x1 + 7x2 + (10/3)x3 = 5; 2x1 + (4/11)x2 + 1.25x3
- * = 4/7 + x1 + x2 + (17/87)x3 = 172";
+ * Luokka muuntaa merkkijonosyötteestä matriisit yhtälöä Ax=b varten.
  */
-public class LinearSystem {
+public class LinearSystem implements LinearSystemHelper {
 
     private Rational[][] a;
     private Rational[][] b;
     private String system;
     private int maxNumberOfUnknowns;
 
+    /**
+     * Konstruktori, joka luo LinearSystem -olion merkkijonosyötteestä.
+     *
+     * @param system Merkkijono josta olio luodaan. Syöte on annettava muodossa:
+     * "c_1_1x1 + c_1_2x2 + ... + c_1_kxk = b1; c_2_1x1 + c_2_2x2 + ... +
+     * c_2_kxk = b_2; ... c_m_1x1 + c_m_2x2 + ... + c_m_kxk = b_m;"
+     *
+     * Esimerkki: String system = "-x1 + 7x2 + (10/3)x3 = 5; 2x1 + (4/11)x2 +
+     * 1.25x3 = 4/7; x1 + x2 + (17/87)x3 = 172";
+     * @throws InputMismatchException
+     */
     public LinearSystem(String system) throws InputMismatchException {
         this.system = system;
         this.maxNumberOfUnknowns = 0;
@@ -144,112 +149,9 @@ public class LinearSystem {
         return nextXandI;
     }
 
-    private Object[] nextNumberAndIndex(String equation, int index) {
-        String number = "";
-        int lastIndex = equation.length() - 1;
-        while (true) {
-            if (index > lastIndex) {
-                return numberAndIndex(number, index);
-            }
-            char c = equation.charAt(index);
-            if (c != 'x') {
-                number += c;
-            } else {
-                index++;
-                if (number.isEmpty() || number.equals("+")) {
-                    return numberAndIndex("1", index);
-                }
-                if (number.equals("-")) {
-                    return numberAndIndex("-1", index);
-                }
-                return numberAndIndex(number, index);
-            }
-            index++;
-        }
-    }
-
-    private Object[] numberAndIndex(String number, int index) {
-        Object[] nAndI = new Object[2];
-        nAndI[0] = number;
-        nAndI[1] = index;
-        return nAndI;
-    }
-
-    private String[] giveEquations(String s) {
-        s = cleanString(s);
-        String[] e = s.split(";");
-        return e;
-    }
-
-    public String cleanString(String s) {
-        s = s.replaceAll("\\s", "");
-        s = s.replaceAll("\n", ";");
-        s = s.replaceAll(";+", ";");
-        s = s.replaceAll(";\\z", "");
-        s = s.replaceAll("^;", "");
-        return s;
-    }
-
     @Override
     public String toString() {
-        if (system.isEmpty()) {
-            return linearSystem();
-        }
         String equations = system;
         return equations.replaceAll(";", ";\n");
     }
-
-    private String linearSystem() {
-
-        String print = "";
-        int m = a.length;
-        int n = a[0].length;
-        int bm = b.length;
-        int bn = b[0].length;
-        if (bm != m) {
-            return "Matriisit A ja b eri "
-                    + "korkuisia. A:ssa rivejä " + m + " ja b:ssä " + bm;
-        }
-        for (int i = 0; i < m; i++) {
-            for (int j = 0; j < n; j++) {
-                Rational number = a[i][j];
-                String element = giveCoefficientAndVariableX(number, j);
-                print += (element.isEmpty()) ? "" : element + " ";
-            }
-            print += "= " + b[i][0] + ";\n";
-        }
-        return print;
-    }
-
-    private static String giveCoefficientAndVariableX(Rational number, int j) {
-        String print = "";
-
-        int sign = Count.signum(number);
-        if (sign == 0 && j > 0) {
-            return "+ 0";
-        }
-        if (sign == 0 && j == 0) {
-            return "0";
-        }
-        if (j > 0 && sign > 0) {
-            print += "+ ";
-        }
-        if (sign < 0) {
-            print += "-";
-        }
-        if (sign < 0) {
-            number = Count.opposite(number);
-        }
-        if (number.equals(Rational.ONE)) {
-            return print + "x_" + (j + 1);
-        }
-        if (number.getDenominator().equals(BigInteger.ONE)) {
-            print += number.toString();
-        } else {
-            print += number;
-        }
-        print += "x_" + (j + 1);
-        return print;
-    }
-
 }

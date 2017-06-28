@@ -35,8 +35,8 @@ public class Matrix {
 
     // i on rivit ja j on sarakkeet, vakiintuneen käytännön mukaisesti
     public void setNumber(Rational number, int i, int j) {
-        if (i + 1 > getM() || j + 1 > getN()) {
-            throw new RuntimeException("Matriisissa ei ole kohtaa jonka "
+        if (i + 1 > getM() || j + 1 > getN() || i < 0 || j < 0) {
+            throw new IllegalArgumentException("Matriisissa ei ole kohtaa jonka "
                     + "i -indeksi on " + i + " ja j -indeksi on " + j
                     + "Matriisissa on " + getM() + "riviä ja " + getN() + "saraketta");
         }
@@ -47,11 +47,15 @@ public class Matrix {
         if (i < getM() && j < getN() && i >= 0 && j >= 0) {
             return this.matrix[i][j];
         } else {
-            throw new RuntimeException("Matriisissa ei ole indeksiä "
+            throw new IllegalArgumentException("Matriisissa ei ole indeksiä "
                     + "(i,j) = " + "(" + i + "," + j + ")");
         }
     }
 
+    /**
+     * Metodi palauttaa Rational[][] taulukon Matrix -oliosta.
+     * @return  Matrix -olion sisäisenä muuttujana olevan Rational[][] taulukon.
+     */
     public Rational[][] getMatrixArray() {
         return this.matrix;
     }

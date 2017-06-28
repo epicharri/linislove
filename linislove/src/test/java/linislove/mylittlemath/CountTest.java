@@ -105,4 +105,15 @@ public class CountTest {
         assertEquals(expected, t);
     }
     
+    @Test
+    public void createCopyReturnsTheCopy(){
+        Matrix a = new Matrix(new SetOfVectors("1,0,0),(0,2,0)"));
+        Matrix expected = new Matrix(new SetOfVectors("1,0,0),(0,2,0)"));
+        Matrix copy = Count.createCopy(a);
+        assertEquals(expected, copy);
+        a.setNumber(new Rational("1/3"), 0, 0);
+        assertFalse(a.equals(copy));
+    }
+
+    
 }

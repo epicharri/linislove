@@ -37,12 +37,6 @@ public abstract class RationalOperations {
         return this.numerator.equals(Rational.ZERO);
     }
 
-    /*    
-    public boolean greaterThan(Rational other) {
-        final Rational otherNumber = other.copy();
-        return otherNumber.lessThan(thisNumber());
-    }
-     */
     public boolean greaterThan(Rational other) {
         Rational number = thisNumber();
         if (number.equals(other)) {

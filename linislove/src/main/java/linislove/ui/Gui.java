@@ -15,6 +15,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import linislove.logic.RandomLinearSystem;
 import linislove.logic.Solution;
+import linislove.logic.Instructions;
 import linislove.mylittlemath.LinearSystem;
 
 /**
@@ -54,10 +55,12 @@ public class Gui extends Application {
         Button buttonB = new Button("Ratkaise yhtälöryhmä");
         Button buttonC = new Button("Arvo yhtälöryhmä");
         Button buttonD = new Button("Tyhjennä kentät");
+        Button buttonE = new Button("Käyttöohje");
         buttonA.setMinWidth(200);
         buttonB.setMinWidth(200);
         buttonC.setMinWidth(200);
         buttonD.setMinWidth(200);
+        buttonE.setMinWidth(200);
         Tooltip tooltipA = new Tooltip("Ratkaisee onko vektorijono vapaa.");
         Tooltip.install(buttonA, tooltipA);
         Tooltip tooltipB = new Tooltip("Ratkaisee kvadraattisen yhtälöryhmän\njos sille löytyy yksikäsitteinen ratkaisu.");
@@ -66,8 +69,11 @@ public class Gui extends Application {
         Tooltip.install(buttonC, tooltipC);
         Tooltip tooltipD = new Tooltip("Tyhjennä kentät");
         Tooltip.install(buttonD, tooltipD);
+        Tooltip tooltipE = new Tooltip("Antaa ohjeet");
+        Tooltip.install(buttonE, tooltipE);
+    
 
-        menu.getChildren().addAll(label, input, buttonA, buttonB, buttonC, buttonD, answer);
+        menu.getChildren().addAll(label, input, buttonA, buttonB, buttonC, buttonD, buttonE, answer);
         layout.setTop(menu);
 
         buttonA.setOnAction((ActionEvent eventA) -> {
@@ -107,12 +113,20 @@ public class Gui extends Application {
 
         buttonD.setOnAction(new EventHandler<ActionEvent>() {
             @Override
-            public void handle(ActionEvent eventC) {
+            public void handle(ActionEvent eventD) {
                 answer.clear();
                 input.clear();
             }
         });
 
+        buttonE.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent eventE) {
+                answer.clear();
+                answer.setText(Instructions.INSTRUCTIONS);
+            }
+        });        
+        
         Scene scene = new Scene(layout, 1000, 600);
         scene.getStylesheets().add(getClass().getResource("/materialdesign.css").toExternalForm());
         scene.getStylesheets().add(getClass().getResource("/elementsofharmony.css").toExternalForm());

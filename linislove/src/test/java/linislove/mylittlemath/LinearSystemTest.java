@@ -5,6 +5,7 @@
  */
 package linislove.mylittlemath;
 
+import java.util.InputMismatchException;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -43,5 +44,17 @@ public class LinearSystemTest {
         String expected = system.replaceAll(";",";\n");
         LinearSystem linearSystem = new LinearSystem(system);
         assertEquals(expected, linearSystem.toString());
+    }
+    
+    @Test (expected=InputMismatchException.class)
+    public void constructorGivesInputMismatchExceptionIfNotQuadratic(){
+        String system = "x1 + x2 = 3;";
+        LinearSystem linearSystem = new LinearSystem(system);
+    }
+    
+    @Test (expected=InputMismatchException.class)
+    public void constructorGivesIMExpIfNoIndex(){
+        String system = "x1 + x2 = 1;x1 + x = 1;";
+        LinearSystem linearSystem = new LinearSystem(system);
     }
 }
