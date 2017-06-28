@@ -43,48 +43,36 @@ public class LinearSystemSolver {
             }
         }
         // Takaisinsijoitus
-        System.out.println("Takaisinsijoitus: jaetaan luvut " + b[index[n-1]] + " ja " + a[index[n-1]][n-1]);
-        
-        
         Rational numberInDiagonal = a[index[n - 1]][n - 1];
-        
+
         try {
             x[n - 1] = b[index[n - 1]].divide(numberInDiagonal);
         } catch (Exception e) {
             throw new IllegalArgumentException("Yhtälöryhmällä ei ole ratkaisua "
                     + "tai sillä ei ole yksikäsitteistä ratkaisua.");
-            /*
-            if (b[index[n - 1]].isZero() && numberInDiagonal.isZero())
-                throw new IllegalArgumentException("Yhtälöryhmälle ei ole olemassa "
-                    + "yksikäsitteistä ratkaisua.");
-            else if (numberInDiagonal.isZero() && !b[index[n - 1]].isZero())
-                throw new IllegalArgumentException("Yhtälöryhmällä ei ole ratkaisua.");
-        */
         }
-//        x[n - 1] = Count.product(b[index[n - 1]], Count.reciprocal(a[index[n - 1]][n - 1]));
         for (int i = n - 2; i >= 0; --i) {
             x[i] = b[index[i]];
             for (int j = i + 1; j < n; ++j) {
-                //x[i] = Count.difference(x[i], Count.product(a[index[i]][j], x[j]));
                 x[i] = x[i].minus(a[index[i]][j].multiply(x[j]));
             }
             numberInDiagonal = a[index[i]][i];
-            try{
+            try {
                 x[i] = x[i].divide(numberInDiagonal);
             } catch (Exception e) {
                 throw new IllegalArgumentException("Yhtälöryhmällä ei ole ratkaisua "
-                    + "tai sillä ei ole yksikäsitteistä ratkaisua.");
+                        + "tai sillä ei ole yksikäsitteistä ratkaisua.");
                 /*
                 if (x[i].isZero() && numberInDiagonal.isZero()) 
                     throw new IllegalArgumentException("Yhtälöryhmälle ei ole olemassa "
                         + "yksikäsitteistä ratkaisua.");
                 else throw new IllegalArgumentException("Yhtälöryhmällä ei ole ratkaisua.");
-                */
+                 */
             }
         }
         return x;
     }
-    
+
     /*
     // Tämä metodi ei valmis, pitää kehittää edelleen.
     public static Rational determinant(LinearSystem system) {
@@ -121,9 +109,8 @@ public class LinearSystemSolver {
                 Rational c0 = Count.abs(a[i][j]);
                 if (c0.greaterThan(c1)) {
                     c1 = c0;
-                } 
+                }
             }
-            System.out.println("Rivin suurin alkio on " + c1);
             c[i] = c1;
         }
 
@@ -133,13 +120,9 @@ public class LinearSystemSolver {
             Rational pi1 = Rational.ZERO;
             for (int i = j; i < n; ++i) {
                 Rational pi0 = a[index[i]][j].abs();
-                //Rational factor = Count.reciprocal(c[index[i]]);
 
                 // Rivioperaatiomatriisin determinantin seuraaminen
-                //detOfRowOps = Count.product(detOfRowOps, factor);
-                System.out.println("Jakolasku: " + pi0 + " jaettuna luvulla " + c[index[i]]);
-                pi0 = pi0.divide(c[index[i]]); 
-                //Count.product(pi0, factor);
+                pi0 = pi0.divide(c[index[i]]);
                 if (pi0.greaterThan(pi1)) {
                     pi1 = pi0;
                     k = i;
@@ -151,11 +134,9 @@ public class LinearSystemSolver {
             index[j] = index[k];
             index[k] = itmp;
             for (int i = j + 1; i < n; ++i) {
-                System.out.println("Nyt jaetaan " + a[index[i]][j] + " luvulla "+ a[index[j]][j]);
                 Rational pj = a[index[i]][j].divide(a[index[j]][j]);
-                
-//                Rational pj = Count.divide(a[index[i]][j], a[index[j]][j]);
 
+//                Rational pj = Count.divide(a[index[i]][j], a[index[j]][j]);
                 // Sijoitetaan pivotointisuhteet diagonaalin alle
                 a[index[i]][j] = pj;
 

@@ -6,7 +6,6 @@
 package linislove.mylittlemath;
 
 import java.math.BigInteger;
-import java.lang.IllegalArgumentException;
 
 /**
  *
@@ -37,15 +36,18 @@ public abstract class RationalOperations {
     public boolean isZero() {
         return this.numerator.equals(Rational.ZERO);
     }
-/*    
+
+    /*    
     public boolean greaterThan(Rational other) {
         final Rational otherNumber = other.copy();
         return otherNumber.lessThan(thisNumber());
     }
-*/
+     */
     public boolean greaterThan(Rational other) {
         Rational number = thisNumber();
-        if (number.equals(other)) return false;
+        if (number.equals(other)) {
+            return false;
+        }
         BigInteger denomNumber = number.getDenominator();
         BigInteger denomOther = other.getDenominator();
         BigInteger numNumber = number.getNumerator();
@@ -53,24 +55,10 @@ public abstract class RationalOperations {
         BigInteger expandedNumOfNumber = numNumber.multiply(denomOther);
         BigInteger expandedNumOfOther = numOther.multiply(denomNumber);
         return expandedNumOfNumber.equals(expandedNumOfNumber.max(expandedNumOfOther));
-    }    
-    
+    }
+
     public boolean lessThan(Rational other) {
         return other.greaterThan(thisNumber());
-/*
-        Rational number = thisNumber();
-        if (possibleToBeLessOrGreater(other)) {
-            BigInteger denomNumber = number.getDenominator();
-            BigInteger denomOther = other.getDenominator();
-            BigInteger numNumber = number.getNumerator();
-            BigInteger numOther = other.getDenominator();
-            BigInteger expandedNumOfNumber = numNumber.multiply(denomOther);
-            BigInteger expandedNumOfOther = numOther.multiply(denomNumber);
-            return expandedNumOfNumber.
-                    equals(expandedNumOfNumber.min(expandedNumOfOther));
-        }
-        return false;
-*/
     }
 
     public boolean greaterOrEqual(Rational other) {
@@ -83,21 +71,11 @@ public abstract class RationalOperations {
         return number.equals(other) || number.lessThan(other);
     }
 
-    private boolean possibleToBeLessOrGreater(Object obj) {
-        Rational number = thisNumber();
-        if (number == obj) {
-            return false;
-        }
-        if (obj == null) {
-            return false;
-        }
-        return getClass() == obj.getClass();
-    }
-
     public Rational multiply(Rational b) {
         Rational a = thisNumber();
-        if (a.isEqualTo(Rational.ZERO) || b.isEqualTo(Rational.ZERO))
+        if (a.isEqualTo(Rational.ZERO) || b.isEqualTo(Rational.ZERO)) {
             return Rational.ZERO;
+        }
         BigInteger upstairs = a.getNumerator().multiply(b.getNumerator());
         BigInteger downstairs = a.getDenominator().multiply(b.getDenominator());
         return new Rational(upstairs, downstairs);

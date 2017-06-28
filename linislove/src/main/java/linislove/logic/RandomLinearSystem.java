@@ -5,7 +5,6 @@
  */
 package linislove.logic;
 
-import java.math.BigInteger;
 import linislove.mylittlemath.LinearSystem;
 import linislove.mylittlemath.Rational;
 

@@ -1,7 +1,6 @@
 package linislove.ui;
 
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -9,25 +8,14 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
-import javafx.scene.layout.Background;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Region;
-import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import linislove.logic.RandomLinearSystem;
 import linislove.logic.Solution;
-import linislove.mylittlemath.Count;
 import linislove.mylittlemath.LinearSystem;
-import linislove.mylittlemath.Matrix;
-import linislove.mylittlemath.Rational;
-import linislove.mylittlemath.SetOfVectors;
 
 /**
  *
@@ -50,15 +38,12 @@ public class Gui extends Application {
         VBox menu = new VBox();
         menu.setPadding(new Insets(20, 20, 20, 20));
         menu.setSpacing(10);
-        //TextField input = new TextField();
         TextArea input = new TextArea();
         Label label = new Label("");
         input.setPromptText("Syötä vektorijono tai yhtälöryhmä.");
         Tooltip tooltipInput = new Tooltip("Syötä tähän vektorijono tai "
                 + "yhtälöryhmä.");
         Tooltip.install(input, tooltipInput);
-        //input.setMinWidth(400);
-        //input.setMaxWidth(300);
 
         input.prefColumnCountProperty().bind(input.textProperty().length());
 
@@ -85,13 +70,13 @@ public class Gui extends Application {
         menu.getChildren().addAll(label, input, buttonA, buttonB, buttonC, buttonD, answer);
         layout.setTop(menu);
 
-        buttonA.setOnAction((eventA) -> {
+        buttonA.setOnAction((ActionEvent eventA) -> {
             answer.clear();
             String setOfVectors = input.getText();
-            if (!setOfVectors.trim().isEmpty()){
+            if (!setOfVectors.trim().isEmpty()) {
                 answer.setText("Ratkaistaan vektorijonon vapautta.");
                 try {
-                    String freedom = Solution.solveLinearDependency(setOfVectors); 
+                    String freedom = Solution.solveLinearDependency(setOfVectors);
                     answer.setText(freedom);
                 } catch (Exception e) {
                     answer.setText(e.getMessage());
@@ -115,7 +100,7 @@ public class Gui extends Application {
             @Override
             public void handle(ActionEvent eventC) {
                 answer.clear();
-                LinearSystem system = RandomLinearSystem.create(20, 10, 9);
+                LinearSystem system = RandomLinearSystem.create(10, 10, 9);
                 input.setText(system.toString());
             }
         });

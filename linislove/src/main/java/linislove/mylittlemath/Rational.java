@@ -47,7 +47,7 @@ public class Rational extends RationalOperations {
         } else if (isDecimalNumber(number)) {
             parseRationalFromDecimalString(number);
         } else {
-            throw new NumberFormatException("Syöte on virheellinen: "+ number + " ei ole rationaaliluku, "
+            throw new NumberFormatException("Syöte on virheellinen: " + number + " ei ole rationaaliluku, "
                     + "kokonaisluku tai desimaaliluku.\n"
                     + "Muista syöttää desimaaliluvut käyttämällä pistettä erottimena.");
         }

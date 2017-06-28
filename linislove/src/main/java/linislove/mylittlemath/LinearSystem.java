@@ -37,14 +37,14 @@ public class LinearSystem {
         }
     }
 
-    private void parseLinearSystem() throws InputMismatchException{
+    private void parseLinearSystem() throws InputMismatchException {
         String[] equations = giveEquations(this.system);
         int numberOfEquations = equations.length;
         HashMap[] equationMaps = new HashMap[numberOfEquations];
         for (int i = 0; i < numberOfEquations; i++) {
             equationMaps[i] = parseEquation(equations[i]);
         }
-        
+
         if (numberOfEquations != maxNumberOfUnknowns) {
             throw new InputMismatchException("Yhtälöiden ja tuntemattomien määrä on "
                     + "erisuuri joten yhtälöryhmä ei ole kvadraattinen. "
@@ -125,8 +125,18 @@ public class LinearSystem {
             index++;
         }
         if (subscript.isEmpty() || !subscript.matches("\\d+")) {
-            throw new InputMismatchException("Muuttujalla x ei ole alaindeksiä "
-                    + "joten yhtälöryhmä on väärin syötetty.");
+            throw new InputMismatchException("Korjaa syötettä niin että "
+                    + "se on muodossa:\n"
+                    + "<kerroin>x<alaindeksi> + <kerroin>x<alaindeksi> + ... + <kerroin>x<alaindeksi> = <luku>;\n"
+                    + "<kerroin>x<alaindeksi> + <kerroin>x<alaindeksi> + ... + <kerroin>x<alaindeksi>= <luku>;\n"
+                    + "...\n"
+                    + "<kerroin>x<alaindeksi> + <kerroin>x<alaindeksi> + ... + <kerroin>x<alaindeksi>= <luku>;\n"
+                    + "(+ tilalla voi olla myös -). Muista puolipiste yhtälörivin loppuun. "
+                    + "Esimerkki: \n"
+                    + "-2/3 x1 + 3 x2 - 17/23 x3 = 4/-5;\n"
+                    + "-x1 - x3 = -(-17/-19);\n"
+                    + "x3 = 11;\n"
+                    + "Yhtälöryhmässä siis oletetaan olevan tuntemattomia (x) yhtä monta kuin on suurin alaindeksi. Syötteessä on oltava yhtä monta yhtälöä kuin on tuntemattomia.");
         }
         int[] nextXandI = new int[2];
         nextXandI[0] = Integer.parseInt(subscript);
@@ -206,7 +216,7 @@ public class LinearSystem {
                 String element = giveCoefficientAndVariableX(number, j);
                 print += (element.isEmpty()) ? "" : element + " ";
             }
-            print += "= " + b[i][0] + "\n";
+            print += "= " + b[i][0] + ";\n";
         }
         return print;
     }

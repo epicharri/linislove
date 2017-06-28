@@ -6,6 +6,7 @@
 package linislove.mylittlemath;
 
 import java.util.InputMismatchException;
+
 /**
  * Luokka tarkistaa vektorijonon oikeellisuuden ja luo siitä matriisin Matrix
  * -luokan käyttöön.
@@ -57,8 +58,7 @@ public class SetOfVectors {
     public int getDimensionOfVectorSpace() {
         return this.matrix.length;
     }
-    */
-    
+     */
     private void parseStringOfSetOfVectorsToMatrixArray(String v) throws InputMismatchException {
 
         String[] vectors = parseVectors(v);
@@ -69,8 +69,9 @@ public class SetOfVectors {
         try {
             for (int j = 0; j < n; j++) {
                 String[] componentsOfVector = vectors[j].split(",");
-                if (componentsOfVector.length != m) 
+                if (componentsOfVector.length != m) {
                     throw new InputMismatchException(NOTSAMEVECTORSPACE);
+                }
                 for (int i = 0; i < m; i++) {
                     Rational number = new Rational(componentsOfVector[i]);
                     if (number.toString().length() > this.sizeOfLongestRationalNumber) {

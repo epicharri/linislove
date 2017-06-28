@@ -5,8 +5,6 @@
  */
 package linislove.mylittlemath;
 
-import java.math.BigInteger;
-
 /**
  *
  * Luokka tarkastaa laskujen tuloksia.
