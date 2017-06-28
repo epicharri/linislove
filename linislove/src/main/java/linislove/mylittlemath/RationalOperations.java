@@ -56,10 +56,10 @@ public abstract class RationalOperations {
     }
 
     /**
-     * Selvittää onko a > b.
+     * Selvittää onko a suurempi kuin b.
      *
-     * @param other b yhtälöstä a > b.
-     * @return true, jos a > b, muutoin false. Käyttö: boolean greater =
+     * @param other b yhtälöstä a suurempi kuin b.
+     * @return true, jos s suurempi kuin b, muutoin false. Käyttö: boolean greater =
      * a.greaterThan(b);.
      */
     public boolean greaterThan(Rational other) {
@@ -79,7 +79,7 @@ public abstract class RationalOperations {
     /**
      * Selvittää onko a aidosti pienempi kuin b.
      *
-     * @param other Luku b epäyhtälöstä a<b
+     * @param other Luku b epäyhtälöstä a pienempi kuin b
      * @return True, jos a pienempi kuin b, muutoin false. Käyttö: boolean less
      * = a.lessThan(b);.
      */
@@ -190,6 +190,7 @@ public abstract class RationalOperations {
      * @param b Jakaja
      * @return Jakolaskun tulos: a.divide(b) palauttaa a / b. Metodi palauttaa
      * poikkeuksen, jos jakaja on nolla.
+     * @throws java.lang.IllegalArgumentException
      */
     public Rational divide(Rational b) throws IllegalArgumentException {
         if (b.getNumerator().equals(BigInteger.ZERO)) {

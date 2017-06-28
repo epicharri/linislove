@@ -22,8 +22,9 @@ public class RandomLinearSystem {
      * @param maxNum Suurin arvo osoittajalle
      * @param maxDenom Suurin arvo nimittäjälle
      * @return LinearSystem -luokan olio.
+     * @throws java.lang.Exception
      */
-    public static LinearSystem create(int x, int maxNum, int maxDenom) {
+    public static LinearSystem create(int x, int maxNum, int maxDenom) throws Exception {
         StringBuilder str = new StringBuilder();
         for (int i = 0; i < x; i++) {
             for (int j = 0; j < x; j++) {

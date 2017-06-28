@@ -1,5 +1,7 @@
 package linislove.ui;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -105,8 +107,13 @@ public class Gui extends Application {
             @Override
             public void handle(ActionEvent eventC) {
                 answer.clear();
-                LinearSystem system = RandomLinearSystem.create(10, 10, 9);
-                input.setText(system.toString());
+                LinearSystem system;
+                try {
+                    system = RandomLinearSystem.create(10, 10, 9);
+                    input.setText(system.toString());
+                } catch (Exception ex) {
+                    input.setText(ex.getMessage());
+                }
             }
         });
 

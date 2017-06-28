@@ -49,7 +49,7 @@ public class Check {
      *
      * @param system LinearSystem -olio
      * @param answers Rational[] -olio, joka sisältää ratkaisut.
-     * @return
+     * @return  Merkkijonon jossa kerrotaan onko ratkaisu oikein vai väärin.
      */
     public static String checkAnswer(LinearSystem system, Rational[] answers) {
         return checkAnswer(system.getA(), answers, system.getB());

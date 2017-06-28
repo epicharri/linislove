@@ -30,7 +30,7 @@ public class Count extends MatrixOperations {
     /**
      * Metodi palauttaa rationaaliluvun käänteisalkion yhteenlaskun suhteen.
      *
-     * @param a
+     * @param a Rationaaliluku jonka käänteisalkio halutaan.
      * @return Käänteisalkio yhteenlaskun suhteen.
      */
     public static Rational opposite(Rational a) {

@@ -33,7 +33,7 @@ public class SetOfVectors {
      * "([v_1_1>],[v_1_2],...,[v_1_n]),...,([v_m_1],[v_m_2],...,[v_m_n])";.
      *
      * Esimerkki: String v = "(1, 2/7), (1.22, 123456)";
-     *
+     * @throws InputMismatchException
      */
     public SetOfVectors(String vectorSet) throws InputMismatchException {
         this.vectorQueue = vectorSet;

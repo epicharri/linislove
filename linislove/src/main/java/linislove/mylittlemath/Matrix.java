@@ -23,7 +23,7 @@ public class Matrix {
     /**
      * Konstruktori, luo Matrix -olion annetusta vektorijonosta.
      *
-     * @param v LinearSystem -luokan olio josta luodaan matriisi.
+     * @param l LinearSystem -luokan olio josta luodaan matriisi.
      */
     public Matrix(LinearSystem l) {
         this.matrix = l.getA();
@@ -33,7 +33,7 @@ public class Matrix {
     /**
      * Konstruktori, luo Matrix -olion annetusta Rational[][] -taulukosta.
      *
-     * @param v Rational[][] -luokan olio josta luodaan matriisi.
+     * @param a Rational[][] -luokan olio josta luodaan matriisi.
      */
     public Matrix(Rational[][] a) {
         this.matrix = Count.createCopy(a);

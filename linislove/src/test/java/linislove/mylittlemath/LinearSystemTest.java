@@ -39,7 +39,7 @@ public class LinearSystemTest {
     }
 
     @Test
-    public void toStringWorks() {
+    public void toStringWorks() throws Exception {
         String system = "x1+x2=(1/3);-x1-(1/2)x2=(2/3);";
         String expected = system.replaceAll(";",";\n");
         LinearSystem linearSystem = new LinearSystem(system);
@@ -47,13 +47,13 @@ public class LinearSystemTest {
     }
     
     @Test (expected=InputMismatchException.class)
-    public void constructorGivesInputMismatchExceptionIfNotQuadratic(){
+    public void constructorGivesInputMismatchExceptionIfNotQuadratic() throws Exception{
         String system = "x1 + x2 = 3;";
         LinearSystem linearSystem = new LinearSystem(system);
     }
     
     @Test (expected=InputMismatchException.class)
-    public void constructorGivesIMExpIfNoIndex(){
+    public void constructorGivesIMExpIfNoIndex() throws Exception{
         String system = "x1 + x2 = 1;x1 + x = 1;";
         LinearSystem linearSystem = new LinearSystem(system);
     }
