@@ -13,6 +13,6 @@ Lineaarialgebran ongelmien ratkaisutyökalu
 * [Käyttöohje](dokumentaatio.kayttoohjeet.md)
 * [Aiheen kuvaus](dokumentaatio/aiheenKuvausJaRakenne.md)
 * [Tuntikirjanpito](dokumentaatio/tuntikirjanpito.md)
-* [Pit-raportti](https://htmlpreview.github.io/?https://github.com/epicharri/linislove/blob/master/dokumentaatio/pit/201706152342/index.html)
+* [Pit-raportti](https://htmlpreview.github.io/?https://github.com/epicharri/linislove/blob/master/dokumentaatio/pit/201706282354/index.html)
 * [Checkstyle -raportti](https://htmlpreview.github.io/?https://github.com/epicharri/linislove/blob/master/dokumentaatio/checkstyle/checkstyle.html)
 
