@@ -9,6 +9,7 @@ import linislove.mylittlemath.LinearSystem;
 import linislove.mylittlemath.Rational;
 
 /**
+ * Luokka satunnaisen kvadraattisen yhtälöryhmän luomista varten.
  *
  * @author harrikah
  */

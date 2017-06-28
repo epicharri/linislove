@@ -6,6 +6,14 @@ package linislove.mylittlemath;
 
 public class LinearSystemSolver {
 
+    /**
+     * Metodi ratkaisee kvadraattisen yhtälöryhmän.
+     *
+     * @param system LinearSystem -olio joka sisältää yhtälöryhmän tiedot.
+     * @return Ratkaisutaulukko muodossa Rational[] sisältäen ratkaisut siten
+     * että indeksissä 0 on x1:n ratkaisu, indeksissä 1 x2:n ratkaisu jne.
+     * @throws Exception
+     */
     public static Rational[] solveSystem(LinearSystem system) throws Exception {
         int rows = system.getB().length;
         Rational b[] = new Rational[rows];
@@ -73,19 +81,6 @@ public class LinearSystemSolver {
         return x;
     }
 
-    /*
-    // Tämä metodi ei valmis, pitää kehittää edelleen.
-    public static Rational determinant(LinearSystem system) {
-        Rational[][] a = Count.createCopy(system.getA());
-        int[] index = new int[a.length];
-        gaussian(a, index);
-        Rational det = Rational.ONE;
-        for (int i = 0; i < a.length; i++) {
-            det = Count.product(det, a[i][i]);
-        }
-        return det;
-    }
-     */
     /**
      * Metodi toteuttaa Gaussin eliminointimenetelmällä yläkolmiomatriisin.
      *

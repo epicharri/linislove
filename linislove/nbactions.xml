@@ -57,5 +57,12 @@
             <goal>jxr:jxr</goal>
             <goal>checkstyle:checkstyle</goal>
           </goals>
-        </action>                
+        </action> 
+        <action>
+            <actionName>CUSTOM-Javadoc</actionName>
+            <displayName>Javadoc</displayName>
+            <goals>
+                <goal>javadoc:javadoc</goal>
+            </goals>
+        </action>                       
 </actions>

@@ -44,6 +44,13 @@ public class Check {
         return "Yhtälöryhmän ratkaisu on tarkistettu ja on täsmälleen oikein.";
     }
 
+    /**
+     * Metodi tarkastaa onko yhtälöryhmän ratkaisu oikein.
+     *
+     * @param system LinearSystem -olio
+     * @param answers Rational[] -olio, joka sisältää ratkaisut.
+     * @return
+     */
     public static String checkAnswer(LinearSystem system, Rational[] answers) {
         return checkAnswer(system.getA(), answers, system.getB());
     }

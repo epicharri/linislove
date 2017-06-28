@@ -23,14 +23,14 @@ public class SetOfVectors {
     /**
      * Konstruktori luo merkkijonosta olion Matrix-luokkaa varten.
      *
-     * @param v Merkkijono josta olio luodaan. Merkkijonon syntaksi: Olkoon k,
-     * n, m positiivisia kokonaislukuja. Olkoon v_k vektoriavaruuden R^n
-     * vektori. Olkoon v_k_1, v_k_2, ..., v_k_n vektorin v_k komponentit. Kunkin
-     * komponentin on oltava joko desimaaliluku jossa desimaalierotteena toimii
-     * piste (.), rationaaliluku, jossa osoittaja ja nimittäjä on kokonaislukuja
-     * ja niiden välissä on merkki /, tai kokonaislukuja. Syöte on annettava
-     * muodossa: String v =
-     * "(<v_1_1>,<v_1_2>,...,<v_1_n>),...,(<v_m_1>,<v_m_2>,...,<v_m_n>)";
+     * @param vectorSet Merkkijono josta olio luodaan. Merkkijonon syntaksi:
+     * Olkoon k, n, m positiivisia kokonaislukuja. Olkoon v_k vektoriavaruuden
+     * R^n vektori. Olkoon v_k_1, v_k_2, ..., v_k_n vektorin v_k komponentit.
+     * Kunkin komponentin on oltava joko desimaaliluku jossa desimaalierotteena
+     * toimii piste (.), rationaaliluku, jossa osoittaja ja nimittäjä on
+     * kokonaislukuja ja niiden välissä on merkki /, tai kokonaislukuja. Syöte
+     * on annettava muodossa: String v =
+     * "([v_1_1>],[v_1_2],...,[v_1_n]),...,([v_m_1],[v_m_2],...,[v_m_n])";.
      *
      * Esimerkki: String v = "(1, 2/7), (1.22, 123456)";
      *

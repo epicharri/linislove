@@ -14,11 +14,20 @@ import linislove.mylittlemath.Rational;
 import linislove.mylittlemath.SetOfVectors;
 
 /**
+ * Luokka sisältää ratkaisumetodit vektorijonon vapauden selvittämiseen ja
+ * yhtälöryhmän ratkaisuun.
  *
  * @author harrikah
  */
 public class Solution {
 
+    /**
+     * Metodi ratkaisee kvadraattisen yhtälöryhmän.
+     *
+     * @param system Merkkijono yhtälöryhmästä.
+     * @return Yhtälöryhmän ratkaisu merkkijonona.
+     * @throws Exception
+     */
     public static String solveLinearSystem(String system) throws Exception {
         if (lolCat(system)) {
             return lolCatAnswer("yhtälöryhmä");
@@ -28,6 +37,13 @@ public class Solution {
         return Count.giveSolutions(x);
     }
 
+    /**
+     * Metodi ratkaisee vektorijonon vapauden ja ilmoittaa jos se on myös kanta.
+     *
+     * @param vectorSet Merkkijono vektorijonosta.
+     * @return Ratkaisu merkkijonona.
+     * @throws Exception
+     */
     public static String solveLinearDependency(String vectorSet) throws Exception {
         if (lolCat(vectorSet)) {
             return lolCatAnswer("vektorijono");
@@ -57,15 +73,28 @@ public class Solution {
         }
     }
 
+    /**
+     * Metodi tyhjän vektorijonon ratkaisun palauttamista varten.
+     *
+     * @return Merkkijono jossa kerrotaan tyhjän vektorijonon olevan vapaa.
+     */
     private static String freeTrivially() {
         return "Vektorijono on vapaa koska se on tyhjä. On sovittu, että tyhjä vektorijono on "
                 + "lineaarisesti riippumaton.";
     }
 
+    /**
+     * Metodi selvittää vektorijonon ratkaisun jos vektorijonossa on yhtä monta
+     * vektoria kuin on vektorissa komponentteja.
+     *
+     * @param matrixA Matrix -olio.
+     * @return Palauttaa merkkijonon jossa kerrotaan ja perustellaan onko
+     * vektorijono vapaa vai sidottu.
+     */
     private static String numberOfVectorsAndDimensionAreEqual(Matrix matrixA) {
         Rational det = Count.det(matrixA);
         String space = "R^" + matrixA.getM();
-        String freedom = "Vektorijonosta muodostetun matriisin\n "
+        String freedom = "Vektorijonosta muodostetun matriisin "
                 + "determinantti on " + det + ".\n";
         if (det.equals(Rational.ZERO)) {
             freedom += "Koska determinantti on 0, on vektorijono lineaarisesti "
@@ -84,12 +113,29 @@ public class Solution {
         return freedom;
     }
 
+    /**
+     * Metodi ilmoittaa ratkaisun jos vektoreita jonossa on enemmän kuin
+     * avaruuden dimensio.
+     *
+     * @return Merkkijono jossa vastaus että jono on sidottu ja perustelu
+     * siihen.
+     */
     private static String moreVectorsThanDimension() {
         return "Vektorijono on lineaarisesti riippuvainen eli "
                 + "sidottu, koska vektoreiden määrä on suurempi kuin "
                 + "vektoriavaruuden dimensio.";
     }
 
+    /**
+     * Metodi ratkaisee onko vektorijono vapaa vai ei ja palauttaa perustellun
+     * vastauksen koskien vektorijonoa jossa on vähemmän vektoreita kuin
+     * vektorissa on komponentteja.
+     *
+     * @param matrixA Matrix -olio, jossa vektorijono matriisimuodossa.
+     * @param m Matriisin rivien määrä, eli vektorin komponenttien määrä.
+     * @param n Matriisin sarakkeiden määrä eli vektoreiden määrä.
+     * @return
+     */
     private static String lessVectorsThanDimension(Matrix matrixA, int m, int n) {
         // Jos m > n niin matriisi A on vapaa joss det(A^T*A) != 0. 
         Rational detAtA = Count.det(Count.multiply(Count.transpose(matrixA), matrixA));

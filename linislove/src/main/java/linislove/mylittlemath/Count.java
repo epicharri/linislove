@@ -61,7 +61,7 @@ public class Count extends MatrixOperations {
     }
 
     /**
-     * Metodi suorittaa rationaalilukujen laskutoimituksen.
+     * Metodi suorittaa rationaalilukujen jakamisen.
      *
      * @param a Rationaaliluku joka jaetaan (Rational a)
      * @param b Rationaaliluku jolla jaetaan (Rational b)
@@ -119,7 +119,7 @@ public class Count extends MatrixOperations {
         return a.abs();
     }
 
-     /**
+    /**
      * Palauttaa kopion Matrix -oliosta (matriisi).
      *
      * @param a Matriisi joka kopioidaan.
@@ -156,5 +156,5 @@ public class Count extends MatrixOperations {
         Rational[] copy = new Rational[n];
         System.arraycopy(a, 0, copy, 0, n);
         return copy;
-    }   
+    }
 }

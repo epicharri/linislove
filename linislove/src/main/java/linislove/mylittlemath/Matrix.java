@@ -13,27 +13,52 @@ public class Matrix {
     /**
      * Konstruktori, luo Matrix -olion annetusta vektorijonosta.
      *
-     * @param v SetOfVectors -luokan olio josta luodaan matriisi
+     * @param v SetOfVectors -luokan olio josta luodaan matriisi.
      */
     public Matrix(SetOfVectors v) {
         this.matrix = v.getMatrixArray();
 
     }
 
+    /**
+     * Konstruktori, luo Matrix -olion annetusta vektorijonosta.
+     *
+     * @param v LinearSystem -luokan olio josta luodaan matriisi.
+     */
     public Matrix(LinearSystem l) {
         this.matrix = l.getA();
 
     }
 
+    /**
+     * Konstruktori, luo Matrix -olion annetusta Rational[][] -taulukosta.
+     *
+     * @param v Rational[][] -luokan olio josta luodaan matriisi.
+     */
     public Matrix(Rational[][] a) {
         this.matrix = Count.createCopy(a);
     }
 
+    /**
+     * Konstruktori, luo Matrix -olion jonka matriisissa m riviä ja n saraketta.
+     *
+     * @param m Matriisin rivien määrä.
+     * @param n Matriisin sarakkeiden määrä.
+     */
     public Matrix(int m, int n) {
         this.matrix = new Rational[m][n];
     }
 
     // i on rivit ja j on sarakkeet, vakiintuneen käytännön mukaisesti
+    /**
+     * Metodi asettaa rationaaliluvun haluttuun kohtaan matriisia.
+     *
+     * @param number Rational -luokan olio eli rationaaliluku joka sijoitetaan.
+     * @param i Matriisin rivi johon luku asetetaan. Tässä rivit lasketaan
+     * nollasta alkaen, ylhäältä alas.
+     * @param j Matriisin sarake johon luku asetetaan. Tässä sarakkeet lasketaan
+     * nollasta alkaen, vasemmalta oikealle.
+     */
     public void setNumber(Rational number, int i, int j) {
         if (i + 1 > getM() || j + 1 > getN() || i < 0 || j < 0) {
             throw new IllegalArgumentException("Matriisissa ei ole kohtaa jonka "
@@ -43,6 +68,16 @@ public class Matrix {
         this.matrix[i][j] = number;
     }
 
+    /**
+     * Metodi antaa luvun matriisista halutusta kohdasta.
+     *
+     * @param i Matriisin rivi josta luku luetaan. Rivit tässä alkaen nollasta,
+     * ylhäältä alas.
+     * @param j Matriisin sarake josta luku luetaan. Rivit tässä alkaen
+     * nollasta, ylhäältä alas.
+     * @return Rationaaliluku (Rational -luokan olio) halutusta kohdasta
+     * matriisia.
+     */
     public Rational getNumber(int i, int j) {
         if (i < getM() && j < getN() && i >= 0 && j >= 0) {
             return this.matrix[i][j];
@@ -54,7 +89,8 @@ public class Matrix {
 
     /**
      * Metodi palauttaa Rational[][] taulukon Matrix -oliosta.
-     * @return  Matrix -olion sisäisenä muuttujana olevan Rational[][] taulukon.
+     *
+     * @return Matrix -olion sisäisenä muuttujana olevan Rational[][] taulukon.
      */
     public Rational[][] getMatrixArray() {
         return this.matrix;

@@ -11,34 +11,82 @@ import java.util.Objects;
  */
 public class Rational extends RationalOperations {
 
+    /**
+     * Rationaaliluku 0.
+     */
     public static final Rational ZERO = new Rational(BigInteger.ZERO, BigInteger.ONE);
+    /**
+     * Rationaaliluku 1.
+     */
     public static final Rational ONE = new Rational(BigInteger.ONE, BigInteger.ONE);
 
+    /**
+     * Konstruktori. Luo rationaaliluvun.
+     *
+     * @param numerator Luvun osoittaja.
+     * @param denominator Luvun nimittäjä.
+     */
     public Rational(int numerator, int denominator) {
         this(BigInteger.valueOf(numerator), BigInteger.valueOf(denominator));
     }
 
+    /**
+     * Konstruktori. Luo rationaaliluvun.
+     *
+     * @param numerator Luvun osoittaja.
+     * @param denominator Luvun nimittäjä.
+     */
     public Rational(int numerator, BigInteger denominator) {
         this(BigInteger.valueOf(numerator), denominator);
     }
 
+    /**
+     * Konstruktori. Luo rationaaliluvun.
+     *
+     * @param numerator Luvun osoittaja.
+     * @param denominator Luvun nimittäjä.
+     */
     public Rational(BigInteger numerator, int denominator) {
         this(numerator, BigInteger.valueOf(denominator));
     }
 
+    /**
+     * Konstruktori. Luo rationaaliluvun.
+     *
+     * @param numerator Luvun osoittaja.
+     * @param denominator Luvun nimittäjä.
+     */
     public Rational(BigInteger numerator, BigInteger denominator) {
         setRational(numerator, denominator);
     }
 
+    /**
+     * Konstruktori. Luo rationaaliluvun joka on kokonaisluku.
+     *
+     * @param numerator Luvun osoittaja. Nimittäjäksi sijoitetaan
+     * automaattisesti 1.
+     */
     public Rational(BigInteger numerator) {
         this(numerator, BigInteger.ONE);
     }
 
+    /**
+     * Konstruktori. Luo rationaaliluvun joka on kokonaisluku.
+     *
+     * @param numerator Luvun osoittaja. Nimittäjäksi sijoitetaan
+     * automaattisesti 1.
+     */
     public Rational(int numerator) {
         this(BigInteger.valueOf(numerator));
     }
 
-    public Rational(String number) {
+    /**
+     * Konstruktori. Luo rationaaliluvun merkkijonosta.
+     *
+     * @param number Rationaaliluku merkkijonona.
+     * @throws java.lang.NumberFormatException
+     */
+    public Rational(String number) throws NumberFormatException {
         number = number.replaceAll("\\s", "");
         if (isRational(number)) {
             parseRationalFromFractionString(number);

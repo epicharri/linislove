@@ -8,6 +8,8 @@ package linislove.mylittlemath;
 import java.math.BigInteger;
 
 /**
+ * Tämä luokka sisältää Rational -luokan tarvitsemia laskenta- ja
+ * vertailuoperaatioita.
  *
  * @author harrikah
  */
@@ -16,6 +18,11 @@ public abstract class RationalOperations {
     protected BigInteger numerator;
     protected BigInteger denominator;
 
+    /**
+     * Selvittää Rational -luvun itseisarvon.
+     *
+     * @return Rationaaliluvun itseisarvon.
+     */
     public Rational abs() {
         Rational number = thisNumber();
         if (Count.signum(number) >= 0) {
@@ -28,15 +35,33 @@ public abstract class RationalOperations {
         return new Rational(numerator, denominator);
     }
 
+    /**
+     * Selvittää onko kaksi rationaalilukua yhtäsuuret.
+     *
+     * @param other b yhtälöstä a=b.
+     * @return true, jos a=b. Käyttö: boolean areEqual = a.isEqualTo(b);.
+     */
     public boolean isEqualTo(Rational other) {
         Rational number = thisNumber();
         return number.equals(other);
     }
 
+    /**
+     * Selvittää onko rationaaliluku 0.
+     *
+     * @return true jos nolla, false muutoin.
+     */
     public boolean isZero() {
-        return this.numerator.equals(Rational.ZERO);
+        return this.numerator.equals(BigInteger.ZERO);
     }
 
+    /**
+     * Selvittää onko a > b.
+     *
+     * @param other b yhtälöstä a > b.
+     * @return true, jos a > b, muutoin false. Käyttö: boolean greater =
+     * a.greaterThan(b);.
+     */
     public boolean greaterThan(Rational other) {
         Rational number = thisNumber();
         if (number.equals(other)) {
@@ -51,20 +76,47 @@ public abstract class RationalOperations {
         return expandedNumOfNumber.equals(expandedNumOfNumber.max(expandedNumOfOther));
     }
 
+    /**
+     * Selvittää onko a aidosti pienempi kuin b.
+     *
+     * @param other Luku b epäyhtälöstä a<b
+     * @return True, jos a pienempi kuin b, muutoin false. Käyttö: boolean less
+     * = a.lessThan(b);.
+     */
     public boolean lessThan(Rational other) {
         return other.greaterThan(thisNumber());
     }
 
+    /**
+     * Selvittää onko a suurempi tai yhtäsuuri kuin b.
+     *
+     * @param other Luku b epäyhtälöstä a suurempi tai yhtäsuuri kuin b.
+     * @return true, jos a suurempi tai yhtäsuuri kuin b, muulloin false.
+     */
     public boolean greaterOrEqual(Rational other) {
         Rational number = thisNumber();
         return (number.equals(other) || number.greaterThan(other));
     }
 
+    /**
+     * Selvittää onko luku yhtäsuuri tai pienempi kuin.
+     *
+     * @param other Luku johon verrataan.
+     * @return Palauttaa true tai false. Selvitettää onko a pienempi tai
+     * yhtäsuuri kuin b muodossa a.lessThanOrEqual(b).
+     */
     public boolean lessThanOrEqual(Rational other) {
         Rational number = thisNumber();
         return number.equals(other) || number.lessThan(other);
     }
 
+    /**
+     * Metodi kertoo rationaaliluvut.
+     *
+     * @param b Luku jolla rationaaliluku kerrotaan.
+     * @return Kertolaskun tuloksen a * b. Metodia kutsutaan a.multiply(b),
+     * jossa a ja b ovat Rational -luokan olioita.
+     */
     public Rational multiply(Rational b) {
         Rational a = thisNumber();
         if (a.isEqualTo(Rational.ZERO) || b.isEqualTo(Rational.ZERO)) {
@@ -78,7 +130,7 @@ public abstract class RationalOperations {
     /**
      * Palauttaa rationaaliluvun käänteisalkion kertolaskun suhteen.
      *
-     * @return käänteisalkio.
+     * @return Käänteisalkio kertolaskun suhteen, Rational -luokan olio.
      */
     public Rational reciprocal() {
         if (!this.numerator.equals(BigInteger.ZERO)) {
@@ -98,9 +150,11 @@ public abstract class RationalOperations {
     }
 
     /**
+     * Metodi palauttaa rationaalilukujen (luokka Rational) yhteenlaskun
+     * tuloksen.
      *
-     * @param b
-     * @return
+     * @param b Luku joka lisätään.
+     * @return Palauttaa summan rationaalilukuna.
      */
     public Rational plus(Rational b) {
         if (denominator.equals(b.getDenominator())) {

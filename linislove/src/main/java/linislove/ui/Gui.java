@@ -71,7 +71,6 @@ public class Gui extends Application {
         Tooltip.install(buttonD, tooltipD);
         Tooltip tooltipE = new Tooltip("Antaa ohjeet");
         Tooltip.install(buttonE, tooltipE);
-    
 
         menu.getChildren().addAll(label, input, buttonA, buttonB, buttonC, buttonD, buttonE, answer);
         layout.setTop(menu);
@@ -125,8 +124,8 @@ public class Gui extends Application {
                 answer.clear();
                 answer.setText(Instructions.INSTRUCTIONS);
             }
-        });        
-        
+        });
+
         Scene scene = new Scene(layout, 1000, 600);
         scene.getStylesheets().add(getClass().getResource("/materialdesign.css").toExternalForm());
         scene.getStylesheets().add(getClass().getResource("/elementsofharmony.css").toExternalForm());

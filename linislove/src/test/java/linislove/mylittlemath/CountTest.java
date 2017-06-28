@@ -8,6 +8,7 @@ package linislove.mylittlemath;
 import java.math.BigInteger;
 import org.junit.After;
 import org.junit.AfterClass;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -96,7 +97,7 @@ public class CountTest {
         Matrix expected = new Matrix(new SetOfVectors("(6.6,10/5,14),(22,26,34),(38,46,62)"));
         assertEquals(expected, ab);
     }
-    
+
     @Test
     public void transposeGivesRightMatrix() {
         Matrix a = new Matrix(new SetOfVectors("(1,0,0),(0,2,0)"));
@@ -104,9 +105,9 @@ public class CountTest {
         Matrix expected = new Matrix(new SetOfVectors("(1,0),(0,2),(0,0)"));
         assertEquals(expected, t);
     }
-    
+
     @Test
-    public void createCopyReturnsTheCopy(){
+    public void createCopyOfMatrixReturnsTheCopy() {
         Matrix a = new Matrix(new SetOfVectors("1,0,0),(0,2,0)"));
         Matrix expected = new Matrix(new SetOfVectors("1,0,0),(0,2,0)"));
         Matrix copy = Count.createCopy(a);
@@ -115,5 +116,22 @@ public class CountTest {
         assertFalse(a.equals(copy));
     }
 
+    @Test
+    public void createCopyOfOneDimensionalArrayWorks() {
+        Rational[] testArray = {Rational.ONE, Rational.ZERO, new Rational(1, 2)};
+        Rational[] originalArray = {Rational.ONE, Rational.ZERO, new Rational(1, 2)};
+        Rational[] copy = Count.createCopy(testArray);
+        Assert.assertArrayEquals(copy, testArray);
+        testArray[0] = new Rational(1000);
+        Assert.assertArrayEquals(copy, originalArray);
+    }
+
+    @Test
+    public void minusOnePoweredToWorksOk(){
+        int even = 10;
+        int odd = 9;
+        assertEquals(1, Count.minusOnePoweredTo(even));
+        assertEquals(-1, Count.minusOnePoweredTo(odd));
+    }
     
 }
