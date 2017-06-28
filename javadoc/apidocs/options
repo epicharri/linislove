@@ -1,0 +1,22 @@
+-encoding
+'UTF-8'
+-protected
+-sourcepath
+'/home/harrikah/Harjoitus/algebra/linislove/src/main/java'
+-author
+-bottom
+'Copyright &#169; 2017. All rights reserved.'
+-charset
+'UTF-8'
+-d
+'/home/harrikah/Harjoitus/algebra/linislove/target/site/apidocs'
+-docencoding
+'UTF-8'
+-doctitle
+'linislove 1.0-SNAPSHOT API'
+-linkoffline
+'http://docs.oracle.com/javase/8/docs/api' '/home/harrikah/Harjoitus/algebra/linislove/target/javadoc-bundle-options'
+-use
+-version
+-windowtitle
+'linislove 1.0-SNAPSHOT API'

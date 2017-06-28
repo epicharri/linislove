@@ -75,7 +75,8 @@ public class Count extends MatrixOperations {
      * Metodilla selvitetään mikä rationaaliluvun merkki on.
      *
      * @param a Rationaaliluku josta selvitetään merkki
-     * @return Kokonaisluku (int) -1, jos a<0, 0 jos a=0 ja 1 jos a>0.
+     * @return Kokonaisluku (int) -1, jos a pienempi kuin 0, 0 jos a on 0 ja 1
+     * jos a suurempi kuin 0.
      */
     public static int signum(Rational a) {
         return a.signumOfRational().intValue();
