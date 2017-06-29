@@ -15,4 +15,6 @@ Syötteenä voi myös antaa desimaaliluvun jossa pilkun asemasta käytetään pi
 
 
 ![Luokkakaavio](classdiagram.png)
+![Sekvenssikaavio Solution.solveLinearSystem(String system)](linearsystemsolver.png)
+![Sekvenssikaavio Solution.solveLinearDependency(String vectorSet)](lineardependencysolver.png)
 
