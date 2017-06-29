@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package linislove.mylittlemath;
 
 import java.math.BigInteger;
@@ -59,8 +54,8 @@ public abstract class RationalOperations {
      * Selvittää onko a suurempi kuin b.
      *
      * @param other b yhtälöstä a suurempi kuin b.
-     * @return true, jos s suurempi kuin b, muutoin false. Käyttö: boolean greater =
-     * a.greaterThan(b);.
+     * @return true, jos s suurempi kuin b, muutoin false. Käyttö: boolean
+     * greater = a.greaterThan(b);.
      */
     public boolean greaterThan(Rational other) {
         Rational number = thisNumber();
@@ -190,7 +185,7 @@ public abstract class RationalOperations {
      * @param b Jakaja
      * @return Jakolaskun tulos: a.divide(b) palauttaa a / b. Metodi palauttaa
      * poikkeuksen, jos jakaja on nolla.
-     * @throws java.lang.IllegalArgumentException
+     * @throws IllegalArgumentException jos yrittää jakaa nollalla.
      */
     public Rational divide(Rational b) throws IllegalArgumentException {
         if (b.getNumerator().equals(BigInteger.ZERO)) {
@@ -202,7 +197,8 @@ public abstract class RationalOperations {
     /**
      * Metodi palauttaa signumin.
      *
-     * @return -1 jos luku < 0, 0 jos luku == 0 ja 1 jos luku > 0.
+     * @return -1 jos luku pienempi kuin 0, 0 jos luku on 0 ja 1 jos luku on
+     * suurempi kuin 0.
      */
     public int signum() {
         return thisNumber().signumOfRational().intValue();

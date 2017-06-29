@@ -28,8 +28,9 @@ public class LinearSystem implements LinearSystemHelper {
      *
      * Esimerkki: String system = "-x1 + 7x2 + (10/3)x3 = 5; 2x1 + (4/11)x2 +
      * 1.25x3 = 4/7; x1 + x2 + (17/87)x3 = 172";
-     * @throws InputMismatchException
-     * @throws java.lang.Exception
+     * @throws java.lang.Exception  jos syötteet olleet virheelliset.
+     * @throws InputMismatchException  jos syötteet olleet virheelliset.
+     * 
      */
     public LinearSystem(String system) throws Exception {
         this.system = system;

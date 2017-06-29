@@ -26,7 +26,7 @@ public class Solution {
      *
      * @param system Merkkijono yhtälöryhmästä.
      * @return Yhtälöryhmän ratkaisu merkkijonona.
-     * @throws java.lang.Exception
+     * @throws java.lang.Exception jos syöte on ollut virheellinen.
      *
      */
     public static String solveLinearSystem(String system) throws Exception {
@@ -43,7 +43,7 @@ public class Solution {
      *
      * @param vectorSet Merkkijono vektorijonosta.
      * @return Ratkaisu merkkijonona.
-     * @throws java.lang.Exception
+     * @throws java.lang.Exception jos syöte on virheellinen.
      *
      */
     public static String solveLinearDependency(String vectorSet) throws Exception {

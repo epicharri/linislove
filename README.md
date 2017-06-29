@@ -10,9 +10,9 @@ Lineaarialgebran ongelmien ratkaisutyökalu
 
 * Kvadraattisen yhtälöryhmän ratkaisu käyttäen algoritmia Gaussin eliminointimenetelmä, osittaispivotointi ja takaisinsijoitus.
 
-* [Käyttöohje](dokumentaatio.kayttoohjeet.md)
+* [Käyttöohje](dokumentaatio/kayttoohjeet.md)
 * [Aiheen kuvaus](dokumentaatio/aiheenKuvausJaRakenne.md)
 * [Tuntikirjanpito](dokumentaatio/tuntikirjanpito.md)
-* [Pit-raportti](https://htmlpreview.github.io/?https://github.com/epicharri/linislove/blob/master/dokumentaatio/pit/201706282354/index.html)
+* [Pit-raportti](https://htmlpreview.github.io/?https://github.com/epicharri/linislove/blob/master/dokumentaatio/pit/201706291456/index.html)
 * [Checkstyle -raportti](https://htmlpreview.github.io/?https://github.com/epicharri/linislove/blob/master/dokumentaatio/checkstyle/checkstyle.html)
 * [Javadoc](https://htmlpreview.github.io/?https://github.com/epicharri/linislove/blob/master/javadoc/apidocs/index.html)

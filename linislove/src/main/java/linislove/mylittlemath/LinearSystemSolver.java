@@ -12,7 +12,9 @@ public class LinearSystemSolver {
      * @param system LinearSystem -olio joka sisältää yhtälöryhmän tiedot.
      * @return Ratkaisutaulukko muodossa Rational[] sisältäen ratkaisut siten
      * että indeksissä 0 on x1:n ratkaisu, indeksissä 1 x2:n ratkaisu jne.
-     * @throws java.lang.Exception
+     * @throws java.lang.Exception jos syötteet virheelliset tai yritetty jakaa
+     * nollalla.
+     *
      */
     public static Rational[] solveSystem(LinearSystem system) throws Exception {
         int rows = system.getB().length;

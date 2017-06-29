@@ -163,7 +163,7 @@ public class SolutionTest {
         String haveToThrowException = Solution.solveLinearDependency("(0/1,1/0),(1,0)");
     }
     
-    @Test(expected=NumberFormatException.class)
+    @Test(expected=InputMismatchException.class)
     public void solveLinearDependencyThrowsInputMismatchException() throws Exception {
         String haveToThrowException = Solution.solveLinearDependency(",y),(z,y)");
         String thisTooHaveToThrow = Solution.solveLinearDependency("This is not a vector set");

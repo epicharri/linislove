@@ -2,7 +2,7 @@ package linislove.mylittlemath;
 
 import java.math.BigInteger;
 import java.util.Objects;
-import java.lang.NumberFormatException;
+import java.util.InputMismatchException;
 
 /**
  * Rationaalilukujen luokka. Rationaaliluku muodostuu kahdesta kokonaisluvusta,
@@ -85,7 +85,8 @@ public class Rational extends RationalOperations {
      * Konstruktori. Luo rationaaliluvun merkkijonosta.
      *
      * @param number Rationaaliluku merkkijonona.
-     * @throws NumberFormatException
+     * @throws NumberFormatException jos annetusta syötteestä ei voi muodostaa
+     * rationaalilukua.
      */
     public Rational(String number) throws NumberFormatException {
         number = number.replaceAll("\\s", "");
@@ -96,7 +97,7 @@ public class Rational extends RationalOperations {
         } else if (isDecimalNumber(number)) {
             parseRationalFromDecimalString(number);
         } else {
-            throw new NumberFormatException("Syöte on virheellinen: " + number + " ei ole rationaaliluku, "
+            throw new InputMismatchException("Syöte on virheellinen: " + number + " ei ole rationaaliluku, "
                     + "kokonaisluku tai desimaaliluku.\n"
                     + "Muista syöttää desimaaliluvut käyttämällä pistettä erottimena.");
         }
@@ -193,6 +194,7 @@ public class Rational extends RationalOperations {
 
     /**
      * Metodi palauttaa rationaaliluvun merkin.
+     *
      * @return BigInteger -oliona rationaaliluvun merkki (-1, 0 tai 1).
      */
     public BigInteger signumOfRational() {
